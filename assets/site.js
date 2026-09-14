@@ -40,6 +40,11 @@
   }
 
   /* ---------- waitlist forms ---------- */
+  /* The optional feedback dialog (index.html). Browsers without <dialog>
+     support simply never show its invitation. */
+  var fb = document.getElementById("feedback");
+  if(fb && typeof fb.showModal !== "function"){ fb = null; }
+
   document.querySelectorAll("form[data-waitlist]").forEach(function(form){
     var input  = form.querySelector('input[type="email"]');
     var btn    = form.querySelector('button[type="submit"]');
@@ -72,7 +77,7 @@
       var action = form.getAttribute("action") || "";
 
       /* Not wired up: say so plainly instead of failing silently. */
-      if(!/^https:\/\//.test(action)){
+      if(!/^https?:\/\//.test(action)){
         e.preventDefault();
         say("This form is not connected yet. See EDIT-ME FORMS in index.html.", "err");
         return;
@@ -98,6 +103,11 @@
           var note = form.querySelector(".form-note");
           if(note){ note.style.display = "none"; }
           say("You are on the list. We will email you once, when the founding batch opens.", "ok");
+          var invite = form.querySelector(".fb-invite");
+          if(invite && fb){
+            fb.querySelector('input[name="email"]').value = input.value.trim();
+            invite.hidden = false;
+          }
         } else {
           return res.json().then(function(d){
             throw new Error((d.errors && d.errors[0] && d.errors[0].message) || "Something went wrong.");
@@ -109,6 +119,75 @@
       });
     });
   });
+
+  /* ---------- feedback dialog ----------
+     Opened from the invitation under a successful signup. The signup's
+     email rides along in a hidden field so the answers can be matched to
+     it. Closing the dialog keeps what was typed; sending replaces the
+     invitation with a thank-you and closes it. */
+  if(fb){
+    var fbForm   = fb.querySelector("form");
+    var fbBtn    = fbForm.querySelector('button[type="submit"]');
+    var fbLabel  = fbBtn.querySelector("[data-label]");
+    var fbStatus = fbForm.querySelector(".form-status");
+    var fbIdle   = fbLabel.textContent;
+    var fbSay = function(msg, tone){
+      fbStatus.textContent = msg;
+      if(tone){ fbStatus.dataset.tone = tone; } else { delete fbStatus.dataset.tone; }
+    };
+
+    document.addEventListener("click", function(e){
+      if(e.target.closest && e.target.closest("[data-open-feedback]")){ fbSay(""); fb.showModal(); }
+      if(e.target.closest && e.target.closest("[data-close-feedback]")){ fb.close(); }
+    });
+    /* A click on the dimmed backdrop lands on the <dialog> itself. Checking
+       where the press started stops a text selection dragged out of a
+       field from closing it. */
+    var fbPressedBackdrop = false;
+    fb.addEventListener("pointerdown", function(e){ fbPressedBackdrop = e.target === fb; });
+    fb.addEventListener("click", function(e){ if(fbPressedBackdrop && e.target === fb){ fb.close(); } });
+
+    /* Typing an "Other" answer ticks its box. */
+    fbForm.addEventListener("input", function(e){
+      var other = e.target.type === "text" && e.target.closest(".fb-other");
+      if(other && e.target.value.trim()){
+        other.querySelector('input[type="radio"], input[type="checkbox"]').checked = true;
+      }
+    });
+
+    fbForm.addEventListener("submit", function(e){
+      e.preventDefault();
+      fbBtn.disabled = true;
+      fbLabel.textContent = "Sending";
+      fbSay("");
+      fetch(fbForm.getAttribute("action"), {
+        method: "POST",
+        body: new FormData(fbForm),
+        headers: { Accept: "application/json" }
+      }).then(function(res){
+        if(res.ok){
+          fb.close();
+          document.querySelectorAll(".fb-invite:not([hidden])").forEach(function(invite){
+            var btn = invite.querySelector("[data-open-feedback]");
+            if(btn){ btn.remove(); }
+            var p = invite.querySelector("p");
+            p.textContent = "Thank you. Your answers are in, and we will remember you when we pack your box.";
+            p.setAttribute("tabindex", "-1");
+            p.focus();
+          });
+        } else {
+          return res.json().then(function(d){
+            throw new Error((d.errors && d.errors[0] && d.errors[0].message) || "Something went wrong.");
+          });
+        }
+      }).catch(function(err){
+        fbSay(err.message + " Please try again.", "err");
+      }).then(function(){
+        fbBtn.disabled = false;
+        fbLabel.textContent = fbIdle;
+      });
+    });
+  }
 
   /* ---------- waitlist attribution ----------
      The bottom form's hidden `source` field records how a signup reached

@@ -966,9 +966,122 @@
       <input type="hidden" name="source" value="index-scroll">
       <p class="form-note" id="note-main">One email at launch. No newsletter, no partners, no resale. Unsubscribe is a link in the same email.</p>
       <p class="form-status" role="status" aria-live="polite"></p>
+      <!-- Shown after a successful signup; opens the #feedback dialog below. -->
+      <div class="fb-invite" hidden>
+        <p>Want a little something extra in your box? Tell us what you would like.</p>
+        <button class="btn btn--ghost" type="button" data-open-feedback>Share your preferences</button>
+      </div>
     </form>
   </div>
 </section>
+
+<!-- ======================== FEEDBACK DIALOG ========================
+     Optional, offered only after a waitlist signup. The questions came
+     from the Google Form on the old site (old.canary.earth). Answers are
+     saved by the forms Worker to the `feedback` table, matched to the
+     signup by email. Every question is optional.                      -->
+<dialog class="fb" id="feedback" aria-labelledby="fb-title">
+  <form class="fb-form" action="https://canary-forms.canary-forms.workers.dev/" method="POST" novalidate>
+    <div class="fb-head">
+      <div>
+        <h2 id="fb-title">Tell us what you would like</h2>
+        <p>Every question is optional. Answer as many as you like, in as much detail as you wish.</p>
+      </div>
+      <button class="icon-btn fb-close" type="button" data-close-feedback aria-label="Close">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+
+    <div class="fb-body">
+      <input type="hidden" name="form" value="feedback">
+      <input type="hidden" name="email" value="">
+      <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <fieldset>
+        <legend>Which language do you prefer for the settings menu?</legend>
+        <p class="fb-hint">Font size, screen layout, Wi&#8209;Fi login and the clock are some of the options you may wish to set once.</p>
+        <label class="fb-opt"><input type="radio" name="language" value="English"> English</label>
+        <label class="fb-opt fb-other"><input type="radio" name="language" value="Other"> Other: <input type="text" name="language_other" maxlength="200" aria-label="Other language"></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Which accessories would you like?</legend>
+        <p class="fb-hint">Choose any.</p>
+        <label class="fb-opt"><input type="checkbox" name="accessories" value="USB-C cable"> USB&#8209;C cable</label>
+        <label class="fb-opt"><input type="checkbox" name="accessories" value="Power supply"> Power supply</label>
+        <label class="fb-opt"><input type="checkbox" name="accessories" value="Journal"> Journal</label>
+        <label class="fb-opt"><input type="checkbox" name="accessories" value="Stickers"> Stickers</label>
+        <label class="fb-opt"><input type="checkbox" name="accessories" value="Magnets"> Magnets</label>
+        <label class="fb-opt fb-other"><input type="checkbox" name="accessories" value="Other"> Other: <input type="text" name="accessories_other" maxlength="200" aria-label="Other accessory"></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>How would you like to reach the options menu?</legend>
+        <p class="fb-hint">Canary is completely independent and does not need internet access. An app or a browser can still make the options easier and add advanced graphing. Choose any.</p>
+        <label class="fb-opt"><input type="checkbox" name="companion" value="Bluetooth app on a phone"> Bluetooth app on a phone</label>
+        <label class="fb-opt"><input type="checkbox" name="companion" value="Wi-Fi website via a phone"> Wi&#8209;Fi website via a phone</label>
+        <label class="fb-opt"><input type="checkbox" name="companion" value="Wi-Fi website after connecting Canary to a LAN"> Wi&#8209;Fi website after connecting Canary to a LAN</label>
+        <label class="fb-opt"><input type="checkbox" name="companion" value="Canary Nest tablet"> A small tablet called a Canary Nest you can fix magnetically to an office fridge</label>
+        <label class="fb-opt"><input type="checkbox" name="companion" value="Private account on canary.earth"> A private, personal account on canary.earth</label>
+        <label class="fb-opt"><input type="checkbox" name="companion" value="Just the Canary"> Just the Canary. No fancy graphs required.</label>
+        <label class="fb-opt fb-other"><input type="checkbox" name="companion" value="Other"> Other: <input type="text" name="companion_other" maxlength="200" aria-label="Other way to reach the options"></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Do you want to connect Canary to a home assistant?</legend>
+        <p class="fb-hint">Choose any.</p>
+        <label class="fb-opt"><input type="checkbox" name="smart_home" value="Apple Home"> Apple Home</label>
+        <label class="fb-opt"><input type="checkbox" name="smart_home" value="Google Home"> Google Home</label>
+        <label class="fb-opt"><input type="checkbox" name="smart_home" value="Amazon Alexa"> Amazon Alexa</label>
+        <label class="fb-opt"><input type="checkbox" name="smart_home" value="Samsung SmartThings"> Samsung SmartThings</label>
+        <label class="fb-opt"><input type="checkbox" name="smart_home" value="Home Assistant"> Home Assistant (home-assistant.io)</label>
+        <label class="fb-opt"><input type="checkbox" name="smart_home" value="None"> None! I don&rsquo;t want a corporation to spy on me.</label>
+        <label class="fb-opt"><input type="checkbox" name="smart_home" value="GitHub library"> Please post a library on GitHub so I can write my own software</label>
+        <label class="fb-opt fb-other"><input type="checkbox" name="smart_home" value="Other"> Other: <input type="text" name="smart_home_other" maxlength="200" aria-label="Other home assistant"></label>
+      </fieldset>
+
+      <div class="fb-q">
+        <label class="fb-legend" for="fb-excited">Canary has many talents. Which feature are you most excited about?</label>
+        <textarea id="fb-excited" name="excited" rows="3" maxlength="2000"></textarea>
+      </div>
+
+      <div class="fb-q">
+        <label class="fb-legend" for="fb-wish">Is there a feature we haven&rsquo;t mentioned that you would love to see?</label>
+        <textarea id="fb-wish" name="wished_feature" rows="3" maxlength="2000"></textarea>
+      </div>
+
+      <fieldset>
+        <legend>How many Canaries are you interested in buying?</legend>
+        <label class="fb-opt"><input type="radio" name="quantity" value="Zero"> Zero 😢</label>
+        <label class="fb-opt"><input type="radio" name="quantity" value="One"> One</label>
+        <label class="fb-opt"><input type="radio" name="quantity" value="Two"> Two</label>
+        <label class="fb-opt"><input type="radio" name="quantity" value="Lots"> Lots! I want everyone at work to have one.</label>
+        <label class="fb-opt fb-other"><input type="radio" name="quantity" value="Other"> Other: <input type="text" name="quantity_other" maxlength="200" aria-label="Other number of Canaries"></label>
+      </fieldset>
+
+      <div class="fb-q">
+        <label class="fb-legend" for="fb-found">Where did you find out about Canary?</label>
+        <input id="fb-found" type="text" name="found_via" maxlength="300">
+      </div>
+
+      <div class="fb-q">
+        <label class="fb-legend" for="fb-else">What else would you like us to know?</label>
+        <textarea id="fb-else" name="anything_else" rows="3" maxlength="2000"></textarea>
+      </div>
+
+      <div class="fb-q">
+        <label class="fb-legend" for="fb-team">Know someone for Team Canary?</label>
+        <p class="fb-hint" id="fb-team-hint">We don&rsquo;t want to use AI for any of the artwork or commercials. Do you know a wonderful illustrator, a passionate photographer or a clever web designer who might like to join us?</p>
+        <textarea id="fb-team" name="referral" rows="3" maxlength="2000" aria-describedby="fb-team-hint"></textarea>
+      </div>
+    </div>
+
+    <div class="fb-foot">
+      <p class="form-status" role="status" aria-live="polite"></p>
+      <button class="btn" type="submit"><span data-label>Send my answers</span></button>
+    </div>
+  </form>
+</dialog>
 
 <!-- ============================= FAQ ============================== -->
 <section class="section" id="faq">

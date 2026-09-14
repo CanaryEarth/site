@@ -815,6 +815,69 @@ a{ color:inherit }
 .waitlist .lede{ margin-inline:auto; margin-bottom:var(--s-6) }
 .waitlist .hero-form{ max-width:36rem }
 
+/* --- feedback dialog (index.html) --------------------------------
+   Offered under the success message after a waitlist signup. A native
+   <dialog> opened with showModal() gives the focus trap, Esc to close and
+   the inert page for free. On a phone it fills the screen; on a wider
+   screen it is a card with its own scrolling middle, so the title and the
+   send button stay in view. */
+.fb-invite{ margin-top:var(--s-5); display:flex; flex-direction:column; align-items:center; gap:var(--s-3) }
+.fb-invite p{ font-family:var(--font-display); font-size:.95rem; max-width:30rem }
+.dark .fb-invite p{ color:var(--cream) }
+.fb-invite p:focus{ outline:none }
+
+.fb{
+  width:min(40rem, 100% - 2rem); max-width:none;
+  max-height:calc(100vh - 2rem); max-height:calc(100dvh - 2rem);
+  padding:0; border:0; border-radius:var(--radius-lg);
+  background:var(--paper); color:var(--ink); box-shadow:var(--shadow-lg);
+  overflow:hidden;
+}
+.fb[open]{ display:flex; flex-direction:column }
+.fb::backdrop{ background:color-mix(in srgb, var(--ink) 62%, transparent) }
+html:has(.fb[open]){ overflow:hidden }
+.fb-form{ display:flex; flex-direction:column; flex:1 1 auto; min-height:0 }
+.fb-head{
+  display:flex; gap:var(--s-4); align-items:flex-start; justify-content:space-between;
+  padding:var(--s-5) var(--s-5) var(--s-4); border-bottom:1px solid var(--line);
+}
+.fb-head h2{ font-size:1.35rem; letter-spacing:-.02em; line-height:1.2 }
+.fb-head p{ margin-top:var(--s-2); font-family:var(--font-display); font-size:.88rem; color:var(--muted) }
+.fb-close{ flex:none; margin:-.5rem -.6rem 0 0 }
+.fb-body{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; padding:var(--s-5) }
+.fb fieldset, .fb-q{ border:0; margin:0 0 var(--s-6); padding:0; min-width:0 }
+.fb legend, .fb-legend{
+  display:block; padding:0; margin-bottom:var(--s-2);
+  font-family:var(--font-display); font-weight:700; font-size:1rem; letter-spacing:-.01em; line-height:1.35;
+}
+.fb-hint{ margin:calc(var(--s-1) * -1) 0 var(--s-2); font-family:var(--font-display); font-size:.85rem; color:var(--muted) }
+.fb-opt{
+  display:flex; align-items:center; gap:.65rem; min-height:44px; padding-block:.3rem;
+  font-family:var(--font-display); font-size:.95rem; line-height:1.35; cursor:pointer;
+}
+.fb-opt input[type="radio"], .fb-opt input[type="checkbox"]{ flex:none; width:1.15rem; height:1.15rem; margin:0; accent-color:var(--ink) }
+.fb input[type="text"], .fb textarea, .fb select{
+  width:100%; min-height:44px; padding:.55rem .8rem;
+  border:1.5px solid var(--line); border-radius:var(--radius-control);
+  background:var(--paper); color:var(--ink);
+  font-family:var(--font-display); font-size:1rem; line-height:1.4;
+  transition:border-color var(--dur) var(--ease);
+}
+.fb-other input[type="text"]{ flex:1 1 8rem; width:auto; min-width:0 }
+.fb textarea{ resize:vertical; display:block }
+.fb input[type="text"]:focus, .fb textarea:focus, .fb select:focus{ border-color:var(--ink) }
+.fb-foot{
+  display:flex; align-items:center; justify-content:flex-end; gap:var(--s-4);
+  padding:var(--s-4) var(--s-5); border-top:1px solid var(--line);
+}
+.fb-foot .form-status{ margin:0 auto 0 0; justify-content:flex-start; text-align:left }
+@media (max-width:640px){
+  .fb{ width:100%; height:100vh; height:100dvh; max-height:none; margin:0; border-radius:0 }
+  .fb-head, .fb-body{ padding-inline:var(--s-4) }
+  .fb-foot{ flex-direction:column-reverse; align-items:stretch; gap:var(--s-3); padding-inline:var(--s-4) }
+  .fb-foot .form-status{ margin:0; justify-content:center; text-align:center }
+}
+
 /* --- disclosure (shared by the spec groups and the FAQ) ---------- */
 .disclosure{ border-top:1px solid var(--line) }
 .disclosure > details{ border-bottom:1px solid var(--line) }
