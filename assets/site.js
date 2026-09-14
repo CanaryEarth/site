@@ -71,10 +71,10 @@
     form.addEventListener("submit", function(e){
       var action = form.getAttribute("action") || "";
 
-      /* Not wired up yet: say so plainly instead of failing silently. */
-      if(action.indexOf("YOUR_FORM_ID") !== -1){
+      /* Not wired up: say so plainly instead of failing silently. */
+      if(!/^https:\/\//.test(action)){
         e.preventDefault();
-        say("This form is not connected yet. Add your Formspree ID in index.html.", "err");
+        say("This form is not connected yet. See EDIT-ME FORMS in index.html.", "err");
         return;
       }
       if(!input.value || !input.checkValidity()){
@@ -112,7 +112,7 @@
 
   /* ---------- waitlist attribution ----------
      The bottom form's hidden `source` field records how a signup reached
-     it, so Formspree shows which links earn their place. Values are
+     it, so the signup export shows which links earn their place. Values are
      page-element: "index-header", "science-bar", "history-footer".
 
      Links on this page carry data-source and set the field on click.
