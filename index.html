@@ -1,0 +1,1106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Canary: Know what you are breathing</title>
+<meta name="description" content="Canary is a pocketable environmental monitor with an e-paper display. Seven sensors, a full day of history at a glance, and no subscription. Join the founding-batch waitlist.">
+<meta name="theme-color" content="#EFF2EC">
+<meta property="og:title" content="Canary: Know what you are breathing">
+<meta property="og:description" content="A pocketable environmental monitor with an e-paper display. Seven sensors. A full day of history at a glance. No subscription.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/img/hero-1600.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<!--
+  ===================================================================
+   EDIT THESE THREE THINGS BEFORE YOU GO LIVE   (search for: EDIT-ME)
+  ===================================================================
+   1. FORMSPREE ID   Replace YOUR_FORM_ID in BOTH <form action> tags.
+                     Free at formspree.io -> New Form -> copy endpoint.
+                     It looks like: https://formspree.io/f/xdorwkgb
+  ===================================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" fetchpriority="high"
+      imagesrcset="assets/img/hero-1000.webp 1000w, assets/img/hero-1600.webp 1600w, assets/img/hero-2400.webp 2400w"
+      imagesizes="100vw">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;700&display=swap">
+
+<link rel="stylesheet" href="assets/site.css">
+<script>document.documentElement.className += " js";</script>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+
+<!-- EDIT-ME DATE -->
+<div class="announce">
+  <a href="#waitlist" data-source="index-bar">
+    <span class="announce-dot" aria-hidden="true"></span>
+    <span>Founding batch ships <em>Fall 2026</em>. Waitlist members get early-bird pricing</span>
+    <svg class="announce-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </a>
+</div>
+
+<header class="header">
+  <div class="wrap header-in">
+    <nav class="nav-left" aria-label="Primary">
+      <a class="nav-link" href="#product">Product</a>
+      <a class="nav-link" href="#sensors">Sensors</a>
+      <a class="nav-link" href="#specs">Specs</a>
+      <a class="nav-link" href="business.html">Organizations</a>
+      <a class="nav-link" href="science.html">Science</a>
+      <a class="nav-link" href="#faq">FAQ</a>
+      <a class="nav-link" href="history.html">History</a>
+    </nav>
+
+    <button class="icon-btn menu-btn" id="menuOpen" aria-expanded="false" aria-controls="mobileMenu">
+      <span class="visually-hidden">Open menu</span>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+
+    <a class="brand" href="#top" aria-label="Canary, home">
+      <svg viewBox="135 23 125 93" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="overflow:visible">
+        <path fill="none" stroke="var(--ink)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" d="m 185.28631,85.449901 c 0.53981,-4.739076 3.10759,-11.309465 7.85844,-15.242635 6.52824,-5.40464 15.77441,-6.387205 23.66324,-8.386515 5.00851,-1.26934 12.50459,-5.354226 14.99126,-6.562898 1.8823,1.420138 -2.72461,33.867042 -16.73187,39.590572 -6.01541,2.457965 -13.43565,1.040776 -19.38442,-0.435638 -1.12747,-0.279824 -6.55337,-2.503756 -6.47924,-0.710766 0.0398,0.962277 6.06003,2.400837 7.25956,2.685477 7.38681,1.642832 14.03814,1.572882 21.40304,-0.521801 15.0143,-4.27029 22.21028,-19.516716 25.59988,-33.672266 1.14869,-4.79712 1.27228,-10.151599 2.47816,-14.915109 0.73637,-2.90881 1.71572,-5.395932 3.85031,-7.529462 1.23336,-1.23275 2.79988,-2.538041 4.34476,-3.267113 3.14908,-1.486146 3.28012,-1.906641 0.51541,-2.474151 -3.83753,-0.787727 -4.79503,-0.498528 -7.12064,-1.667071 -6.36902,-3.2002 -11.1764,-6.954139 -18.65481,-6.422649 -9.06366,0.64416 -17.6416,7.649078 -24.25034,13.322308 -15.34967,13.17684 -28.83442,28.439963 -42.13003,43.637753 -6.74483,7.70981 -13.19973,15.280623 -19.60725,23.273943 -1.54631,1.929 -2.87688,3.55362 -4.58545,5.58254 -0.643,0.76355 -1.56438,2.43374 -0.64515,2.9956 1.24622,0.76173 14.54767,-8.94105 19.82505,-12.16023 6.22971,-3.86317 13.04786,-7.2563 19.94447,-9.76933 9.32262,-3.39703 18.68446,-5.380027 27.50726,-10.052607 6.56233,-3.47543 13.23832,-8.245034 17.65457,-14.495866"/>
+      </svg>
+      <span class="brand-word">Canary</span>
+    </a>
+
+    <div class="nav-right">
+      <a class="btn nav-cta" href="#waitlist" data-source="index-header"><span>Join<span class="nav-cta-more"> the waitlist</span></span></a>
+    </div>
+  </div>
+</header>
+
+<div class="menu" id="mobileMenu" data-open="false" role="dialog" aria-modal="true" aria-label="Site menu">
+  <div class="menu-head">
+    <span class="brand-word">Canary</span>
+    <button class="icon-btn" id="menuClose">
+      <span class="visually-hidden">Close menu</span>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <a href="#product">Product</a>
+  <a href="#sensors">Sensors</a>
+  <a href="#specs">Specs</a>
+  <a href="#repair">Repair</a>
+  <a href="business.html">Organizations</a>
+  <a href="science.html">Science</a>
+  <a href="#faq">FAQ</a>
+  <a href="history.html">History</a>
+  <a class="btn" href="#waitlist" data-source="index-menu">Join the waitlist</a>
+</div>
+
+<main id="main">
+
+<!-- ============================= HERO ============================= -->
+<section class="hero hero--home wrap" id="top">
+  <h1>Know what you are<br><span class="stroke-gold">actually breathing.</span></h1>
+  <p class="lede">Canary is a pocketable environmental monitor with an e&#8209;paper display. Seven sensors, a full day of history on screen, and nothing to subscribe to.</p>
+
+
+  <div class="hero-media">
+    <picture>
+      <source type="image/webp" sizes="100vw"
+              srcset="assets/img/hero-1000.webp 1000w, assets/img/hero-1600.webp 1600w, assets/img/hero-2400.webp 2400w">
+      <img src="assets/img/hero-1600.jpg" width="4000" height="1848" fetchpriority="high" decoding="async"
+           sizes="100vw"
+           srcset="assets/img/hero-1000.jpg 1000w, assets/img/hero-1600.jpg 1600w, assets/img/hero-2400.jpg 2400w"
+           alt="Three Canary monitors on a wooden desk, each showing a different e-paper readout: particulate matter, carbon dioxide and ambient pressure, plotted over the last day.">
+    </picture>
+  </div>
+</section>
+
+<!-- ============================ SPECS ============================= -->
+<section class="specs" aria-label="What Canary measures">
+  <div class="specs-viewport" data-marquee>
+    <ul class="specs-track">
+	  <li><b>PM<sub>1.0</sub></b><span>Smoke</span></li>
+      <li><b>PM<sub>2.5</sub></b><span>Fine dust</span></li>
+      <li><b>PM<sub>10</sub></b><span>Pollen</span></li>
+      <li><b>CO<sub>2</sub></b><span>Stale air</span></li>
+      <li><b><sub></sub>UV&#8209;B</b><span>240&ndash;320&nbsp;nm</span></li>
+      <li><b><sub></sub>&deg;C&nbsp;/&nbsp;&deg;F</b><span>Temperature</span></li>
+      <li><b><sub></sub>%RH</b><span>Humidity</span></li>
+      <li><b><sub></sub>kPa&nbsp;/&nbsp;inHg</b><span>Pressure</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ========================== HERO CTA =========================== -->
+<!-- Hidden rather than deleted, so it can come back: remove `hidden`.
+     On phones it was the only visible signup route between the top of
+     the page and the pricing card; the header Join button now covers
+     every screen. Signups from it are tagged source=hero. -->
+<section class="hero-cta wrap" aria-label="Join the waitlist" hidden>
+  <form class="hero-form" action="https://formspree.io/f/mqpznawg" method="POST" data-waitlist novalidate>
+    <!-- EDIT-ME FORMSPREE ID (above) -->
+    <label class="visually-hidden" for="email-hero">Email address</label>
+    <div class="field-row">
+      <input id="email-hero" type="email" name="email" required autocomplete="email"
+             inputmode="email" placeholder="you@example.com" aria-describedby="note-hero">
+      <button class="btn" type="submit">
+        <span data-label>Join the waitlist</span>
+      </button>
+    </div>
+    <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <input type="hidden" name="_subject" value="Canary waitlist signup">
+    <input type="hidden" name="source" value="hero">
+    <p class="form-note" id="note-hero">Early-bird pricing and first access. No other email, ever.</p>
+    <p class="form-status" role="status" aria-live="polite"></p>
+  </form>
+</section>
+
+<!-- ============================ WHY =============================== -->
+<section class="section band" id="why" aria-labelledby="why-h">
+  <div class="wrap">
+    <div class="carousel-head carousel-head--center reveal">
+      <div class="section-head" style="margin-bottom:0">
+        <h2 id="why-h">What each measurement really tells you.</h2>
+        <p class="lede">None of it is visible, and a single number would not settle much anyway:
+          812&nbsp;ppm is neither good nor bad until you know whether it is climbing or falling.
+          So Canary keeps the last 24&nbsp;hours of every measurement on screen. Here is what
+          each one is, and why it is worth watching.</p> 
+		  <!-- I cut this last sentence for length, but I kina love it. Maybe I can add it somewhere else: "Put it on a desk, a nightstand or a nursery shelf and it just keeps watch." -->
+      </div>
+      <div class="carousel-nav">
+        <button type="button" data-rail-prev="whyRail" aria-controls="whyRail"><span class="visually-hidden">Previous measurement</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <button type="button" data-rail-next="whyRail" aria-controls="whyRail"><span class="visually-hidden">Next measurement</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="rail" id="whyRail" data-rail tabindex="0" role="region" aria-label="What Canary measures and why: scrollable cards">
+    <article class="why-card reveal">
+      <span class="sensor-tag">Carbon dioxide</span>
+      <h3>The stuffiness you cannot smell.</h3>
+      <p>You breathe it out, and behind a shut door it has nowhere to go. Outdoor air sits near 420&nbsp;ppm; a closed bedroom or a full meeting room passes 1,000&nbsp;ppm easily, which is roughly where people start reporting stuffiness and poor concentration. There is nothing to smell. Canary shows the climb, and how fast an open door undoes it.</p>
+    </article>
+
+    <article class="why-card reveal">
+      <span class="sensor-tag">Particulate matter</span>
+      <h3>Smoke and dust too small to see.</h3>
+      <p>Particles smaller than 2.5 micrometres reach deep into the lungs: wildfire smoke, pollen, road dust. The World Health Organization&rsquo;s guideline is 15&nbsp;&micro;g/m&sup3;, and frying a steak can take a kitchen past it. What matters is the recovery: a spike that clears in twenty minutes means your extractor works; three hours means it does not.</p>
+    </article>
+
+    <article class="why-card reveal">
+      <span class="sensor-tag">Relative humidity</span>
+      <h3>Too dry, too damp, and the narrow band between.</h3>
+      <p>Below about 30% and skin, sinuses and wooden instruments all start to complain. Above 60% and you are inviting mould and dust mites. Canary shows which way your rooms drift over a day, and how far.</p>
+    </article>
+
+    <article class="why-card reveal">
+      <span class="sensor-tag">Temperature</span>
+      <h3>Your thermostat is measuring the hallway.</h3>
+      <p>One number for a whole home hides a lot: a nursery on an outside wall, a top&#8209;floor bedroom in August. Sleep researchers tend to point at 16 to 19&nbsp;&deg;C for a bedroom, cooler than most people keep them. Canary reads the room it is actually in, and keeps the overnight curve.</p>
+    </article>
+
+    <article class="why-card reveal">
+      <span class="sensor-tag">Ambient pressure</span>
+      <h3>Weather you feel before you see it.</h3>
+      <p>Barometric pressure falls ahead of a weather front, often a day before the rain arrives. Plenty of people with migraines or aching joints say they can tell; what they have never been able to do is check. Canary keeps the curve, so a suspicion becomes something you can point at.</p>
+    </article>
+
+    <article class="why-card reveal">
+      <span class="sensor-tag">Ultraviolet</span>
+      <h3>Sunburn has little to do with brightness.</h3>
+      <p>UV&#8209;B is the narrow band, 240 to 320&nbsp;nm, that burns skin and drives vitamin&nbsp;D. It has little to do with how bright a day looks: a cool overcast afternoon can carry most of the ultraviolet of a clear one, and a sunny window blocks nearly all of it. Canary reads that band itself.</p>
+    </article>
+  </div>
+
+  <div class="wrap">
+  </div>
+</section>
+
+<!-- =========================== PRODUCT ============================ -->
+<section class="section" id="product">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>More than a monitor.</h2>
+      <p class="lede">Most air quality gadgets give you one number and a coloured ring. Canary gives you the shape of your whole day.</p>
+    </div>
+
+    <div class="split">
+      <div class="split-media split-media--tall reveal">
+        <picture>
+          <source type="image/webp" sizes="(min-width:900px) 46vw, 92vw"
+                  srcset="assets/img/hand-800.webp 800w, assets/img/hand-1200.webp 1200w, assets/img/hand-1800.webp 1800w">
+          <img src="assets/img/hand-1200.jpg" width="4000" height="1848" loading="lazy" decoding="async"
+               sizes="(min-width:900px) 46vw, 92vw"
+               srcset="assets/img/hand-800.jpg 800w, assets/img/hand-1200.jpg 1200w, assets/img/hand-1800.jpg 1800w"
+               alt="A hand holding a Canary monitor, roughly the size of a deck of cards, showing 503 ppm carbon dioxide and a 24-hour graph.">
+        </picture>
+      </div>
+      <div class="split-body reveal d1">
+        <h3>An e&#8209;paper display that never asks for your attention.</h3>
+        <p class="lede">No glare, no backlight glow at 3am, no notification badge. The screen holds its last reading even between refreshes, and it stays legible in direct sunlight.</p>
+        <ul class="point-list">
+          <li>
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l5-6 4 4 4-7 5 5"/><path d="M3 21h18"/></svg>
+            <div><b>24 hours on screen</b><p>Every sensor plots its own history, so you see the spike and what caused it, not just the number right now.</p></div>
+          </li>
+          <li>
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3h9.5a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1V10L8 7.5Z"/><path d="M10.5 5v3M13.25 5v3M16 5v3"/></svg>
+            <div><b>Logs to a microSD card</b><p>Years of readings written locally. Pull the card, open the file. Nothing is held hostage behind an account.</p></div>
+          </li>
+          <li>
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><mask id="ico-offline-gap" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24"><rect width="24" height="24" fill="#fff" stroke="none"/><path d="M3 3l18 18" stroke="#000" stroke-width="3.6"/></mask><g mask="url(#ico-offline-gap)"><path d="M2.81 9.81A13 13 0 0 1 21.19 9.81"/><path d="M5.99 12.99A8.5 8.5 0 0 1 18.01 12.99"/><path d="M9.17 16.17A4 4 0 0 1 14.83 16.17"/></g><path d="M12 19h.01"/><path d="M3 3l18 18"/></svg>
+            <div><b>No subscription, no cloud requirement</b><p>Canary works fully offline. If you want remote dashboards and alerts, host the server yourself or use our free cloud option.</p></div>
+          </li>
+          <li>
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.94 11.94L18.64 3.24A1.5 1.5 0 0 1 20.76 5.36L12.06 14.06"/><path d="M9.94 11.94C7.5 12.5 5.2 14.5 5 17C4.8 19 4 20.3 2.8 21.2C5.5 21.4 8.6 20.8 10.3 18.8C11.6 17.3 12.4 15.6 12.06 14.06Z"/></svg>
+            <div><b>Yours to reconfigure</b><p>Build your own screen layouts, choose which readings sit where, and set the units for each reading independently: temperature in &deg;C&nbsp;or&nbsp;&deg;F, pressure in hPa, kPa, inHg or&nbsp;mmHg, particles by mass or&nbsp;count.</p></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== SENSORS ============================ -->
+<section class="section band" id="sensors">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Every reading, plotted.</h2>
+      <p class="lede">Sensor modules sourced from Switzerland, Germany and Korea. Each one draws its own 24&#8209;hour trace on the e&#8209;paper screen. <a href="science.html" style="color:var(--sage); text-decoration-color:var(--gold); text-underline-offset:3px">Why these measurements matter</a>.</p>
+    </div>
+
+    <div class="device-stage reveal" data-carousel
+         role="group" aria-roledescription="carousel" aria-label="Canary sensor readouts">
+
+      <div class="device js-only">
+        <div class="device-window">
+          <picture>
+            <source type="image/webp" sizes="(min-width:820px) 608px, 72vw" srcset="assets/img/scr-pm-420.webp 420w, assets/img/scr-pm-620.webp 620w, assets/img/scr-pm-900.webp 900w">
+            <img class="device-screen" data-slide="0" data-active src="assets/img/scr-pm-620.jpg"
+                 width="800" height="480" loading="lazy" decoding="async"
+                 sizes="(min-width:820px) 608px, 72vw" srcset="assets/img/scr-pm-420.jpg 420w, assets/img/scr-pm-620.jpg 620w, assets/img/scr-pm-900.jpg 900w"
+                 alt="Canary showing 2.5 PM10 with a day of particulate history, the fill shaded by particle size band.">
+          </picture>
+          <picture>
+            <source type="image/webp" sizes="(min-width:820px) 608px, 72vw" srcset="assets/img/scr-co2-420.webp 420w, assets/img/scr-co2-620.webp 620w, assets/img/scr-co2-900.webp 900w">
+            <img class="device-screen" data-slide="1" src="assets/img/scr-co2-620.jpg"
+                 width="800" height="480" loading="lazy" decoding="async"
+                 sizes="(min-width:820px) 608px, 72vw" srcset="assets/img/scr-co2-420.jpg 420w, assets/img/scr-co2-620.jpg 620w, assets/img/scr-co2-900.jpg 900w"
+                 alt="Canary showing 497 ppm carbon dioxide, the overnight curve climbing then dropping sharply at 05:00.">
+          </picture>
+          <picture>
+            <source type="image/webp" sizes="(min-width:820px) 608px, 72vw" srcset="assets/img/scr-temp-420.webp 420w, assets/img/scr-temp-620.webp 620w, assets/img/scr-temp-900.webp 900w">
+            <img class="device-screen" data-slide="2" src="assets/img/scr-temp-620.jpg"
+                 width="800" height="480" loading="lazy" decoding="async"
+                 sizes="(min-width:820px) 608px, 72vw" srcset="assets/img/scr-temp-420.jpg 420w, assets/img/scr-temp-620.jpg 620w, assets/img/scr-temp-900.jpg 900w"
+                 alt="Canary showing 26.5&deg;C beside a pinned note about wireless mice arriving tomorrow.">
+          </picture>
+          <picture>
+            <source type="image/webp" sizes="(min-width:820px) 608px, 72vw" srcset="assets/img/scr-humidity-420.webp 420w, assets/img/scr-humidity-620.webp 620w, assets/img/scr-humidity-900.webp 900w">
+            <img class="device-screen" data-slide="3" src="assets/img/scr-humidity-620.jpg"
+                 width="800" height="480" loading="lazy" decoding="async"
+                 sizes="(min-width:820px) 608px, 72vw" srcset="assets/img/scr-humidity-420.jpg 420w, assets/img/scr-humidity-620.jpg 620w, assets/img/scr-humidity-900.jpg 900w"
+                 alt="Canary showing 46.2% relative humidity with the day&rsquo;s curve rising from 43 to 61.">
+          </picture>
+          <picture>
+            <source type="image/webp" sizes="(min-width:820px) 608px, 72vw" srcset="assets/img/scr-pressure-420.webp 420w, assets/img/scr-pressure-620.webp 620w, assets/img/scr-pressure-900.webp 900w">
+            <img class="device-screen" data-slide="4" src="assets/img/scr-pressure-620.jpg"
+                 width="800" height="480" loading="lazy" decoding="async"
+                 sizes="(min-width:820px) 608px, 72vw" srcset="assets/img/scr-pressure-420.jpg 420w, assets/img/scr-pressure-620.jpg 620w, assets/img/scr-pressure-900.jpg 900w"
+                 alt="Canary showing 98.7 kPa ambient pressure with a fair-weather illustration of the Canary bird.">
+          </picture>
+          <picture>
+            <source type="image/webp" sizes="(min-width:820px) 608px, 72vw" srcset="assets/img/scr-light-420.webp 420w, assets/img/scr-light-620.webp 620w, assets/img/scr-light-900.webp 900w">
+            <img class="device-screen" data-slide="5" src="assets/img/scr-light-620.jpg"
+                 width="800" height="480" loading="lazy" decoding="async"
+                 sizes="(min-width:820px) 608px, 72vw" srcset="assets/img/scr-light-420.jpg 420w, assets/img/scr-light-620.jpg 620w, assets/img/scr-light-900.jpg 900w"
+                 alt="Canary showing 0.0 UV-B and 3% luminosity, with the light curve rising through the morning.">
+          </picture>
+          <picture>
+            <source type="image/webp" sizes="(min-width:820px) 608px, 72vw" srcset="assets/img/scr-photo-420.webp 420w, assets/img/scr-photo-620.webp 620w, assets/img/scr-photo-900.webp 900w">
+            <img class="device-screen" data-slide="6" src="assets/img/scr-photo-620.jpg"
+                 width="800" height="480" loading="lazy" decoding="async"
+                 sizes="(min-width:820px) 608px, 72vw" srcset="assets/img/scr-photo-420.jpg 420w, assets/img/scr-photo-620.jpg 620w, assets/img/scr-photo-900.jpg 900w"
+                 alt="Canary displaying a dithered black and white photograph of a bird beside a robot.">
+          </picture>
+          <picture>
+            <source type="image/webp" sizes="(min-width:820px) 608px, 72vw" srcset="assets/img/scr-clock-420.webp 420w, assets/img/scr-clock-620.webp 620w, assets/img/scr-clock-900.webp 900w">
+            <img class="device-screen" data-slide="7" src="assets/img/scr-clock-620.jpg"
+                 width="800" height="480" loading="lazy" decoding="async"
+                 sizes="(min-width:820px) 608px, 72vw" srcset="assets/img/scr-clock-420.jpg 420w, assets/img/scr-clock-620.jpg 620w, assets/img/scr-clock-900.jpg 900w"
+                 alt="Canary showing 6:00 PM and the date, Sunday August 23rd 2026.">
+          </picture>
+          <span class="device-well" aria-hidden="true"></span>
+        </div>
+        <picture>
+          <source type="image/webp" sizes="(min-width:820px) 720px, 92vw"
+                  srcset="assets/img/device-frame-520.webp 520w, assets/img/device-frame-760.webp 760w, assets/img/device-frame-1100.webp 1100w">
+          <img class="device-frame" src="assets/img/device-frame-760.png" width="948" height="578"
+               decoding="async" sizes="(min-width:820px) 720px, 92vw"
+               srcset="assets/img/device-frame-520.png 520w, assets/img/device-frame-760.png 760w, assets/img/device-frame-1100.png 1100w"
+               alt="" aria-hidden="true">
+        </picture>
+      </div>
+
+      <div class="no-js-screens">
+        <img src="assets/img/scr-pm-620.jpg" width="800" height="480"
+             loading="lazy" decoding="async" alt="Canary showing 2.5 PM10 with a day of particulate history, the fill shaded by particle size band.">
+        <img src="assets/img/scr-co2-620.jpg" width="800" height="480"
+             loading="lazy" decoding="async" alt="Canary showing 497 ppm carbon dioxide, the overnight curve climbing then dropping sharply at 05:00.">
+        <img src="assets/img/scr-temp-620.jpg" width="800" height="480"
+             loading="lazy" decoding="async" alt="Canary showing 26.5&deg;C beside a pinned note about wireless mice arriving tomorrow.">
+        <img src="assets/img/scr-humidity-620.jpg" width="800" height="480"
+             loading="lazy" decoding="async" alt="Canary showing 46.2% relative humidity with the day&rsquo;s curve rising from 43 to 61.">
+        <img src="assets/img/scr-pressure-620.jpg" width="800" height="480"
+             loading="lazy" decoding="async" alt="Canary showing 98.7 kPa ambient pressure with a fair-weather illustration of the Canary bird.">
+        <img src="assets/img/scr-light-620.jpg" width="800" height="480"
+             loading="lazy" decoding="async" alt="Canary showing 0.0 UV-B and 3% luminosity, with the light curve rising through the morning.">
+        <img src="assets/img/scr-photo-620.jpg" width="800" height="480"
+             loading="lazy" decoding="async" alt="Canary displaying a dithered black and white photograph of a bird beside a robot.">
+        <img src="assets/img/scr-clock-620.jpg" width="800" height="480"
+             loading="lazy" decoding="async" alt="Canary showing 6:00 PM and the date, Sunday August 23rd 2026.">
+      </div>
+
+      <div class="rd-caps">
+        <div class="rd-cap" data-cap="0" data-active>
+          <span class="sensor-tag">Particulate matter</span>
+          <h3>It counts particles by size.</h3>
+          <p>A dual&#8209;laser sensor sorts what it finds into size bands, PM<sub>1.0</sub> through PM<sub>2.5</sub> to PM<sub>10</sub>. Those bands are the greys in the trace, so the screen shows not just how much is in the air but how big it is. That is what separates kitchen grease from road dust from smoke drifting in off a fire.</p>
+        </div>
+        <div class="rd-cap" data-cap="1">
+          <span class="sensor-tag">Carbon dioxide</span>
+          <h3>Sensitive enough to count the room.</h3>
+          <p>A Swiss laser&#8209;based CO<sub>2</sub> sensor, accurate enough that you can see how many people walked in. On this trace the line climbs all night behind a closed door and falls off a cliff the moment it opens.</p>
+        </div>
+        <div class="rd-cap" data-cap="2">
+          <span class="sensor-tag">Temperature</span>
+          <h3>The screen is yours to arrange.</h3>
+          <p>Readings do not have to fill the whole display. This one gives up part of the screen to a note pinned beside the curve, which is the sort of thing e&#8209;paper is good for: it costs nothing to leave sitting there for a week.</p>
+        </div>
+        <div class="rd-cap" data-cap="3">
+          <span class="sensor-tag">Relative humidity</span>
+          <h3>Reading the room, not the board.</h3>
+          <p>Humidity is easy to get wrong, because electronics make their own heat and dry the air immediately around them. This sensor sits vented and set apart from the warm side of the board. The curve here runs from 43 to 61% across a single day.</p>
+        </div>
+        <div class="rd-cap" data-cap="4">
+          <span class="sensor-tag">Ambient pressure</span>
+          <h3>A full day of barometer.</h3>
+          <p>Most barometers give you a number and a weather symbol. This one plots the whole day, so you see the slope rather than a snapshot, with an illustration that follows the trend and the reading in kilopascals, hectpascals or millibars.</p>
+        </div>
+        <div class="rd-cap" data-cap="5">
+          <span class="sensor-tag">Ultraviolet &amp; light</span>
+          <h3>Sunlight, measured twice.</h3>
+          <p>A true UV&#8209;B sensor, reading the 240&ndash;320&nbsp;nm band directly rather than estimating it from visible light the way most consumer sensors do. Luminosity shares the screen, so you can tell if your office suspiciously illuminates in the dead of night while you're not there.</p>
+        </div>
+        <div class="rd-cap" data-cap="6">
+          <span class="sensor-tag">Photo viewer</span>
+          <h3>A picture frame when you want one.</h3>
+          <p>Take a photo in the app and it lands on your own Canary. Or on one you gave to somebody else, sitting on a shelf across the country. Everything is dithered down to one bit, which is the newsprint look e&#8209;paper does better than any backlit screen in the house.</p>
+        </div>
+        <div class="rd-cap" data-cap="7">
+          <span class="sensor-tag">Clock</span>
+          <h3>And the rest of the time, it is a clock.</h3>
+          <p>Nothing to unlock, nothing to swipe away. When you are not asking it anything, Canary is a quiet desk clock that happens to be logging every reading in the background.</p>
+        </div>
+      </div>
+
+      <p class="visually-hidden" data-status role="status" aria-live="polite"></p>
+
+      <div class="rd-controls">
+        <div class="carousel-nav">
+          <button type="button" data-prev><span class="visually-hidden">Previous readout</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+          </button>
+        </div>
+        <div class="rd-dots">
+          <button type="button" data-dot="0" aria-current="true">
+            <span class="visually-hidden">Show particulate matter</span>
+          </button>
+          <button type="button" data-dot="1" aria-current="false">
+            <span class="visually-hidden">Show carbon dioxide</span>
+          </button>
+          <button type="button" data-dot="2" aria-current="false">
+            <span class="visually-hidden">Show temperature</span>
+          </button>
+          <button type="button" data-dot="3" aria-current="false">
+            <span class="visually-hidden">Show relative humidity</span>
+          </button>
+          <button type="button" data-dot="4" aria-current="false">
+            <span class="visually-hidden">Show ambient pressure</span>
+          </button>
+          <button type="button" data-dot="5" aria-current="false">
+            <span class="visually-hidden">Show ultraviolet and light</span>
+          </button>
+          <button type="button" data-dot="6" aria-current="false">
+            <span class="visually-hidden">Show photo viewer</span>
+          </button>
+          <button type="button" data-dot="7" aria-current="false">
+            <span class="visually-hidden">Show clock</span>
+          </button>
+        </div>
+        <span class="rd-count" data-count aria-hidden="true"></span>
+        <div class="carousel-nav">
+          <button type="button" data-play aria-pressed="false">
+            <span class="visually-hidden" data-play-label>Pause the readout carousel</span>
+            <svg data-icon-pause width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1.2"/><rect x="14" y="5" width="4" height="14" rx="1.2"/></svg>
+            <svg data-icon-play width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:none"><path d="M8 5.2v13.6a1 1 0 0 0 1.53.85l10.2-6.8a1 1 0 0 0 0-1.7L9.53 4.35A1 1 0 0 0 8 5.2z"/></svg>
+          </button>
+          <button type="button" data-next><span class="visually-hidden">Next readout</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================== CAROUSEL ============================ -->
+<section class="section" aria-labelledby="lives-h">
+  <div class="wrap">
+    <div class="carousel-head reveal">
+      <div>
+        <h2 id="lives-h">Where Canary lives.</h2>
+      </div>
+      <div class="carousel-nav">
+        <button type="button" data-rail-prev="rail" aria-controls="rail"><span class="visually-hidden">Previous</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <button type="button" data-rail-next="rail" aria-controls="rail"><span class="visually-hidden">Next</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="rail" id="rail" data-rail tabindex="0" role="region" aria-label="Canary in everyday settings: scrollable gallery">
+    <figure class="card reveal">
+      <picture>
+        <source type="image/webp" sizes="(min-width:1024px) 40vw, (min-width:640px) 56vw, 84vw" srcset="assets/img/live-home-520.webp 520w, assets/img/live-home-800.webp 800w, assets/img/live-home-1080.webp 1080w">
+        <img src="assets/img/live-home-800.jpg" width="1200" height="750"
+             loading="lazy" decoding="async" sizes="(min-width:1024px) 40vw, (min-width:640px) 56vw, 84vw" srcset="assets/img/live-home-520.jpg 520w, assets/img/live-home-800.jpg 800w, assets/img/live-home-1080.jpg 1080w"
+             alt="A Canary in a white case on a wooden table, showing a long overnight particulate hump." style="object-position:50% 50%">
+      </picture>
+      <figcaption><h3>At home</h3><p>The overnight hump nobody knew about.</p></figcaption>
+    </figure>
+
+    <figure class="card reveal d1">
+      <picture>
+        <source type="image/webp" sizes="(min-width:1024px) 40vw, (min-width:640px) 56vw, 84vw" srcset="assets/img/live-purifier-520.webp 520w, assets/img/live-purifier-800.webp 800w, assets/img/live-purifier-1200.webp 1200w">
+        <img src="assets/img/live-purifier-800.jpg" width="1200" height="750"
+             loading="lazy" decoding="async" sizes="(min-width:1024px) 40vw, (min-width:640px) 56vw, 84vw" srcset="assets/img/live-purifier-520.jpg 520w, assets/img/live-purifier-800.jpg 800w, assets/img/live-purifier-1200.jpg 1200w"
+             alt="A Canary on a desk next to an air purifier, its particulate trace climbing steeply overnight to 70.9 PM10." style="object-position:50% 55%">
+      </picture>
+      <figcaption><h3>Beside the purifier</h3><p>It tells you when to switch the thing on.</p></figcaption>
+    </figure>
+
+    <figure class="card reveal d2">
+      <picture>
+        <source type="image/webp" sizes="(min-width:1024px) 40vw, (min-width:640px) 56vw, 84vw" srcset="assets/img/live-hand-520.webp 520w, assets/img/live-hand-800.webp 800w, assets/img/live-hand-1200.webp 1200w">
+        <img src="assets/img/live-hand-800.jpg" width="1200" height="750"
+             loading="lazy" decoding="async" sizes="(min-width:1024px) 40vw, (min-width:640px) 56vw, 84vw" srcset="assets/img/live-hand-520.jpg 520w, assets/img/live-hand-800.jpg 800w, assets/img/live-hand-1200.jpg 1200w"
+             alt="A Canary held in one hand beside a keyboard, showing a carbon dioxide reading." style="object-position:58% 50%">
+      </picture>
+      <figcaption><h3>In hand</h3><p>Pocketable. Readable in full sun.</p></figcaption>
+    </figure>
+
+    <figure class="card reveal">
+      <picture>
+        <source type="image/webp" sizes="(min-width:1024px) 40vw, (min-width:640px) 56vw, 84vw" srcset="assets/img/live-outdoors-520.webp 520w, assets/img/live-outdoors-800.webp 800w, assets/img/live-outdoors-1200.webp 1200w">
+        <img src="assets/img/live-outdoors-800.jpg" width="1200" height="750"
+             loading="lazy" decoding="async" sizes="(min-width:1024px) 40vw, (min-width:640px) 56vw, 84vw" srcset="assets/img/live-outdoors-520.jpg 520w, assets/img/live-outdoors-800.jpg 800w, assets/img/live-outdoors-1200.jpg 1200w"
+             alt="A Canary held up against trees and blue sky in Tricorder mode, showing 4.74 PM10 with max, average and minimum." style="object-position:50% 50%">
+      </picture>
+      <figcaption><h3>Out on a walk</h3><p>Tricorder mode, held up to the sky.</p></figcaption>
+    </figure>
+
+    <figure class="card reveal d1">
+      <picture>
+        <source type="image/webp" sizes="(min-width:1024px) 40vw, (min-width:640px) 56vw, 84vw" srcset="assets/img/live-table-520.webp 520w, assets/img/live-table-800.webp 800w, assets/img/live-table-1200.webp 1200w">
+        <img src="assets/img/live-table-800.jpg" width="1200" height="750"
+             loading="lazy" decoding="async" sizes="(min-width:1024px) 40vw, (min-width:640px) 56vw, 84vw" srcset="assets/img/live-table-520.jpg 520w, assets/img/live-table-800.jpg 800w, assets/img/live-table-1200.jpg 1200w"
+             alt="A Canary standing at the edge of a chessboard mid-game, showing 846 ppm carbon dioxide." style="object-position:70% 50%">
+      </picture>
+      <figcaption><h3>At the table</h3><p>Silent. No fan, no chime, no glow.</p></figcaption>
+    </figure>
+
+    <figure class="card reveal d2">
+      <picture>
+        <source type="image/webp" sizes="(min-width:1024px) 40vw, (min-width:640px) 56vw, 84vw" srcset="assets/img/live-desk-520.webp 520w, assets/img/live-desk-800.webp 800w, assets/img/live-desk-1200.webp 1200w">
+        <img src="assets/img/live-desk-800.jpg" width="1200" height="750"
+             loading="lazy" decoding="async" sizes="(min-width:1024px) 40vw, (min-width:640px) 56vw, 84vw" srcset="assets/img/live-desk-520.jpg 520w, assets/img/live-desk-800.jpg 800w, assets/img/live-desk-1200.jpg 1200w"
+             alt="A Canary on a reflective gold surface showing 585 ppm carbon dioxide and the night's full curve." style="object-position:50% 50%">
+      </picture>
+      <figcaption><h3>On the desk</h3><p>A whole working day, at a glance.</p></figcaption>
+    </figure>
+
+    <figure class="card reveal">
+      <picture>
+        <source type="image/webp" sizes="(min-width:1024px) 40vw, (min-width:640px) 56vw, 84vw" srcset="assets/img/live-winter-520.webp 520w, assets/img/live-winter-800.webp 800w, assets/img/live-winter-1200.webp 1200w">
+        <img src="assets/img/live-winter-800.jpg" width="1200" height="750"
+             loading="lazy" decoding="async" sizes="(min-width:1024px) 40vw, (min-width:640px) 56vw, 84vw" srcset="assets/img/live-winter-520.jpg 520w, assets/img/live-winter-800.jpg 800w, assets/img/live-winter-1200.jpg 1200w"
+             alt="A Canary on a windowsill above a snowy street, showing ambient pressure dropping steeply." style="object-position:50% 45%">
+      </picture>
+      <figcaption><h3>On the windowsill</h3><p>Watching the pressure fall ahead of the snow.</p></figcaption>
+    </figure>
+
+    <figure class="card reveal d1">
+      <picture>
+        <source type="image/webp" sizes="(min-width:1024px) 40vw, (min-width:640px) 56vw, 84vw" srcset="assets/img/live-gift-520.webp 520w, assets/img/live-gift-800.webp 800w, assets/img/live-gift-1200.webp 1200w">
+        <img src="assets/img/live-gift-800.jpg" width="1200" height="750"
+             loading="lazy" decoding="async" sizes="(min-width:1024px) 40vw, (min-width:640px) 56vw, 84vw" srcset="assets/img/live-gift-520.jpg 520w, assets/img/live-gift-800.jpg 800w, assets/img/live-gift-1200.jpg 1200w"
+             alt="Three Canary units on a table all showing an uploaded Happy Mother's Day photo, with the upload tool open on the monitor behind them." style="object-position:50% 50%">
+      </picture>
+      <figcaption><h3>Given away</h3><p>Send a picture to a Canary across the country.</p></figcaption>
+    </figure>
+
+    <figure class="card reveal d2">
+      <picture>
+        <source type="image/webp" sizes="(min-width:1024px) 40vw, (min-width:640px) 56vw, 84vw" srcset="assets/img/live-mask-520.webp 520w, assets/img/live-mask-800.webp 800w, assets/img/live-mask-1080.webp 1080w">
+        <img src="assets/img/live-mask-800.jpg" width="1200" height="750"
+             loading="lazy" decoding="async" sizes="(min-width:1024px) 40vw, (min-width:640px) 56vw, 84vw" srcset="assets/img/live-mask-520.jpg 520w, assets/img/live-mask-800.jpg 800w, assets/img/live-mask-1080.jpg 1080w"
+             alt="A Canary displaying the words Ready, Place mask over holes, with a line drawing of a respirator mask." style="object-position:50% 50%">
+      </picture>
+      <figcaption><h3>Mask test</h3><p>Find out what your respirator really filters.</p></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- =========================== REPAIR ============================= -->
+<section class="section dark" id="repair">
+  <div class="wrap">
+    <div class="split split--flip">
+      <div class="split-media reveal">
+        <picture>
+          <source type="image/webp" sizes="(min-width:900px) 46vw, 92vw" srcset="assets/img/repair-800.webp 800w, assets/img/repair-1200.webp 1200w, assets/img/repair-1920.webp 1920w">
+          <img src="assets/img/repair-1200.jpg" width="1920" height="887" loading="lazy" decoding="async"
+               sizes="(min-width:900px) 46vw, 92vw"
+               srcset="assets/img/repair-800.jpg 800w, assets/img/repair-1200.jpg 1200w, assets/img/repair-1920.jpg 1920w"
+               alt="A Canary laid out in parts on a wooden bench: the assembled unit, a spare e-paper panel, battery, antenna, USB-C board, sensor module, speaker and ribbon cables.">
+        </picture>
+      </div>
+      <div class="split-body reveal d1">
+        <h2>Built to be opened.</h2>
+        <p class="lede lede--dark">Every part you can see here is a part you can replace. The battery, the e&#8209;paper panel, the sensor module, the USB&#8209;C board: all of it comes apart with ordinary tools and goes back together again.</p>
+        <p class="lede lede--dark" style="margin-top:var(--s-4)">We would rather sell you one Canary that lasts a decade than five that do not. Right to repair is a design constraint here: no glue where a screw would do, no pairing locks, no parts you have to ask our permission to buy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SPECS ============================= -->
+<section class="section--tight" aria-labelledby="history-h">
+  <div class="wrap history-teaser reveal">
+    <h2 id="history-h">Five years of getting here.</h2>
+    <p class="lede">The first one was a hospital CO<sub>2</sub> sensor taped to a PC. The second lived in
+      half a toothpaste box. Nine prototypes later, this is the one you can buy.</p>
+    <a class="btn btn--ghost" href="history.html">
+      Read the development history
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+
+<section class="section band" id="specs">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Specifications</p>
+      <h2>The numbers.</h2>
+      <p class="lede">Seven sensor modules, one e&#8209;paper screen, and a battery that charges over the same USB&#8209;C cable as everything else you own.</p>
+    </div>
+
+    <!-- 3D model. The library is fetched by site.js only when this nears the
+         viewport, so the 1.4MB glb and ~300KB of script cost nothing above.
+
+         orientation="0deg -6deg 0deg" pitches the model back 6 degrees: the
+         export has the Canary standing perfectly upright, but on a desk the
+         screen leans back that much. NEGATIVE pitch leans it back; positive
+         tips it forward onto its face. The hotspots rotate with the model, so
+         their data-position and data-normal values stay correct and the glb
+         needs no re-export. -->
+    <div class="model-stage js-only reveal" data-model-stage>
+      <model-viewer
+        src="assets/model/canary.glb"
+        poster="assets/model/canary-poster.webp"
+        alt="A 3D model of the Canary you can rotate, labelled with its screen, sensors, ports and buttons."
+        camera-controls disable-zoom disable-pan interaction-prompt="none"
+        touch-action="pan-y"
+        tone-mapping="neutral" exposure="1"
+        shadow-intensity="0"
+        orientation="0deg -6deg 0deg"
+        camera-orbit="25deg 108deg 0.30m"
+        field-of-view="30deg" min-field-of-view="30deg" max-field-of-view="30deg"
+        loading="lazy" reveal="auto">
+        <!-- An empty slot replaces model-viewer's default loading bar, a 5px
+             strip at 40% black across the full width that read as a stray
+             scrollbar under the intro. The poster already covers the wait. -->
+        <div slot="progress-bar"></div>
+        <button class="mv-anchor" slot="hotspot-9" data-position="0.010749253755736904m 0.058931931914884501m 0.0014588381942246204m" data-normal="-0.0013509719545387495m 0.090060504636039942m -0.99593537962032463m"
+                data-visibility-attribute="visible" tabindex="-1" aria-hidden="true"></button>
+        <button class="mv-anchor" slot="hotspot-3" data-position="0.024719046237830264m -0.0018228102044590224m 0.0084341732500626317m" data-normal="3.7049084824173927e-05m -0.99999988715176347m 0.00047362836236675143m"
+                data-visibility-attribute="visible" tabindex="-1" aria-hidden="true"></button>
+        <button class="mv-anchor" slot="hotspot-8" data-position="0.039367157100122646m 0.0039089080133512949m -0.0020574634515672869m" data-normal="-7.5497893125611745e-08m -0.10452832964483991m -0.99452190941258511m"
+                data-visibility-attribute="visible" tabindex="-1" aria-hidden="true"></button>
+        <button class="mv-anchor" slot="hotspot-10" data-position="0.088890268085018181m 0.062740864513358294m 0.0024761975868481537m" data-normal="-0.0014249356273135423m 0.54406016651463551m -0.83904499567694546m"
+                data-visibility-attribute="visible" tabindex="-1" aria-hidden="true"></button>
+        <button class="mv-anchor" slot="hotspot-1" data-position="0.081805929661780977m 0.033647710874047422m 0.011669580029792279m" data-normal="7.5497893125611745e-08m 0.10452832964483991m 0.99452190941258511m"
+                data-visibility-attribute="visible" tabindex="-1" aria-hidden="true"></button>
+        <button class="mv-anchor" slot="hotspot-6" data-position="0.1097972161528038m 0.022486640153345873m 0.0039180339415351975m" data-normal="0.99999999999999434m -8.2975997664520102e-08m -6.7192638047154571e-08m"
+                data-visibility-attribute="visible" tabindex="-1" aria-hidden="true"></button>
+        <button class="mv-anchor" slot="hotspot-4" data-position="0.10061678616864558m -0.0018226448494945602m 0.0096360678282700063m" data-normal="-5.0737586602105166e-05m -0.99999987999800588m 0.00048726755605080219m"
+                data-visibility-attribute="visible" tabindex="-1" aria-hidden="true"></button>
+      </model-viewer>
+      <svg class="model-lines" aria-hidden="true" focusable="false"></svg>
+      <ul class="model-labels">
+      <li class="model-label model-label--right" data-for="hotspot-9">UV&#8209;B and light sensors</li>
+      <li class="model-label model-label--left" data-for="hotspot-3">microSD card</li>
+      <li class="model-label model-label--left" data-for="hotspot-8">USB&#8209;C port</li>
+      <li class="model-label model-label--left" data-for="hotspot-10">Touch button</li>
+      <li class="model-label model-label--right" data-for="hotspot-1">E&#8209;paper screen</li>
+      <li class="model-label model-label--right" data-for="hotspot-6">Air inlet and outlet</li>
+      <li class="model-label model-label--right" data-for="hotspot-4">Reset button</li>
+      </ul>
+      <p class="model-hint" aria-hidden="true">
+        <!-- viewBox opens 4 units above the frame to make room for the tap
+             halo: the index fingertip already sits at y=2 in the stock icon. -->
+        <svg class="model-hint-icon" viewBox="0 -4 24 28" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path class="model-hint-tap" d="M3.8 2.5A4.5 4.5 0 0 1 12.2 2.5"/>
+          <path d="M10 9.5V4a2 2 0 0 0-4 0v10"/>
+          <path d="M14 10V9a2 2 0 0 0-4 0v1"/>
+          <path d="M18 11v-1a2 2 0 0 0-4 0"/>
+          <path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>
+        </svg>
+        <span>Drag to rotate</span>
+      </p>
+    </div>
+
+    <div class="spec-cols reveal">
+      <div class="disclosure">
+        <!-- Display is the only group open by default, at every width. -->
+        <details class="spec-group" open>
+          <summary><h3>Display</h3><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <dl>
+            <div><dt>Type</dt><dd>E&#8209;paper, monochrome</dd></div>
+            <div><dt>Diagonal</dt><dd>4.26&Prime;</dd></div>
+            <div><dt>Resolution</dt><dd>800 &times; 480</dd></div>
+            <div><dt>Backlight</dt><dd>None</dd></div>
+            <div><dt>Refresh</dt><dd>1.5 s full refresh</dd></div>
+          </dl>
+        </details>
+
+        <details class="spec-group">
+          <summary><h3>Power</h3><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <dl>
+            <div><dt>Battery</dt><dd>2000 mAh Li&#8209;po</dd></div>
+            <div><dt>Charging</dt><dd>USB&#8209;C</dd></div>
+            <div><dt>Reported telemetry</dt><dd>Voltage, charge state</dd></div>
+            <div><dt>Battery life</dt><dd>21 days typical</dd></div>
+            <div><dt>Charge time</dt><dd>3 h</dd></div>
+          </dl>
+        </details>
+
+        <details class="spec-group">
+          <summary><h3>Connectivity &amp; storage</h3><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <dl>
+            <div><dt>Wireless</dt><dd>Wi&#8209;Fi, Bluetooth</dd></div>
+            <div><dt>Mesh</dt><dd>ESPNow&reg;, Matter over Wi-Fi</dd></div>
+            <div><dt>Wired</dt><dd>USB&#8209;C</dd></div>
+            <div><dt>Logging</dt><dd>microSD card</dd></div>
+            <div><dt>Server</dt><dd>Self&#8209;hosted, optional</dd></div>
+            <div><dt>Wi-Fi standard</dt><dd>2.4 GHz Wi-Fi 4 (IEEE 802.11 b/g/n)</dd></div>
+            <div><dt>microSD capacity</dt><dd>up to 32 GB for approx. 5,830 years of logs</dd></div>
+            <div><dt>Mesh range</dt><dd>30m to 100m indoor; 400m to 1km line of sight</dd></div>
+          </dl>
+        </details>
+
+        <details class="spec-group">
+          <summary><h3>Physical</h3><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <dl>
+            <div><dt>Dimensions</dt><dd>110 &times; 67 &times; 18 mm</dd></div>
+            <div><dt>Weight</dt><dd>118 g</dd></div>
+            <div><dt>Enclosure</dt><dd>Soft-touch, user-openable</dd></div>
+            <div><dt>Operating range</dt><dd>0 to 50 &deg;C</dd></div>
+          </dl>
+        </details>
+        <details class="spec-group">
+          <summary><h3>Alerts</h3><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <dl>
+            <div><dt>Notification light</dt><dd>RGB, diffused through the top of the enclosure</dd></div>
+            <div><dt>Sound</dt><dd>Buzzer, customisable melody</dd></div>
+            <div><dt>Silent mode</dt><dd>Light only, no sound</dd></div>
+          </dl>
+        </details>
+      </div>
+
+      <div class="disclosure">
+        <details class="spec-group">
+          <summary><h3>Particulates</h3><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <dl>
+            <div><dt>Mass concentration</dt><dd>PM<sub>1.0</sub> &middot; PM<sub>2.5</sub> &middot; PM<sub>4.0</sub> &middot; PM<sub>10</sub></dd></div>
+            <div><dt>Number concentration</dt><dd>PM<sub>0.5</sub> &middot; PM<sub>1.0</sub> &middot; PM<sub>2.5</sub> &middot; PM<sub>4.0</sub> &middot; PM<sub>10</sub></dd></div>
+            <div><dt>Typical particle size</dt><dd>Reported</dd></div>
+            <div><dt>Method</dt><dd>Dual&#8209;laser scattering</dd></div>
+            <div><dt>Range</dt><dd>0 to 1000 &micro;g/m&sup3;</dd></div>
+            <div><dt>Accuracy</dt><dd>&plusmn;10 %</dd></div>
+          </dl>
+        </details>
+
+        <details class="spec-group">
+          <summary><h3>Air &amp; climate</h3><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <dl>
+            <div><dt>Carbon dioxide</dt><dd>ppm, NDIR</dd></div>
+            <div><dt>Temperature</dt><dd>&deg;C / &deg;F</dd></div>
+            <div><dt>Relative humidity</dt><dd>%RH</dd></div>
+            <div><dt>Barometric pressure</dt><dd>hPa / kPa / inHg / mmHg</dd></div>
+            <div><dt>CO2 range</dt><dd>0 to 5,000 ppm</dd></div>
+            <div><dt>CO2 accuracy</dt><dd>&plusmn;3 %</dd></div>
+            <div><dt>Temp accuracy</dt><dd>&plusmn;0.8 &deg;C</dd></div>
+            <div><dt>RH accuracy</dt><dd>&plusmn;6 %RH</dd></div>
+          </dl>
+        </details>
+
+        <details class="spec-group">
+          <summary><h3>Light</h3><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <dl>
+            <div><dt>Ultraviolet</dt><dd>UV&#8209;B, 240&ndash;320 nm</dd></div>
+            <div><dt>Ambient light</dt><dd>Luminosity 0% to 100%</dd></div>
+          </dl>
+        </details>
+
+        <details class="spec-group">
+          <summary><h3>On screen</h3><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <dl>
+            <div><dt>History</dt><dd>24 h per reading</dd></div>
+            <div><dt>Layouts</dt><dd>User configurable</dd></div>
+            <div><dt>Units</dt><dd>Set per reading</dd></div>
+          </dl>
+        </details>
+      </div>
+    </div>
+
+    <!--<p class="spec-note">Sensor modules sourced from Switzerland, Germany and Korea. Every one of them is a replaceable part.</p> -->
+  </div>
+</section>
+
+<!-- ========================= TESTIMONIALS ========================= -->
+<section class="section" aria-labelledby="quotes-h">
+  <div class="wrap">
+    <div class="carousel-head carousel-head--center reveal">
+      <div class="section-head" style="margin-bottom:0">
+        <h2 id="quotes-h">Tested in real rooms.</h2>
+        <p class="lede">Founders, operators and educators who put a Canary on their desk before we had a website to put it on.</p>
+      </div>
+      <div class="carousel-nav">
+        <button type="button" data-rail-prev="quoteRail" aria-controls="quoteRail"><span class="visually-hidden">Previous quote</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <button type="button" data-rail-next="quoteRail" aria-controls="quoteRail"><span class="visually-hidden">Next quote</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="rail" id="quoteRail" data-rail tabindex="0" role="region" aria-label="What early users say: scrollable quotes">
+	  <figure class="why-card quote reveal d1">
+        <svg class="quote-mark" viewBox="0 0 24 18" fill="currentColor" aria-hidden="true"><path d="M0 18V9.6C0 4.3 3 .9 8 0l1 2.7C6 3.6 4.4 5.3 4.3 7.6H8V18H0zm14 0V9.6c0-5.3 3-8.7 8-9.6l1 2.7c-3 .9-4.6 2.6-4.7 4.9H22V18h-8z"/></svg>
+        <blockquote>We do a lot of in-person wellness workshops, and people notice it sitting on the table. It's a nice subtle way to show guests we're paying attention to the environment.</blockquote>
+        <figcaption><cite>Triana Shaw</cite><span>CEO, The Atlas Connective</span></figcaption>
+      </figure>
+	  
+	  <figure class="why-card quote reveal d1">
+        <svg class="quote-mark" viewBox="0 0 24 18" fill="currentColor" aria-hidden="true"><path d="M0 18V9.6C0 4.3 3 .9 8 0l1 2.7C6 3.6 4.4 5.3 4.3 7.6H8V18H0zm14 0V9.6c0-5.3 3-8.7 8-9.6l1 2.7c-3 .9-4.6 2.6-4.7 4.9H22V18h-8z"/></svg>
+        <blockquote>I was pretty skeptical at first. But after seeing the real-time data during wildfire season, we bought an air purifier for the main office.</blockquote>
+        <figcaption><cite>Mikhail Pivovar</cite><span>CEO, Routey OS</span></figcaption>
+      </figure>
+	  
+      <figure class="why-card quote reveal">
+        <svg class="quote-mark" viewBox="0 0 24 18" fill="currentColor" aria-hidden="true"><path d="M0 18V9.6C0 4.3 3 .9 8 0l1 2.7C6 3.6 4.4 5.3 4.3 7.6H8V18H0zm14 0V9.6c0-5.3 3-8.7 8-9.6l1 2.7c-3 .9-4.6 2.6-4.7 4.9H22V18h-8z"/></svg>
+        <blockquote>Pack twenty people into a workshop room for four hours and the air gets heavy fast. The graph on screen makes it obvious when we need to pause for a stretch break and open the windows.</blockquote>
+        <figcaption><cite>Nicole Cummings-Morgan</cite><span>Founder, W1derus Educational Workshops Inc.</span></figcaption>
+      </figure>	  
+	  
+      <figure class="why-card quote reveal d2">
+        <svg class="quote-mark" viewBox="0 0 24 18" fill="currentColor" aria-hidden="true"><path d="M0 18V9.6C0 4.3 3 .9 8 0l1 2.7C6 3.6 4.4 5.3 4.3 7.6H8V18H0zm14 0V9.6c0-5.3 3-8.7 8-9.6l1 2.7c-3 .9-4.6 2.6-4.7 4.9H22V18h-8z"/></svg>
+        <blockquote>My lab gets pretty warm with all the hardware and server gear running constantly. Canary sits right next to my dev rig so I can track temperature spikes and it even showed me when a power supply was smoking.</blockquote>
+        <figcaption><cite>Reza Ghochkhani</cite><span>Founder, HADHOX</span></figcaption>
+      </figure>
+	  
+      <figure class="why-card quote reveal d2">
+        <svg class="quote-mark" viewBox="0 0 24 18" fill="currentColor" aria-hidden="true"><path d="M0 18V9.6C0 4.3 3 .9 8 0l1 2.7C6 3.6 4.4 5.3 4.3 7.6H8V18H0zm14 0V9.6c0-5.3 3-8.7 8-9.6l1 2.7c-3 .9-4.6 2.6-4.7 4.9H22V18h-8z"/></svg>
+        <blockquote>Developing global hardware partnerships requires endless travel and long boardroom hours; Canary keeps my immediate breathing space healthy wherever I land.</blockquote>
+        <figcaption><cite>Konstantin Benkovskiy</cite><span>CEO, BenKo</span></figcaption>
+      </figure>
+	  
+      <figure class="why-card quote reveal">
+        <svg class="quote-mark" viewBox="0 0 24 18" fill="currentColor" aria-hidden="true"><path d="M0 18V9.6C0 4.3 3 .9 8 0l1 2.7C6 3.6 4.4 5.3 4.3 7.6H8V18H0zm14 0V9.6c0-5.3 3-8.7 8-9.6l1 2.7c-3 .9-4.6 2.6-4.7 4.9H22V18h-8z"/></svg>
+        <blockquote>Canary is a game-changer for executive health, keeping my air clean and my focus sharp during long investment strategy sessions at the office.</blockquote>
+        <figcaption><cite>Avital Aronov</cite><span>Founder, Prime AI Growth Office</span></figcaption>
+      </figure>
+
+  </div>
+</section>
+
+<!-- ======================== ORGANIZATIONS ========================= -->
+<section class="section dark" id="organizations">
+  <div class="wrap">
+    <div class="split">
+      <div class="split-body reveal">
+        <p class="eyebrow eyebrow--dark">Canary for organizations</p>
+        <h2>One room, or two hundred.</h2>
+        <p class="lede lede--dark">Offices, schools and facilities run Canary as a self&#8209;hosted mesh: no cloud account, no per&#8209;device provisioning.</p>
+        <ul class="point-list">
+          <li>
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="2.2"/><circle cx="4" cy="6" r="1.8"/><circle cx="20" cy="6" r="1.8"/><circle cx="4" cy="18" r="1.8"/><circle cx="20" cy="18" r="1.8"/><path d="M5.4 7.1L10.3 10.7M18.6 7.1L13.7 10.7M5.4 16.9L10.3 13.3M18.6 16.9L13.7 13.3"/></svg>
+            <div><b>Mesh networking</b><p>Units relay for each other across floors and outbuildings where WiFi does not reach.</p></div>
+          </li>
+          <!-- <li>
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.6l7.5 3v6c0 4.6-3.1 8.4-7.5 9.8-4.4-1.4-7.5-5.2-7.5-9.8v-6z"/><path d="M9.3 12.2l1.9 1.9 3.6-3.9"/></svg>
+            <div><b>Privacy-first by architecture</b><p>Nothing leaves the building unless you route it there. Straightforward when the rooms are classrooms.</p></div>
+          </li> -->
+          <li>
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V8.6l8-5 8 5V20"/><path d="M4 20h16"/><path d="M9.5 20v-5h5v5"/><path d="M8 11h1.5M14.5 11H16"/></svg>
+            <div><b>HVAC that answers to evidence</b><p>Find the meeting room that never clears, the wing the air handler forgot, the hour your filters stop coping.</p></div>
+          </li>
+          <li>
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.6L1.9 18a2 2 0 0 0 1.7 3h16.8a2 2 0 0 0 1.7-3L13.7 3.6a2 2 0 0 0-3.4 0z"/><path d="M12 9.5v4.2M12 17.3h.01"/></svg>
+            <div><b>Campus-wide smoke alerting</b><p>When wildfire smoke reaches the property line, every unit knows, and so does whoever decides about outdoor break.</p></div>
+          </li>
+        </ul>
+        <p style="margin-top:var(--s-7)">
+          <a class="btn btn--ghost" href="business.html">
+            Talk to us about a deployment
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </p>
+      </div>
+      <div class="split-media reveal d1">
+        <picture>
+          <source type="image/webp" sizes="(min-width:900px) 46vw, 92vw" srcset="assets/img/org-classroom-640.webp 640w, assets/img/org-classroom-1000.webp 1000w, assets/img/org-classroom-1536.webp 1536w">
+          <img src="assets/img/org-classroom-1000.jpg" width="1536" height="1024" loading="lazy" decoding="async"
+               sizes="(min-width:900px) 46vw, 92vw"
+               srcset="assets/img/org-classroom-640.jpg 640w, assets/img/org-classroom-1000.jpg 1000w, assets/img/org-classroom-1536.jpg 1536w"
+               alt="A Canary standing on a classroom desk beside an apple, a stack of books and a pot of pencils. The blackboard behind it is chalked with vape detection, HVAC optimization and low CO2 for learning, and the screen reads Coming soon.">
+        </picture>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== PRICING ============================ -->
+<section class="section band" id="pricing">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>First units, first price.</h2>
+      <p class="lede">The founding batch is small and hand-checked. Waitlist members get early-bird pricing and the first shipping slots.</p>
+    </div>
+
+    <div class="price-card reveal">
+      <div class="price-top">
+        <strong>Canary &ndash; founding batch</strong>
+        <!-- EDIT-ME DATE -->
+        <span class="price-badge">Ships Fall 2026</span>
+      </div>
+      <div class="price-body">
+        <!-- ==================================================== -->
+        <!-- EDIT-ME PRICE: replace $XXX (early bird) and $YYY    -->
+        <!-- (regular). Update the saving badge to match, or       -->
+        <!-- delete the .price-was and .price-save spans if you    -->
+        <!-- would rather not show a strikethrough.                -->
+        <!-- ==================================================== -->
+        <div class="price-figure">
+          <span class="price-now mono">$249</span>
+          <span class="price-was mono">$299</span>
+          <span class="price-save">Waitlist price</span>
+        </div>
+
+        <ul class="price-list">
+          <li>
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11"/></svg>
+            <span>Canary monitor with soft-touch enclosure, USB&#8209;C cable, USB&#8209;C charger and microSD card</span>
+          </li>
+          <li>
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11"/></svg>
+            <span>All seven sensors: nothing behind a paywall or a firmware tier</span>
+          </li>
+          <li>
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11"/></svg>
+            <span>Replacement parts and instructions available from day one</span>
+          </li>
+          <li>
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11"/></svg>
+            <span>Self-hosted server software or an account on our website, free and unlimited</span>
+          </li>
+        </ul>
+
+        <a class="btn" href="#waitlist" data-source="index-pricing" style="width:100%">Join the waitlist for this price</a>
+        <p class="price-fine">Joining the waitlist does not charge you anything and does not commit you to buying.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================== WAITLIST ============================ -->
+<section class="section dark waitlist" id="waitlist">
+  <div class="wrap">
+    <div class="reveal">
+      <h2>Be first in line.</h2>
+      <p class="lede lede--dark">Leave your email and we will tell you once: when the founding batch opens, with your early-bird price attached. That is the entire mailing list.</p>
+    </div>
+
+    <form class="hero-form reveal d1" action="https://formspree.io/f/mqpznawg" method="POST" data-waitlist novalidate>
+      <!-- EDIT-ME FORMSPREE ID (above) -->
+      <label class="visually-hidden" for="email-main">Email address</label>
+      <div class="field-row">
+        <input id="email-main" type="email" name="email" required autocomplete="email"
+               inputmode="email" placeholder="you@example.com" aria-describedby="note-main">
+        <button class="btn" type="submit">
+          <span data-label>Join the waitlist</span>
+        </button>
+      </div>
+      <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="_subject" value="Canary waitlist signup">
+      <input type="hidden" name="source" value="index-scroll">
+      <p class="form-note" id="note-main">One email at launch. No newsletter, no partners, no resale. Unsubscribe is a link in the same email.</p>
+      <p class="form-status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<!-- ============================= FAQ ============================== -->
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Questions, answered.</h2>
+    </div>
+
+    <div class="faq disclosure reveal">
+      <details>
+        <summary><span>What does Canary measure?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="faq-a"><p>Fine particulate matter (PM<sub>2.5</sub>, and coarser and finer fractions), carbon dioxide, UV&#8209;B, temperature, relative humidity and ambient pressure. Particulates are the tiny airborne particles produced by wildfire smoke, traffic, wood burning and cooking, and they are one of the most important indicators of air quality.</p></div>
+      </details>
+
+      <details>
+        <summary><span>Can I change the units?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="faq-a"><p>Yes, and each reading has its own setting, so you can mix them: temperature in &deg;F alongside pressure in hPa, for instance. Temperature shows in &deg;C&nbsp;or&nbsp;&deg;F, pressure in hPa, kPa, inHg or&nbsp;mmHg, and particles either by mass&nbsp;(&micro;g/m&sup3;) or as a particle count&nbsp;(#/cm&sup3;).</p></div>
+      </details>
+
+      <details>
+        <summary><span>Why does PM<sub>2.5</sub> matter?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="faq-a"><p>PM<sub>2.5</sub> particles are roughly 30 times smaller than the width of a human hair. Because they are so small they can be inhaled deep into the lungs, and may affect everyone, especially children, older adults, and people with asthma or other respiratory conditions.</p></div>
+      </details>
+
+      <details>
+        <summary><span>Can Canary detect wildfire smoke?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="faq-a"><p>Yes. Wildfire smoke is largely made up of fine particulate matter, which is exactly what Canary is built to monitor. During wildfire season it helps you understand how much smoke is making its way indoors, so you can act when it does.</p></div>
+      </details>
+
+      <details>
+        <summary><span>Why monitor indoor air when I can check the forecast?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="faq-a"><p>Most people spend around 90% of their time indoors, and outdoor air quality reports cannot tell you what is happening inside your home. Indoor air varies enormously with ventilation, filtration, cooking, candles, fireplaces, and whether smoke is getting into the building.</p></div>
+      </details>
+
+      <details>
+        <summary><span>Is it suitable for a nursery?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="faq-a"><p>Yes, and it is one of the most common places people put one. There is no backlight and no sound by default, so it will not disturb a sleeping child while it tracks the room overnight.</p></div>
+      </details>
+
+      <details>
+        <summary><span>Does Canary clean the air?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="faq-a"><p>No. Canary measures air quality; it does not filter it. Think of it as the information that tells you when to run the purifier, open a window, or change an HVAC filter. And, just as usefully, when you do not need to.</p></div>
+      </details>
+
+      <details>
+        <summary><span>How accurate is it?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="faq-a"><p>Canary uses high-quality sensor modules built for continuous monitoring. No consumer monitor is intended to replace laboratory equipment, and we will not claim otherwise. But Canary gives reliable, consistent measurements that let you track how your air changes over time, which is what actually drives decisions.</p></div>
+      </details>
+
+      <details>
+        <summary><span>Where should I put it?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="faq-a"><p>In the room where you spend the most time: a living room, bedroom or nursery. Avoid placing it right beside a window, a vent, the stove or a humidifier, since those will skew the readings locally rather than tell you about the room.</p></div>
+      </details>
+
+      <details>
+        <summary><span>Will cooking set it off?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="faq-a"><p>It will show it, and that is the point. Frying, grilling and high-heat cooking produce a lot of PM<sub>2.5</sub>. Most people are genuinely surprised to find that making dinner can briefly push indoor particle levels past what is outside during a pollution event.</p></div>
+      </details>
+
+      <details>
+        <summary><span>Is this only useful during wildfire season?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="faq-a"><p>Plenty of people wish to buy one because of smoke and then keep using it year-round. Indoor air shifts constantly with cooking, wood-burning stoves, seasonal allergens, renovations, and how tightly the house is shut against the weather.</p></div>
+      </details>
+
+      <details>
+        <summary><span>Do I need to be technical to use it?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="faq-a"><p>No. Out of the box you place it somewhere and read the screen. The mesh networking, self-hosted server and custom screen layouts are there if you want them, and entirely ignorable if you do not.</p></div>
+      </details>
+
+      <details>
+        <summary><span>What happens when I join the waitlist?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="faq-a"><p>We store your email address and use it once, to tell you the founding batch is open, with your early-bird price. No newsletter, no sharing with anyone else, and an unsubscribe link in the same email. Joining costs nothing and commits you to nothing.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <a class="brand" href="#top" style="justify-self:start; margin-left:-.35rem" aria-label="Canary, back to top">
+          <svg viewBox="135 23 125 93" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="overflow:visible; width:42px">
+            <path fill="none" stroke="var(--cream)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" d="m 185.28631,85.449901 c 0.53981,-4.739076 3.10759,-11.309465 7.85844,-15.242635 6.52824,-5.40464 15.77441,-6.387205 23.66324,-8.386515 5.00851,-1.26934 12.50459,-5.354226 14.99126,-6.562898 1.8823,1.420138 -2.72461,33.867042 -16.73187,39.590572 -6.01541,2.457965 -13.43565,1.040776 -19.38442,-0.435638 -1.12747,-0.279824 -6.55337,-2.503756 -6.47924,-0.710766 0.0398,0.962277 6.06003,2.400837 7.25956,2.685477 7.38681,1.642832 14.03814,1.572882 21.40304,-0.521801 15.0143,-4.27029 22.21028,-19.516716 25.59988,-33.672266 1.14869,-4.79712 1.27228,-10.151599 2.47816,-14.915109 0.73637,-2.90881 1.71572,-5.395932 3.85031,-7.529462 1.23336,-1.23275 2.79988,-2.538041 4.34476,-3.267113 3.14908,-1.486146 3.28012,-1.906641 0.51541,-2.474151 -3.83753,-0.787727 -4.79503,-0.498528 -7.12064,-1.667071 -6.36902,-3.2002 -11.1764,-6.954139 -18.65481,-6.422649 -9.06366,0.64416 -17.6416,7.649078 -24.25034,13.322308 -15.34967,13.17684 -28.83442,28.439963 -42.13003,43.637753 -6.74483,7.70981 -13.19973,15.280623 -19.60725,23.273943 -1.54631,1.929 -2.87688,3.55362 -4.58545,5.58254 -0.643,0.76355 -1.56438,2.43374 -0.64515,2.9956 1.24622,0.76173 14.54767,-8.94105 19.82505,-12.16023 6.22971,-3.86317 13.04786,-7.2563 19.94447,-9.76933 9.32262,-3.39703 18.68446,-5.380027 27.50726,-10.052607 6.56233,-3.47543 13.23832,-8.245034 17.65457,-14.495866"/>
+          </svg>
+          <span class="brand-word">Canary</span>
+        </a>
+        <p style="color:var(--muted-dark); font-size:.95rem; margin-top:var(--s-4); max-width:34ch">
+          A pocketable environmental monitor for people who would rather know.
+        </p>
+      </div>
+
+      <div>
+        <h3>Product</h3>
+        <ul>
+          <li><a href="#product">The device</a></li>
+          <li><a href="#sensors">Sensors</a></li>
+          <li><a href="#specs">Specifications</a></li>
+          <li><a href="#repair">Right to repair</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="science.html">The science</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="history.html">Development history</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>More</h3>
+        <ul>
+          <li><a href="business.html">For organizations</a></li>
+          <li><a href="#waitlist" data-source="index-footer">Join the waitlist</a></li>
+          <li><a href="https://goaqs.org" rel="noopener">goaqs.org</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; <span id="year">2026</span> BURD Inc. All rights reserved.</span>
+      <div class="social">
+        <a href="https://x.com/canary_earth" rel="noopener" aria-label="Canary on X">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 3h3.1l-6.8 7.7L21.8 21h-6.2l-4.9-6.3L5.1 21H2l7.2-8.2L2.4 3h6.4l4.4 5.8L17.5 3zm-1.1 16.1h1.7L7.7 4.8H5.9l10.5 14.3z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/canary.earth/" rel="noopener" aria-label="Canary on Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js" defer></script>
+</body>
+</html>

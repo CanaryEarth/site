@@ -1,0 +1,146 @@
+/* ==================================================================
+   CANARY - alternate palettes (TEST HARNESS, not shipped)
+
+   site.js injects this file only when the theme switcher is active
+   (localhost, a private LAN address, file://, or ?themes).
+   Production never requests it.
+
+   Every palette keeps the structure of the live one rather than just
+   recolouring it: a low-chroma ground that carries the primary
+   accent's hue, a near-black ink with a slight cast, one high-chroma
+   accent used as FILL with ink text on top, a deeper version of that
+   accent for the button hover, and a counterweight roughly 120-140
+   degrees away so the page is not monochrome.
+
+   The live palette is botanical and lives in site.css. Every palette
+   here clears the WCAG floor on every role pair; the table at the foot
+   of this file shows where each one sits against the live values.
+   ================================================================== */
+
+/* --- solar: the original branding.txt palette ---------------------
+   Live until botanical replaced it. A warm analogous pair, gold and
+   ember 26 degrees apart, with sage as the cool counterweight, on a
+   cream that is a desaturated gold. Kept so the two can still be
+   compared on the real page. */
+:root[data-palette="solar"]{
+  --cream:      #F4F1EA;
+  --cream-2:    #EDE8DE;
+  --paper:      #FBFAF6;
+  --ink:        #1E2022;
+  --ink-2:      #2A2D30;
+  --muted:      #5C6461;
+  --muted-dark: #A8B0AC;
+  --gold:       #E8A838;
+  --gold-deep:  #C98A1E;
+  --sage:       #4A6B5B;
+  --sage-lit:   #95B8A5;
+  --ember:      #D25A3C;
+  --ember-deep: #B8482A;
+  --line:       #D2CCBE;
+  --line-dark:  #3A3E41;
+}
+
+/* --- cyanotype: the same structure rotated to the cool half ------
+   Gold's seat goes to a sky blue light enough to keep ink on it, and
+   sage's counterweight seat goes to rust, which is the complement of
+   the new ground rather than of the old one. Blueprint, not brand. */
+:root[data-palette="cyanotype"]{
+  --cream:      #EEF1F4;
+  --cream-2:    #E3E8ED;
+  --paper:      #F8FAFC;
+  --ink:        #1A1F26;
+  --ink-2:      #262C34;
+  --muted:      #586169;
+  --muted-dark: #A6AEB7;
+  --gold:       #7CC6E8;
+  --gold-deep:  #4FA8D2;
+  --sage:       #8C4C2E;
+  --sage-lit:   #D9A183;
+  --ember:      #D25A3C;
+  --ember-deep: #B8482A;
+  --line:       #C6CFD8;
+  --line-dark:  #363D45;
+}
+
+/* --- graphite: chroma removed from everything but the alert -------
+   The ground is the e-paper white. One warning light on an otherwise
+   neutral instrument, which is the least template-looking of the set
+   and the closest to what the device itself looks like. */
+:root[data-palette="graphite"]{
+  --cream:      #F4F4F0;
+  --cream-2:    #E9E9E3;
+  --paper:      #FAFAF7;
+  --ink:        #17191A;
+  --ink-2:      #232628;
+  --muted:      #5B5F5D;
+  --muted-dark: #A9ADAB;
+  --gold:       #D8B877;
+  --gold-deep:  #C3A059;
+  --sage:       #586460;
+  --sage-lit:   #A6B2AE;
+  --ember:      #C2452A;
+  --ember-deep: #AE3D24;
+  --line:       #D5D5CE;
+  --line-dark:  #34383A;
+}
+
+/* --- ember: the warm accent promoted ------------------------------
+   Coral through amber, held off monochrome by a deep teal in the
+   counterweight seat. The highest-energy option and the one most
+   likely to fight the photography. */
+:root[data-palette="ember"]{
+  --cream:      #F6EFE9;
+  --cream-2:    #EFE5DC;
+  --paper:      #FCF8F4;
+  --ink:        #221C1A;
+  --ink-2:      #2E2724;
+  --muted:      #655A55;
+  --muted-dark: #B0A7A2;
+  --gold:       #F0A268;
+  --gold-deep:  #DE8748;
+  --sage:       #2F6660;
+  --sage-lit:   #8FBDB7;
+  --ember:      #D2492C;
+  --ember-deep: #B33A20;
+  --line:       #DCCFC3;
+  --line-dark:  #403833;
+}
+
+/* --- testing panel --------------------------------------------------
+   Every test control lives here, bottom-right at every width, so the
+   header being judged is exactly the one that ships. Deliberately
+   plain: it is scaffolding, and dressing it up would make it harder to
+   tell what belongs to the page. New controls stack underneath. */
+.test-tools{
+  position:fixed; right:10px; bottom:10px; z-index:90;
+  display:flex; flex-direction:column; gap:3px; padding:3px;
+  background:var(--paper); border:1px solid var(--line);
+  border-radius:var(--radius-control); box-shadow:var(--shadow-md);
+}
+.test-tools select{
+  font-family:var(--font-mono); font-size:.72rem;
+  color:var(--ink); background:var(--paper);
+  border:0; border-radius:var(--radius-control);
+  padding:.3rem .4rem; min-height:32px; cursor:pointer;
+  max-width:11rem;
+}
+.test-tools select:focus-visible{ outline:2px solid var(--ink); outline-offset:1px }
+
+/* ==================================================================
+   Contrast, every palette. "live" is botanical, read from site.css.
+   min is the WCAG floor each pair has to clear.
+
+   pair                       live  solar  cyano  graph  ember    min
+   ink on cream              14.50  14.49  14.61  16.00  14.76    7.0
+   ink on paper              15.59  15.65  15.83  16.87  15.91    7.0
+   muted on cream             5.80   5.40   5.56   5.88   5.86    4.5
+   ink on gold (button)       8.42   7.85   8.75   9.28   8.06    4.5
+   ink on gold-deep (hov)     6.35   5.55   6.20   7.13   6.14    4.5
+   ember-deep on cream        5.19   4.66   4.63   5.45   5.21    4.5
+   sage on cream              5.46   5.25   5.81   5.59   5.78    4.5
+   muted-dark on ink          7.34   7.37   7.38   7.77   7.12    4.5
+   sage-lit on ink            8.37   7.53   7.39   8.07   8.11    4.5
+
+   Generated by tools/check-palettes.py. Re-run it after any edit
+   here; the values above are not maintained by hand.
+   ================================================================== */

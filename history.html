@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Canary: development history</title>
+<meta name="description" content="Five years of Canary prototypes, from a CO2 sensor taped to a PC in 2019 and a toothpaste-box enclosure to the finished e-paper monitor. Dated build log with photographs.">
+<meta name="theme-color" content="#EFF2EC">
+<meta property="og:title" content="Canary: development history">
+<meta property="og:description" content="From half a toothpaste box in 2019 to a finished environmental monitor. Nine dated prototypes, photographed.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="assets/img/hist-05-1000.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script>document.documentElement.className += " js";</script>
+<script src="assets/site.js" defer></script>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+
+<div class="announce">
+  <a href="index.html?from=history-bar#waitlist">
+    <span class="announce-dot" aria-hidden="true"></span>
+    <span>Founding batch ships <em>Fall 2026</em>. Waitlist members get early-bird pricing</span>
+    <svg class="announce-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </a>
+</div>
+<header class="header">
+  <div class="wrap header-in">
+    <nav class="nav-left" aria-label="Primary">
+      <a class="nav-link" href="index.html#product">Product</a>
+      <a class="nav-link" href="index.html#sensors">Sensors</a>
+      <a class="nav-link" href="index.html#specs">Specs</a>
+      <a class="nav-link" href="business.html">Organizations</a>
+      <a class="nav-link" href="science.html">Science</a>
+      <a class="nav-link" href="index.html#faq">FAQ</a>
+      <a class="nav-link" href="history.html" aria-current="page">History</a>
+    </nav>
+
+    <button class="icon-btn menu-btn" id="menuOpen" aria-expanded="false" aria-controls="mobileMenu">
+      <span class="visually-hidden">Open menu</span>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+
+    <a class="brand" href="index.html#top" aria-label="Canary, home">
+      <svg viewBox="135 23 125 93" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="overflow:visible">
+        <path fill="none" stroke="var(--ink)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" d="m 185.28631,85.449901 c 0.53981,-4.739076 3.10759,-11.309465 7.85844,-15.242635 6.52824,-5.40464 15.77441,-6.387205 23.66324,-8.386515 5.00851,-1.26934 12.50459,-5.354226 14.99126,-6.562898 1.8823,1.420138 -2.72461,33.867042 -16.73187,39.590572 -6.01541,2.457965 -13.43565,1.040776 -19.38442,-0.435638 -1.12747,-0.279824 -6.55337,-2.503756 -6.47924,-0.710766 0.0398,0.962277 6.06003,2.400837 7.25956,2.685477 7.38681,1.642832 14.03814,1.572882 21.40304,-0.521801 15.0143,-4.27029 22.21028,-19.516716 25.59988,-33.672266 1.14869,-4.79712 1.27228,-10.151599 2.47816,-14.915109 0.73637,-2.90881 1.71572,-5.395932 3.85031,-7.529462 1.23336,-1.23275 2.79988,-2.538041 4.34476,-3.267113 3.14908,-1.486146 3.28012,-1.906641 0.51541,-2.474151 -3.83753,-0.787727 -4.79503,-0.498528 -7.12064,-1.667071 -6.36902,-3.2002 -11.1764,-6.954139 -18.65481,-6.422649 -9.06366,0.64416 -17.6416,7.649078 -24.25034,13.322308 -15.34967,13.17684 -28.83442,28.439963 -42.13003,43.637753 -6.74483,7.70981 -13.19973,15.280623 -19.60725,23.273943 -1.54631,1.929 -2.87688,3.55362 -4.58545,5.58254 -0.643,0.76355 -1.56438,2.43374 -0.64515,2.9956 1.24622,0.76173 14.54767,-8.94105 19.82505,-12.16023 6.22971,-3.86317 13.04786,-7.2563 19.94447,-9.76933 9.32262,-3.39703 18.68446,-5.380027 27.50726,-10.052607 6.56233,-3.47543 13.23832,-8.245034 17.65457,-14.495866"/>
+      </svg>
+      <span class="brand-word">Canary</span>
+    </a>
+
+    <div class="nav-right">
+      <a class="btn nav-cta" href="index.html?from=history-header#waitlist"><span>Join<span class="nav-cta-more"> the waitlist</span></span></a>
+    </div>
+  </div>
+</header>
+
+<div class="menu" id="mobileMenu" data-open="false" role="dialog" aria-modal="true" aria-label="Site menu">
+  <div class="menu-head">
+    <span class="brand-word">Canary</span>
+    <button class="icon-btn" id="menuClose">
+      <span class="visually-hidden">Close menu</span>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <a href="index.html#product">Product</a>
+  <a href="index.html#sensors">Sensors</a>
+  <a href="index.html#specs">Specs</a>
+  <a href="index.html#repair">Repair</a>
+  <a href="business.html">Organizations</a>
+  <a href="science.html">Science</a>
+  <a href="index.html#faq">FAQ</a>
+  <a href="history.html" aria-current="page">History</a>
+  <a class="btn" href="index.html?from=history-menu#waitlist">Join the waitlist</a>
+</div>
+
+<main id="main">
+
+<section class="hero wrap" id="top" style="padding-bottom:0">
+  <h1>It started in half a<br><span class="stroke-gold">toothpaste box.</span></h1>
+  <p class="lede">Canary was not designed in one go. It was nine prototypes over five years, each one
+    answering a question the last one raised. Here they are, in order, with the dates they were built.</p>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <ol class="tl">
+      <li class="tl-item">
+        <div class="tl-media">
+          <picture>
+            <source type="image/webp" sizes="(min-width:900px) 46vw, 92vw" srcset="assets/img/hist-01-480.webp 480w, assets/img/hist-01-700.webp 700w, assets/img/hist-01-1000.webp 1000w">
+            <img src="assets/img/hist-01-700.jpg" width="1200" height="800" loading="lazy"
+                 decoding="async" sizes="(min-width:900px) 46vw, 92vw" srcset="assets/img/hist-01-480.jpg 480w, assets/img/hist-01-700.jpg 700w, assets/img/hist-01-1000.jpg 1000w" alt="A bare e-paper module and CO2 sensor wired to a breadboard on a desk in front of a stack of books, showing 647 ppm.">
+          </picture>
+        </div>
+        <div class="tl-body">
+          <p class="tl-date">2019-FEB-20</p>
+          <h2>J&rsquo;adore</h2>
+          <p>An MHZ19-B, a sensor designed to monitor CO<sub>2</sub> in hospital operating theatres, connected to my PC over serial. Data logged with PowerShell. A screen came later.</p>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-media">
+          <picture>
+            <source type="image/webp" sizes="(min-width:900px) 46vw, 92vw" srcset="assets/img/hist-02-480.webp 480w, assets/img/hist-02-700.webp 700w, assets/img/hist-02-1000.webp 1000w">
+            <img src="assets/img/hist-02-700.jpg" width="1200" height="800" loading="lazy"
+                 decoding="async" sizes="(min-width:900px) 46vw, 92vw" srcset="assets/img/hist-02-480.jpg 480w, assets/img/hist-02-700.jpg 700w, assets/img/hist-02-1000.jpg 1000w" alt="The prototype housed in half a cardboard toothpaste box, with a rectangular window cut out for the display.">
+          </picture>
+        </div>
+        <div class="tl-body">
+          <p class="tl-date">2019-MAR-07</p>
+          <h2>Fresh</h2>
+          <p>Added an ambient pressure sensor and logging to a microSD card. Everything ran from USB at 5V, housed inside half a toothpaste box.</p>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-media">
+          <picture>
+            <source type="image/webp" sizes="(min-width:900px) 46vw, 92vw" srcset="assets/img/hist-03-480.webp 480w, assets/img/hist-03-700.webp 700w, assets/img/hist-03-1000.webp 1000w">
+            <img src="assets/img/hist-03-700.jpg" width="1200" height="800" loading="lazy"
+                 decoding="async" sizes="(min-width:900px) 46vw, 92vw" srcset="assets/img/hist-03-480.jpg 480w, assets/img/hist-03-700.jpg 700w, assets/img/hist-03-1000.jpg 1000w" alt="The prototype rebuilt inside an Italian soap box, held together with screws, with a red warning LED lit on top.">
+          </picture>
+        </div>
+        <div class="tl-body">
+          <p class="tl-date">2019-JUN-02</p>
+          <h2>Nutty</h2>
+          <p>Added a PMS5003 particulate sensor with a red LED to warn above 10&nbsp;PM<sub>2.5</sub>. Now running from a rechargeable LiPo, so it could leave the desk.</p>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-media">
+          <picture>
+            <source type="image/webp" sizes="(min-width:900px) 46vw, 92vw" srcset="assets/img/hist-04-480.webp 480w, assets/img/hist-04-700.webp 700w, assets/img/hist-04-1000.webp 1000w">
+            <img src="assets/img/hist-04-700.jpg" width="1200" height="800" loading="lazy"
+                 decoding="async" sizes="(min-width:900px) 46vw, 92vw" srcset="assets/img/hist-04-480.jpg 480w, assets/img/hist-04-700.jpg 700w, assets/img/hist-04-1000.jpg 1000w" alt="A custom circuit board silkscreened with a line portrait of its maker, Constantin Bucataru, wearing a face mask, above the words Wellness Ninja. It rests against two white resin enclosures.">
+          </picture>
+        </div>
+        <div class="tl-body">
+          <p class="tl-date">2020-JUL-06</p>
+          <h2>Wellness Ninja</h2>
+          <p>A maximum miniaturisation test, enclosed in a custom resin case. Added a bright RGB LED, a capacitive touch button and an ambient luminosity sensor.</p>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-media">
+          <picture>
+            <source type="image/webp" sizes="(min-width:900px) 46vw, 92vw" srcset="assets/img/hist-05-480.webp 480w, assets/img/hist-05-700.webp 700w, assets/img/hist-05-1000.webp 1000w">
+            <img src="assets/img/hist-05-700.jpg" width="1200" height="800" loading="lazy"
+                 decoding="async" sizes="(min-width:900px) 46vw, 92vw" srcset="assets/img/hist-05-480.jpg 480w, assets/img/hist-05-700.jpg 700w, assets/img/hist-05-1000.jpg 1000w" alt="A white resin unit on a desk of schematics at night, its particulate trace climbing to 39.4 PM10 under an orange smoke-lit sky.">
+          </picture>
+        </div>
+        <div class="tl-body">
+          <p class="tl-date">2020-NOV-07</p>
+          <h2>Wildfires</h2>
+          <p>I realised what it could be. Recording a full day of smoke drifting over Toronto showed a phenomenon completely unlike barbecues and cigarettes: it arrives slowly, stays for hours, and does not clear when you close a window.</p>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-media">
+          <picture>
+            <source type="image/webp" sizes="(min-width:900px) 46vw, 92vw" srcset="assets/img/hist-06-480.webp 480w, assets/img/hist-06-700.webp 700w, assets/img/hist-06-1000.webp 1000w">
+            <img src="assets/img/hist-06-700.jpg" width="1200" height="800" loading="lazy"
+                 decoding="async" sizes="(min-width:900px) 46vw, 92vw" srcset="assets/img/hist-06-480.jpg 480w, assets/img/hist-06-700.jpg 700w, assets/img/hist-06-1000.jpg 1000w" alt="A concept render of a white PC case painted with a blue dragon and butterflies, with an e-paper air quality display mounted on the front.">
+          </picture>
+        </div>
+        <div class="tl-body">
+          <p class="tl-date">2022-JAN-30</p>
+          <h2>Blue Dragon</h2>
+          <p>I proposed a personal wellness companion built directly into a PC. Intel&reg; liked the idea enough to send the materials and the funding to build it, and it went on to win their PC Mod Level-Up Challenge.</p>
+          <a class="tl-link" href="https://dragon.canary.earth" target="_blank" rel="noopener">See the winning entry <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-media">
+          <picture>
+            <source type="image/webp" sizes="(min-width:900px) 46vw, 92vw" srcset="assets/img/hist-07-480.webp 480w, assets/img/hist-07-700.webp 700w, assets/img/hist-07-1000.webp 1000w">
+            <img src="assets/img/hist-07-700.jpg" width="1200" height="800" loading="lazy"
+                 decoding="async" sizes="(min-width:900px) 46vw, 92vw" srcset="assets/img/hist-07-480.jpg 480w, assets/img/hist-07-700.jpg 700w, assets/img/hist-07-1000.jpg 1000w" alt="A sensor build hidden inside a painted toadstool ornament on a windowsill, its screen listing readings from several sensors at once.">
+          </picture>
+        </div>
+        <div class="tl-body">
+          <p class="tl-date">2022-SEP-26</p>
+          <h2>Cyber Gnome</h2>
+          <p>To stress test new sensors and gauge public reaction, I turned it into an open science project and entered a contest, winning a publication in the organiser&rsquo;s magazine.</p>
+		  <a class="tl-link" href="https://www.hackster.io/constantinbucataru/cyber-gnome-cd4ad0" target="_blank" rel="noopener">See the build guide <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-media">
+          <picture>
+            <source type="image/webp" sizes="(min-width:900px) 46vw, 92vw" srcset="assets/img/hist-08-480.webp 480w, assets/img/hist-08-700.webp 700w, assets/img/hist-08-1000.webp 1000w">
+            <img src="assets/img/hist-08-700.jpg" width="1200" height="800" loading="lazy"
+                 decoding="async" sizes="(min-width:900px) 46vw, 92vw" srcset="assets/img/hist-08-480.jpg 480w, assets/img/hist-08-700.jpg 700w, assets/img/hist-08-1000.jpg 1000w" alt="A yellow-cased unit held up against summer trees, showing 117.4 PM10 after a steep climb.">
+          </picture>
+        </div>
+        <div class="tl-body">
+          <p class="tl-date">2023-JUN-07</p>
+          <h2>Toronto&rsquo;s Burning</h2>
+          <p>I recorded very elevated particle levels from my home in Willowdale and warned anyone who would listen. The local news was slow to advise against jogging; the device was not.</p>
+		  <a class="tl-link" href="https://www.blogto.com/city/2025/06/toronto-wildfire-smoke/" target="_blank" rel="noopener">And again in 2025 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-media">
+          <picture>
+            <source type="image/webp" sizes="(min-width:900px) 46vw, 92vw" srcset="assets/img/hist-09-480.webp 480w, assets/img/hist-09-700.webp 700w, assets/img/hist-09-1000.webp 1000w">
+            <img src="assets/img/hist-09-700.jpg" width="1200" height="800" loading="lazy"
+                 decoding="async" sizes="(min-width:900px) 46vw, 92vw" srcset="assets/img/hist-09-480.jpg 480w, assets/img/hist-09-700.jpg 700w, assets/img/hist-09-1000.jpg 1000w" alt="A yellow-cased unit held against a clear blue sky, showing ambient pressure peaking, with the Canary bird wearing eclipse glasses on screen.">
+          </picture>
+        </div>
+        <div class="tl-body">
+          <p class="tl-date">2024-APR-07</p>
+          <h2>Solar Eclipse</h2>
+          <p>On totality&rsquo;s eve I was hunting for rising pressure. The next day in Hamilton everyone was panicking about cloud cover, while my Canary showed the clouds would part in time.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="section dark waitlist" id="waitlist-cta">
+  <div class="wrap">
+    <h2>The tenth one is the one you can buy.</h2>
+    <p class="lede lede--dark">Everything above led to the unit shipping this year. Join the waitlist
+      and we will tell you once, when it opens.</p>
+    <p style="margin-top:var(--s-6)">
+      <a class="btn" href="index.html?from=history-cta#waitlist">Join the waitlist</a>
+    </p>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <a class="brand" href="index.html#top" style="justify-self:start; margin-left:-.35rem" aria-label="Canary, back to top">
+          <svg viewBox="135 23 125 93" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="overflow:visible; width:42px">
+            <path fill="none" stroke="var(--cream)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" d="m 185.28631,85.449901 c 0.53981,-4.739076 3.10759,-11.309465 7.85844,-15.242635 6.52824,-5.40464 15.77441,-6.387205 23.66324,-8.386515 5.00851,-1.26934 12.50459,-5.354226 14.99126,-6.562898 1.8823,1.420138 -2.72461,33.867042 -16.73187,39.590572 -6.01541,2.457965 -13.43565,1.040776 -19.38442,-0.435638 -1.12747,-0.279824 -6.55337,-2.503756 -6.47924,-0.710766 0.0398,0.962277 6.06003,2.400837 7.25956,2.685477 7.38681,1.642832 14.03814,1.572882 21.40304,-0.521801 15.0143,-4.27029 22.21028,-19.516716 25.59988,-33.672266 1.14869,-4.79712 1.27228,-10.151599 2.47816,-14.915109 0.73637,-2.90881 1.71572,-5.395932 3.85031,-7.529462 1.23336,-1.23275 2.79988,-2.538041 4.34476,-3.267113 3.14908,-1.486146 3.28012,-1.906641 0.51541,-2.474151 -3.83753,-0.787727 -4.79503,-0.498528 -7.12064,-1.667071 -6.36902,-3.2002 -11.1764,-6.954139 -18.65481,-6.422649 -9.06366,0.64416 -17.6416,7.649078 -24.25034,13.322308 -15.34967,13.17684 -28.83442,28.439963 -42.13003,43.637753 -6.74483,7.70981 -13.19973,15.280623 -19.60725,23.273943 -1.54631,1.929 -2.87688,3.55362 -4.58545,5.58254 -0.643,0.76355 -1.56438,2.43374 -0.64515,2.9956 1.24622,0.76173 14.54767,-8.94105 19.82505,-12.16023 6.22971,-3.86317 13.04786,-7.2563 19.94447,-9.76933 9.32262,-3.39703 18.68446,-5.380027 27.50726,-10.052607 6.56233,-3.47543 13.23832,-8.245034 17.65457,-14.495866"/>
+          </svg>
+          <span class="brand-word">Canary</span>
+        </a>
+        <p style="color:var(--muted-dark); font-size:.95rem; margin-top:var(--s-4); max-width:34ch">
+          A pocketable environmental monitor for people who would rather know.
+        </p>
+      </div>
+
+      <div>
+        <h3>Product</h3>
+        <ul>
+          <li><a href="index.html#product">The device</a></li>
+          <li><a href="index.html#sensors">Sensors</a></li>
+          <li><a href="index.html#specs">Specifications</a></li>
+          <li><a href="index.html#repair">Right to repair</a></li>
+          <li><a href="index.html#pricing">Pricing</a></li>
+          <li><a href="science.html">The science</a></li>
+          <li><a href="index.html#faq">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>More</h3>
+        <ul>
+          <li><a href="business.html">For organizations</a></li>
+          <li><a href="index.html?from=history-footer#waitlist">Join the waitlist</a></li>
+          <li><a href="https://goaqs.org" rel="noopener">goaqs.org</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; <span id="year">2026</span> BURD Inc. All rights reserved.</span>
+      <div class="social">
+        <a href="https://x.com/canary_earth" rel="noopener" aria-label="Canary on X">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 3h3.1l-6.8 7.7L21.8 21h-6.2l-4.9-6.3L5.1 21H2l7.2-8.2L2.4 3h6.4l4.4 5.8L17.5 3zm-1.1 16.1h1.7L7.7 4.8H5.9l10.5 14.3z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/canary.earth/" rel="noopener" aria-label="Canary on Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

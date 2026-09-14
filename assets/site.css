@@ -1,0 +1,1074 @@
+/* ==================================================================
+   CANARY - design tokens
+   Botanical palette: sage leads and gold is the single warm spark. It
+   replaced the branding.txt solar palette after both were tested on
+   desktop and phone, because the pale green ground makes the device's
+   e-paper screen stand out, the same reasoning behind the black case.
+   The WCAG-forced rules carried straight over; only the numbers moved:
+     - Gold #E0B44A on cream is 1.72:1 -> FILL ONLY, never text on
+       cream. Ink on gold is 8.42:1 (AAA), so gold buttons take ink.
+     - Sage #3C6B4E on ink is 2.66:1 -> dark surfaces use --sage-lit
+       (#96C4A4, 8.37:1) instead.
+     - Ember #B8543C on cream is 4.25:1 -> body-size alert text uses
+       --ember-deep (#A8462F, 5.19:1).
+   The solar values are kept in themes.css as an alternate.
+   ================================================================== */
+:root{
+  color-scheme: light;
+
+  --cream:      #EFF2EC;
+  --cream-2:    #E4EADE;
+  --paper:      #F8FAF5;
+  --ink:        #1B211D;
+  --ink-2:      #272E29;
+  --muted:      #556059;
+  --muted-dark: #A6B0AA;
+  --gold:       #E0B44A;
+  --gold-deep:  #C99A2C;
+  --sage:       #3C6B4E;
+  --sage-lit:   #96C4A4;
+  --ember:      #B8543C;
+  --ember-deep: #A8462F;
+  --line:       #CBD4C6;
+  --line-dark:  #363E39;
+
+  --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body:    "Source Serif 4", ui-serif, Georgia, "Times New Roman", serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --s-1:.25rem; --s-2:.5rem; --s-3:.75rem; --s-4:1rem;
+  --s-5:1.5rem; --s-6:2rem;  --s-7:3rem;   --s-8:4rem;
+  --s-9:6rem;   --s-10:8rem;
+
+  --wrap: 1180px;
+  /* Controls take their corners from the device. The enclosure edge is a
+     1.5mm radius on an 18.7mm-deep body, 8% of its thickness; 8% of a 48px
+     control is 4px. The object is a slab with crisp edges, not a capsule. */
+  --radius-control: 4px;
+  /* Surfaces round tighter than that ratio would imply. A card corner crops
+     the photograph inside it, and a dark card reads rounder than a light one
+     at the same value, so the photo cards set this and the panels follow. */
+  --radius-lg: 16px;
+  --ease: cubic-bezier(.22,.61,.36,1);
+  --dur: 240ms;
+
+  --shadow-sm: 0 1px 2px rgb(30 32 34 / .05), 0 2px 8px rgb(30 32 34 / .04);
+  --shadow-md: 0 2px 4px rgb(30 32 34 / .06), 0 12px 32px rgb(30 32 34 / .08);
+  --shadow-lg: 0 4px 8px rgb(30 32 34 / .07), 0 28px 60px rgb(30 32 34 / .12);
+
+  --z-nav:40; --z-bar:45; --z-menu:60; --z-skip:100;
+}
+
+*,*::before,*::after{ box-sizing:border-box }
+/* The UA gives <figure> `margin: 1em 40px`. Rail cards are figures, so
+   that 40px each side ate the sliver of the next card that tells a reader
+   the row scrolls. Every figure on the site is a rail card, so zero it. */
+figure{ margin:0 }
+html{ -webkit-text-size-adjust:100%; scroll-behavior:smooth; scroll-padding-top:5.5rem }
+body{
+  margin:0; background:var(--cream); color:var(--ink);
+  font-family:var(--font-body); font-size:1.0625rem; line-height:1.65;
+  font-optical-sizing:auto; -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img,svg,video{ max-width:100%; height:auto; display:block }
+button,input,textarea{ font:inherit; color:inherit }
+
+/* --- typography ------------------------------------------------- */
+h1,h2,h3,h4{
+  font-family:var(--font-display); font-weight:700;
+  line-height:1.08; letter-spacing:-.02em; margin:0; text-wrap:balance;
+}
+h1{ font-size:clamp(2.5rem,6.2vw,4.6rem); font-weight:800; letter-spacing:-.035em }
+h2{ font-size:clamp(2rem,4.4vw,3.35rem); letter-spacing:-.03em }
+h3{ font-size:clamp(1.2rem,1.9vw,1.5rem); line-height:1.22; letter-spacing:-.015em }
+p{ margin:0; text-wrap:pretty }
+a{ color:inherit }
+
+.eyebrow{
+  font-family:var(--font-mono); font-size:.75rem; font-weight:700;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--sage);
+  margin:0 0 var(--s-4);
+}
+.eyebrow--dark{ color:var(--sage-lit) }
+.lede{ font-size:clamp(1.075rem,1.55vw,1.3rem); line-height:1.6; color:var(--muted); max-width:60ch }
+.lede--dark{ color:var(--muted-dark) }
+.mono{ font-family:var(--font-mono); font-variant-numeric:tabular-nums }
+
+/* --- layout ----------------------------------------------------- */
+.wrap{ width:min(100% - 2.5rem, var(--wrap)); margin-inline:auto }
+@media (min-width:768px){ .wrap{ width:min(100% - 4rem, var(--wrap)) } }
+.section{ padding-block:clamp(var(--s-8),9vw,var(--s-10)) }
+.section--tight{ padding-block:clamp(var(--s-7),6vw,var(--s-9)) }
+.band{ background:var(--cream-2) }
+.dark{ background:var(--ink); color:var(--cream) }
+.dark h1,.dark h2,.dark h3{ color:var(--cream) }
+.section-head{ max-width:52rem; margin-inline:auto; text-align:center; margin-bottom:clamp(var(--s-7),5vw,var(--s-8)) }
+.section-head .lede{ margin-inline:auto; margin-top:var(--s-4) }
+
+/* --- a11y furniture --------------------------------------------- */
+.skip{
+  position:fixed; top:var(--s-3); left:var(--s-3); z-index:var(--z-skip);
+  transform:translateY(-160%); transition:transform 160ms var(--ease);
+  background:var(--ink); color:var(--cream); padding:.7rem 1.1rem;
+  border-radius:10px; font-family:var(--font-display); font-weight:600; text-decoration:none;
+}
+.skip:focus-visible{ transform:none }
+:focus-visible{ outline:3px solid var(--ink); outline-offset:3px; border-radius:4px }
+.dark :focus-visible,.hero-form :focus-visible{ outline-color:var(--gold) }
+/* Nothing on the site sets display on an element it also hides, so the
+   attribute can be made to win outright. Without this, a later display
+   rule on .hero-cta would silently bring the hidden form back. */
+[hidden]{ display:none !important }
+.visually-hidden{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+}
+
+/* --- buttons ---------------------------------------------------- */
+.btn{
+  --btn-bg:var(--gold); --btn-fg:var(--ink); --btn-bd:transparent;
+  display:inline-flex; align-items:center; justify-content:center; gap:.55rem;
+  min-height:48px; padding:.8rem 1.5rem;
+  background:var(--btn-bg); color:var(--btn-fg);
+  border:1.5px solid var(--btn-bd); border-radius:var(--radius-control);
+  font-family:var(--font-display); font-weight:700; font-size:.975rem;
+  letter-spacing:-.005em; text-decoration:none; cursor:pointer;
+  transition:background var(--dur) var(--ease), color var(--dur) var(--ease),
+             border-color var(--dur) var(--ease), transform var(--dur) var(--ease),
+             box-shadow var(--dur) var(--ease);
+  touch-action:manipulation;
+}
+.btn:hover{ background:var(--gold-deep); transform:translateY(-1px); box-shadow:var(--shadow-md) }
+.btn:active{ transform:translateY(0) scale(.985) }
+.btn[disabled]{ opacity:.5; cursor:not-allowed; transform:none; box-shadow:none }
+.btn--ghost{ --btn-bg:transparent; --btn-fg:var(--ink); --btn-bd:var(--ink) }
+.btn--ghost:hover{ background:var(--ink); color:var(--cream); border-color:var(--ink) }
+.dark .btn--ghost{ --btn-fg:var(--cream); --btn-bd:#6E7478 }
+.dark .btn--ghost:hover{ background:var(--cream); color:var(--ink); border-color:var(--cream) }
+.btn .ico{ width:1.05em; height:1.05em; flex:none }
+
+/* --- announcement bar ------------------------------------------- */
+.announce{
+  position:relative; z-index:var(--z-bar);
+  background:var(--ink); color:var(--cream);
+  font-family:var(--font-display); font-size:.82rem; font-weight:600;
+  letter-spacing:.005em; text-align:center;
+}
+.announce a{
+  display:flex; align-items:center; justify-content:center; gap:.5rem;
+  min-height:44px; padding:.4rem 1rem; text-decoration:none;
+}
+.announce a:hover .announce-arrow{ transform:translateX(3px) }
+.announce-dot{ width:7px; height:7px; border-radius:50%; background:var(--gold); flex:none }
+.announce-arrow{ transition:transform var(--dur) var(--ease) }
+.announce em{ color:var(--gold); font-style:normal; font-weight:700 }
+
+/* --- header ----------------------------------------------------- */
+.header{
+  position:sticky; top:0; z-index:var(--z-nav);
+  background:color-mix(in srgb, var(--cream) 86%, transparent);
+  backdrop-filter:saturate(160%) blur(14px);
+  -webkit-backdrop-filter:saturate(160%) blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.header-in{
+  display:grid; grid-template-columns:1fr auto 1fr; align-items:center;
+  gap:var(--s-4); min-height:68px;
+}
+.nav-left{ display:none; align-items:center; gap:var(--s-5) }
+.nav-right{ display:flex; align-items:center; justify-content:flex-end; gap:var(--s-3) }
+/* The header button is a gold tint on the frosted glass rather than a
+   solid gold block, so it reads as part of the header. It stays readable
+   over anything scrolling underneath: the header behind it is at least
+   86% cream, so thinning the gold only moves the fill lighter, away from
+   the ink label (10.0:1 over pure black, 13.2:1 over white, against 8.4:1
+   for solid gold). The gold-deep hairline holds the edge the pale fill no
+   longer does. Buttons in the page body stay solid. */
+.header .nav-cta{
+  --btn-bg:color-mix(in srgb, var(--gold) 20%, transparent);
+  --btn-bd:color-mix(in srgb, var(--gold-deep) 66%, transparent);
+}
+.header .nav-cta:hover{ background:color-mix(in srgb, var(--gold) 82%, transparent) }
+.nav-link{
+  font-family:var(--font-display); font-size:.9rem; font-weight:600;
+  text-decoration:none; color:var(--ink); position:relative;
+  display:inline-flex; align-items:center; min-height:44px;
+}
+.nav-link::after{
+  content:""; position:absolute; left:0; right:0; bottom:.7rem; height:2px;
+  background:var(--gold); transform:scaleX(0); transform-origin:left;
+  transition:transform var(--dur) var(--ease);
+}
+.nav-link:hover::after{ transform:scaleX(1) }
+.brand{
+  display:flex; align-items:center; gap:.6rem; text-decoration:none;
+  justify-self:center; padding:.35rem; min-height:44px;
+}
+.brand svg{ width:38px; height:auto; flex:none }
+.brand-word{
+  font-family:var(--font-display); font-weight:700; font-size:1.02rem;
+  letter-spacing:.34em; text-indent:.34em; text-transform:uppercase;
+}
+.icon-btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:44px; height:44px; border:0; background:transparent;
+  border-radius:10px; cursor:pointer; color:var(--ink);
+  transition:background var(--dur) var(--ease);
+}
+.icon-btn:hover{ background:color-mix(in srgb, var(--ink) 7%, transparent) }
+.menu-btn{ justify-self:start }
+/* Below 1024 the header keeps a compact "Join" so a phone reader has a
+   one-tap route to the waitlist on every screen. Without it the first
+   visible one was twelve screens down. The rest of the label stays in the
+   accessible name, so a screen reader still hears "Join the waitlist". */
+@media (max-width:1023px){
+  /* Every item in the header is 44px, so 68px was 24px of padding costing
+     10% of a small phone's screen at every scroll position. 56px is the
+     Material mobile top bar and keeps a full 44px tap target. The anchor
+     offset drops by the same 12px so jumps still land 19px below it. */
+  html{ scroll-padding-top:4.75rem }
+  .header-in{ min-height:56px }
+  .nav-cta{ min-height:44px; padding:.45rem .8rem; font-size:.9rem }
+  .nav-cta-more{
+    position:absolute; width:1px; height:1px; margin:-1px; padding:0;
+    overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+  }
+}
+/* At 320px the three header columns no longer fit: Join ran 18px past the
+   content edge. The side columns share whatever the logo leaves, so the
+   room comes from the logo's tracking and the gaps, not from shrinking the
+   button's 44px tap height. */
+@media (max-width:370px){
+  .header-in{ column-gap:var(--s-3) }
+  .brand svg{ width:32px }
+  .brand-word{ letter-spacing:.2em; text-indent:.2em }
+  .nav-cta{ padding-inline:.6rem }
+}
+@media (min-width:1024px){
+  .nav-left{ display:flex }
+  .menu-btn{ display:none }
+}
+
+/* --- mobile menu ------------------------------------------------ */
+.menu{
+  position:fixed; inset:0; z-index:var(--z-menu);
+  background:var(--cream); padding:var(--s-5);
+  display:flex; flex-direction:column; gap:var(--s-2);
+  /* The list is taller than a short phone or a landscape screen, and the
+     body is locked while the menu is open, so the menu scrolls on its own.
+     contain stops a swipe past the end from dragging the page behind it;
+     the extra bottom room lets the Join button clear the testing panel
+     and the phone's home bar. */
+  overflow-y:auto; overscroll-behavior:contain; -webkit-overflow-scrolling:touch;
+  padding-bottom:calc(var(--s-8) + env(safe-area-inset-bottom, 0px));
+  transform:translateX(-100%); visibility:hidden;
+  transition:transform 300ms var(--ease), visibility 0s linear 300ms;
+}
+.menu[data-open="true"]{ transform:none; visibility:visible; transition-delay:0s }
+.menu > *{ flex-shrink:0 }
+.menu-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--s-4) }
+.menu a{
+  font-family:var(--font-display); font-size:1.6rem; font-weight:700;
+  letter-spacing:-.02em; text-decoration:none; padding:.7rem 0;
+  border-bottom:1px solid var(--line);
+}
+.menu .btn{ margin-top:var(--s-5) }
+
+/* --- hero ------------------------------------------------------- */
+.hero{ padding-top:clamp(var(--s-7),6vw,var(--s-9)); text-align:center }
+.hero h1{ margin-bottom:var(--s-5) }
+.hero h1 .stroke-gold{
+  background-image:linear-gradient(transparent 62%, color-mix(in srgb, var(--gold) 55%, transparent) 62%);
+  background-repeat:no-repeat;
+}
+.hero .lede{ margin-inline:auto; margin-bottom:var(--s-6) }
+.hero-media{
+  margin-top:clamp(var(--s-7),6vw,var(--s-8));
+  width:100vw; margin-left:50%; transform:translateX(-50%);
+}
+.hero-media img{ width:100%; object-fit:cover; aspect-ratio:2.16/1 }
+@media (max-width:640px){ .hero-media img{ aspect-ratio:4/3; object-position:52% 50% } }
+@media (max-width:640px){
+  /* On a phone the first screen has to reach the product. Half the air
+     above the headline, a headline that never breaks past its own two
+     lines, and a photo that sits as close under the intro as the headline
+     sits under the header, together lift the photo from 571px to 377px
+     down a Galaxy S24+ screen, which puts all three devices on it. */
+  .hero{ padding-top:var(--s-5) }
+  /* The <br> already splits the headline in two, so it only gains lines
+     when one of them runs out of room. The longer, "Know what you are", is
+     8.71em wide at this weight and tracking, so dividing the content width
+     (100vw less the 2.5rem .wrap gutter) by 9.1 keeps each on one line with
+     about 4% to spare, and min() holds the usual 40px wherever that already
+     fits. Re-measure the 9.1 if the headline's wording changes. */
+  .hero--home h1{ font-size:min(2.5rem, calc((100vw - 2.5rem) / 9.1)) }
+  /* The photo sits the same 24px below the intro as the headline sits
+     below the header. Measured to the letters rather than the boxes, both
+     gaps then read as about 30px, because each block of text carries a few
+     pixels of its own above or below the glyphs. */
+  .hero--home .lede{ margin-bottom:0 }
+  .hero--home .hero-media{ margin-top:var(--s-5) }
+}
+
+/* --- inline email form ------------------------------------------ */
+.hero-form{ max-width:34rem; margin-inline:auto }
+/* The landing hero runs headline, photo, sensor strip, then the form. The
+   photo is the last thing in the hero so it sits flush against the strip,
+   which reads as one unit: the device, then what it measures. The form is a
+   section of its own below them, so a stranger meets the product before being
+   asked for anything. */
+.hero-cta{ padding-block:clamp(var(--s-6), 4.5vw, var(--s-8)); text-align:center }
+/* centring is for the note and status line; the field keeps its own start alignment */
+.field-row{ display:flex; flex-direction:column; gap:var(--s-3) }
+@media (min-width:560px){
+  .field-row{
+    flex-direction:row; background:var(--paper);
+    border:1.5px solid var(--line); border-radius:calc(var(--radius-control) + 5px); padding:5px;
+    box-shadow:var(--shadow-sm);
+    transition:border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  }
+  .field-row:focus-within{ border-color:var(--ink); box-shadow:var(--shadow-md) }
+  .field-row input{ border:0!important; background:transparent!important; box-shadow:none!important }
+  .field-row input:focus-visible{ outline-offset:-2px }
+}
+.field-row input{
+  flex:1 1 auto; min-width:0; min-height:48px;
+  padding:.8rem 1.1rem; border:1.5px solid var(--line); border-radius:var(--radius-control);
+  background:var(--paper); color:var(--ink);
+  font-family:var(--font-display); font-size:1rem;
+  transition:border-color var(--dur) var(--ease);
+}
+/* must not inherit --cream from the dark section */
+.dark .field-row input{ color:var(--ink) }
+.field-row input::placeholder{ color:var(--muted); opacity:1 }
+.field-row input:-webkit-autofill{
+  -webkit-text-fill-color:var(--ink);
+  -webkit-box-shadow:0 0 0 40px var(--paper) inset;
+}
+.field-row input:focus{ border-color:var(--ink) }
+.form-note{
+  margin-top:var(--s-3); font-family:var(--font-display);
+  font-size:.82rem; color:var(--muted);
+}
+.dark .form-note{ color:var(--muted-dark) }
+.form-status{
+  margin-top:var(--s-4); font-family:var(--font-display); font-weight:600;
+  font-size:.95rem; display:flex; align-items:center; gap:.5rem;
+  justify-content:center; min-height:1.5rem;
+}
+.form-status:empty{ display:none }
+.form-status[data-tone="ok"]{ color:var(--sage) }
+.form-status[data-tone="err"]{ color:var(--ember-deep) }
+.dark .form-status[data-tone="ok"]{ color:var(--sage-lit) }
+.dark .form-status[data-tone="err"]{ color:#F0906F }
+.hp{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden }
+.spinner{
+  width:1em; height:1em; border:2px solid currentColor; border-right-color:transparent;
+  border-radius:50%; animation:spin .7s linear infinite; flex:none;
+}
+@keyframes spin{ to{ transform:rotate(360deg) } }
+
+/* --- spec strip ------------------------------------------------- */
+.specs{ border-block:1px solid var(--line); background:var(--paper) }
+/* One row at every width. When the seven items fit they sit centred and
+   still; when they would overflow, the row scrolls rather than wrapping and
+   the edges are masked so items fade out instead of being cut off. */
+.specs-viewport{ position:relative; overflow:hidden }
+.specs-viewport.is-marquee{
+  -webkit-mask-image:linear-gradient(to right, transparent, #000 3rem, #000 calc(100% - 3rem), transparent);
+          mask-image:linear-gradient(to right, transparent, #000 3rem, #000 calc(100% - 3rem), transparent);
+}
+.specs-track{
+  list-style:none; margin:0; padding:var(--s-3) 0;
+  display:flex; flex-wrap:nowrap; width:max-content;
+  gap:0;
+}
+/* the row fits: centre it and leave it alone */
+.specs-track.is-static{ width:100%; justify-content:center }
+.specs-track.is-running{
+  animation:marquee var(--marquee-duration, 40s) linear infinite;
+}
+/* a pointer over the strip, or keyboard focus inside it, holds it still */
+.specs-viewport:hover .specs-track.is-running,
+.specs-viewport:focus-within .specs-track.is-running{ animation-play-state:paused }
+@keyframes marquee{
+  from{ transform:translateX(0) }
+  to{ transform:translateX(calc(-1 * var(--marquee-distance, 0px))) }
+}
+.specs li{
+  text-align:center; flex:0 0 auto;
+  padding-inline:clamp(1.1rem, 3.4vw, 2.4rem);
+}
+/* a hairline between items so the row reads as a list, not a sentence */
+.specs li + li{ border-left:1px solid var(--line) }
+
+/* No animation: keep the fade as an overflow hint, scroll it by hand. */
+@media (prefers-reduced-motion: reduce){
+  .specs-viewport{ overflow-x:auto; scrollbar-width:thin }
+  .specs-track{ animation:none !important }
+}
+.specs b{
+  display:block; font-family:var(--font-mono); font-size:.9rem;
+  font-weight:700; letter-spacing:.02em; line-height:1.2;
+}
+.specs span{
+  display:block; font-family:var(--font-display); font-size:.7rem;
+  font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--muted); line-height:1.2; margin-top:.15rem;
+}
+
+/* --- generic media + text split --------------------------------- */
+.split{ display:grid; gap:clamp(var(--s-6),5vw,var(--s-8)); align-items:center }
+@media (min-width:900px){
+  .split{ grid-template-columns:1fr 1fr }
+  .split--flip .split-media{ order:-1 }
+}
+.split-media img{ border-radius:var(--radius-lg); box-shadow:var(--shadow-lg) }
+@media (min-width:900px){
+  .split-media--tall img{ aspect-ratio:4/3; object-fit:cover; object-position:50% 50% }
+}
+.split-body .lede{ margin-top:var(--s-4) }
+
+.point-list{ list-style:none; margin:var(--s-6) 0 0; padding:0; display:grid; gap:var(--s-4) }
+.point-list li{ display:flex; gap:var(--s-3); align-items:flex-start }
+.point-list .ico{ width:22px; height:22px; flex:none; margin-top:.28rem; color:var(--sage) }
+.dark .point-list .ico{ color:var(--sage-lit) }
+.point-list b{ font-family:var(--font-display); font-weight:700; display:block; letter-spacing:-.01em }
+.point-list p{ color:var(--muted); font-size:.98rem; margin-top:.15rem }
+.dark .point-list p{ color:var(--muted-dark) }
+
+/* --- sensor labels ---------------------------------------------- */
+.sensor-tag{
+  font-family:var(--font-mono); font-size:.7rem; font-weight:700;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--sage);
+  display:block; margin-bottom:var(--s-2);
+}
+
+
+/* --- carousel --------------------------------------------------- */
+.carousel-head{
+  display:flex; align-items:flex-end; justify-content:space-between;
+  gap:var(--s-5); margin-bottom:var(--s-6);
+}
+.carousel-head--center{ flex-direction:column; align-items:center; text-align:center }
+.carousel-head--center .section-head{ margin-bottom:var(--s-5) }
+.carousel-nav{ display:flex; gap:var(--s-2); flex:none }
+.carousel-nav button{
+  width:46px; height:46px; border-radius:50%; cursor:pointer;
+  border:1.5px solid var(--ink); background:transparent; color:var(--ink);
+  display:inline-flex; align-items:center; justify-content:center;
+  transition:background var(--dur) var(--ease), color var(--dur) var(--ease), opacity var(--dur) var(--ease);
+}
+.carousel-nav button:hover:not([disabled]){ background:var(--ink); color:var(--cream) }
+.carousel-nav button[disabled]{ opacity:.3; cursor:not-allowed }
+.rail{
+  display:flex; gap:var(--s-4); overflow-x:auto;
+  /* overflow-x:auto alone computes overflow-y to auto rather than visible, so
+     anything poking a fraction of a pixel past the box raises a vertical
+     scrollbar on what is meant to be a horizontal rail. Two things do that
+     here: .reveal parks cards at translateY(18px) until they are revealed and
+     a transform counts toward scrollable overflow (18px against 16px of
+     padding below leaves 2px), and the card heights are fractional (485.98px
+     in a 486px box), which rounds the same way. The lifestyle rail escaped it
+     only because its cards carry no .reveal. Pin the axis shut instead of
+     chasing the arithmetic: nothing in a rail should ever scroll upward. */
+  overflow-y:hidden;
+  scroll-snap-type:x proximity;
+  scroll-behavior:smooth; padding-bottom:var(--s-4);
+  align-items:stretch;
+  scrollbar-width:thin; scrollbar-color:var(--line) transparent;
+  --rail-pad:max(1.25rem, calc(50vw - var(--wrap)/2));
+  padding-inline:var(--rail-pad);
+  scroll-padding-inline:var(--rail-pad);
+}
+.rail::-webkit-scrollbar{ height:8px }
+.rail::-webkit-scrollbar-thumb{ background:var(--line); border-radius:99px }
+.card{
+  position:relative; flex:0 0 84%; max-width:530px; scroll-snap-align:start;
+  border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-md);
+  background:var(--ink);
+}
+@media (min-width:640px){ .card{ flex-basis:56% } }
+@media (min-width:1024px){ .card{ flex-basis:40% } }
+/* The sources are mostly 2.16:1, so the crop opens up as the viewport grows:
+   nearly square on a phone, properly landscape on a desktop. */
+.card img{ width:100%; aspect-ratio:1/1; object-fit:cover; object-position:50% 50% }
+@media (min-width:640px){  .card img{ aspect-ratio:4/3 } }
+@media (min-width:1024px){ .card img{ aspect-ratio:16/10 } }
+.card figcaption{
+  position:absolute; inset:auto 0 0 0; padding:var(--s-6) var(--s-5) var(--s-5);
+  background:linear-gradient(to top, rgb(18 20 21 / .92) 12%, rgb(18 20 21 / .72) 48%, rgb(18 20 21 / 0));
+  color:var(--cream);
+}
+.card h3{ font-size:1.28rem; color:var(--cream) }
+.card p{ color:#D6DAD7; font-size:.94rem; margin-top:.3rem; line-height:1.45 }
+
+/* --- device carousel --------------------------------------------
+   One static device PNG with a transparent screen window; the readouts
+   sit behind it and slide. Window rectangle comes from
+   tools/build-devices.py, which measures it from the artwork.       */
+.device-stage{ margin-inline:auto }
+.device{
+  position:relative; width:min(100%, 720px); margin-inline:auto;
+  aspect-ratio:948/578;
+  filter:drop-shadow(0 18px 30px rgb(30 32 34 / .26));
+}
+.device-window{
+  position:absolute;
+  left:11.9198%; top:7.2664%; width:84.3882%; height:83.0450%;
+  overflow:hidden; background:#fff; z-index:1;
+}
+.device-screen{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:fill; opacity:0; z-index:1;
+  transition:opacity 520ms var(--ease), transform 520ms var(--ease);
+  will-change:opacity, transform;
+}
+.device-screen[data-active]{ opacity:1; transform:none; z-index:2 }
+/* recessed panel edge */
+.device-well{
+  position:absolute; inset:0; z-index:3; pointer-events:none;
+  box-shadow:inset 0 1px 7px rgb(0 0 0 / .20);
+}
+.device-frame{
+  position:absolute; inset:0; width:100%; height:100%;
+  z-index:4; pointer-events:none;
+}
+/* no JS: show every readout as a plain grid instead of a dead device */
+.no-js-screens{ display:grid; gap:var(--s-4); grid-template-columns:repeat(auto-fit,minmax(260px,1fr)) }
+.js .no-js-screens{ display:none }
+.no-js-screens img{ border:1px solid var(--line); border-radius:8px }
+.js-only{ display:none }
+.js .js-only{ display:block }
+
+.rd-caps{ max-width:44rem; margin:clamp(var(--s-6),4vw,var(--s-7)) auto 0 }
+/* one grid cell holds every caption, so its height is the tallest of them
+   and the controls below never jump between readouts */
+.js .rd-caps{ display:grid }
+.rd-cap{ text-align:center }
+.js .rd-cap{
+  grid-area:1 / 1; opacity:0; visibility:hidden; transform:translateY(8px);
+  transition:opacity 420ms var(--ease), transform 420ms var(--ease),
+             visibility 0s linear 420ms;
+}
+.js .rd-cap[data-active]{
+  opacity:1; visibility:visible; transform:none; transition-delay:0s;
+}
+.rd-cap .sensor-tag{ margin-bottom:var(--s-2) }
+.rd-cap p{ color:var(--muted); margin-top:var(--s-3) }
+
+.rd-controls{ display:none }
+.js .rd-controls{
+  display:flex; align-items:center; justify-content:center; gap:var(--s-2);
+  margin-top:clamp(var(--s-5),3vw,var(--s-6)); flex-wrap:wrap;
+}
+@media (min-width:560px){ .js .rd-controls{ gap:var(--s-3) } }
+.rd-dots{ display:flex; gap:0; align-items:center }
+.rd-dots button{
+  width:30px; height:32px; padding:0; border:0; background:transparent;
+  cursor:pointer; display:inline-grid; place-items:center; border-radius:50%;
+}
+.rd-dots button::after{
+  content:""; width:8px; height:8px; border-radius:50%;
+  background:var(--line); border:1px solid color-mix(in srgb, var(--line), var(--ink) 19%);
+  transition:background var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.rd-dots button[aria-current="true"]::after{
+  background:var(--ink); border-color:var(--ink); transform:scale(1.35);
+}
+.rd-dots button:hover::after{ background:var(--muted) }
+.rd-count{
+  display:none; font-family:var(--font-mono); font-size:.82rem; font-weight:700;
+  font-variant-numeric:tabular-nums; color:var(--muted);
+  min-width:4.5ch; text-align:center;
+}
+/* eight dots plus three 46px buttons cannot fit a 335px row without going
+   under the 24px target minimum, so show a counter instead */
+@media (max-width:519px){
+  .rd-dots{ display:none }
+  .js .rd-count{ display:block }
+}
+
+/* --- annotated 3D model (index.html) ----------------------------- */
+/* Labels hold still off to the sides and a leader line tracks the point on
+   the device, rather than the label riding the point around the screen. The
+   anchors themselves draw nothing: model-viewer positions them, site.js reads
+   where they landed, and the SVG below draws the line. A label and its line
+   fade together the moment its part rotates behind the device, which
+   model-viewer signals by dropping the data-visible attribute. */
+.model-stage{
+  position:relative; max-width:62rem; margin:0 auto var(--s-7);
+  aspect-ratio:16/9;
+}
+/* The viewer fills the stage. It does not need to be inset to protect page
+   scrolling, because touch-action="pan-y" already lets a vertical swipe
+   through to the page; only a sideways drag turns the device. Filling the
+   stage is what lets the render be as large as it is.
+
+   The shadow is a CSS drop-shadow rather than model-viewer's own ground
+   shadow. model-viewer casts onto a horizontal plane at the foot of the
+   model, which is a floor the reader is looking across; drop-shadow works
+   off the rendered alpha silhouette and lands on the page itself, so the
+   page becomes the surface and the device reads as floating just above it.
+   Because it is computed from the silhouette, it follows the model through
+   every rotation for free. */
+.model-stage model-viewer{
+  position:absolute; inset:0; width:100%; height:100%;
+  background:transparent; --poster-color:transparent;
+  filter:drop-shadow(100px 80px 20px rgb(30 32 34 / .26));
+}
+@media (max-width:700px){
+  /* a phone is held below the eye, so the light reads as higher up */
+  .model-stage model-viewer{ filter:drop-shadow(60px 46px 17px rgb(30 32 34 / .28)) } */
+}
+@media (prefers-reduced-motion: reduce){
+  .model-stage model-viewer{ filter:none }
+}
+.mv-anchor{
+  width:0; height:0; padding:0; margin:0; border:0;
+  background:none; pointer-events:none;
+}
+.model-lines{
+  position:absolute; inset:0; width:100%; height:100%;
+  pointer-events:none; overflow:visible;
+}
+.model-lines line{
+  stroke:var(--line); stroke-width:1; opacity:0;
+  transition:opacity 260ms var(--ease);
+}
+.model-lines line.is-on{ opacity:1 }
+.model-labels{ list-style:none; margin:0; padding:0 }
+.model-label{
+  position:absolute; top:var(--ly); transform:translateY(-50%);
+  max-width:22%; font-family:var(--font-display); font-weight:600;
+  font-size:clamp(.82rem, 1.7vw, .98rem); line-height:1.3;
+  letter-spacing:.01em; color:var(--ink);
+  opacity:0; transition:opacity 260ms var(--ease); pointer-events:none;
+}
+.model-label.is-on{ opacity:1 }
+.model-label--left{  left:0;  text-align:right }
+.model-label--right{ right:0; text-align:left }
+/* Resting slots. These live here rather than inline on the elements so the
+   mobile block below can move them; an inline style would outrank it. */
+/* These two sit on the back of the device, so they only ever appear in a
+   rotated view where left and right are mirrored. Their sides are assigned
+   for that view, not for the front, which is what stops the leader lines
+   crossing over each other. */
+.model-label[data-for="hotspot-9"]{  --ly:17% }   /* UV-B,    right */
+.model-label[data-for="hotspot-1"]{  --ly:38% }   /* screen,  right */
+.model-label[data-for="hotspot-6"]{  --ly:60% }   /* inlet,   right */
+.model-label[data-for="hotspot-4"]{  --ly:78% }   /* reset,   right */
+.model-label[data-for="hotspot-10"]{ --ly:15% }   /* touch,   left  */
+.model-label[data-for="hotspot-8"]{  --ly:60% }   /* USB-C,   left  */
+.model-label[data-for="hotspot-3"]{  --ly:80% }   /* microSD, left  */
+/* nothing shows until the component has upgraded and the model has loaded */
+.model-stage:not(.is-ready) .model-label,
+.model-stage:not(.is-ready) .model-lines{ opacity:0 }
+/* Readers were missing that the model turns at all, so the hint is a good
+   deal louder than a caption: a pointer that mimes the gesture, over larger
+   text. It stays until the model is actually rotated, not merely tapped. */
+.model-hint{
+  position:absolute; left:50%; bottom:0; transform:translateX(-50%);
+  margin:0; display:flex; flex-direction:column; align-items:center;
+  gap:.45rem; font-family:var(--font-mono); font-size:.82rem;
+  letter-spacing:.13em; text-transform:uppercase; color:var(--muted);
+  opacity:0; transition:opacity 400ms var(--ease); pointer-events:none;
+}
+.model-hint-icon{ width:34px; height:34px; color:var(--ink); flex:none }
+/* the halo only shows while the finger is down, so it reads as contact
+   rather than as part of the hand */
+.model-hint-tap{ opacity:0 }
+.model-stage.is-ready .model-hint{ opacity:1 }
+.model-stage.is-touched .model-hint{ opacity:0 }
+/* press, carry right, carry left, release, pause */
+@keyframes hint-drag{
+   0%,  8%{ transform:translateX(0)     scale(1)    }
+  14%    { transform:translateX(0)     scale(.88)  }
+  36%    { transform:translateX(17px)  scale(.88)  }
+  60%    { transform:translateX(-17px) scale(.88)  }
+  74%    { transform:translateX(0)     scale(.88)  }
+  80%,100%{ transform:translateX(0)    scale(1)    }
+}
+/* keyed to hint-drag: on as the finger presses, off as it lifts */
+@keyframes hint-tap{
+   0%, 10%{ opacity:0 }
+  16%, 72%{ opacity:1 }
+  80%, 100%{ opacity:0 }
+}
+.model-stage.is-ready .model-hint-icon{
+  animation:hint-drag 3.4s var(--ease) infinite;
+}
+.model-stage.is-ready .model-hint-tap{
+  animation:hint-tap 3.4s var(--ease) infinite;
+}
+@media (prefers-reduced-motion: reduce){
+  .model-stage.is-ready .model-hint-icon{ animation:none }
+  /* nothing is moving, so the halo just stands for "this is touchable" */
+  .model-stage.is-ready .model-hint-tap{ animation:none; opacity:1 }
+}
+
+@media (max-width:700px){
+  /* taller than it is wide, so the labels have vertical room to separate,
+     and a deep inert band top and bottom so a thumb there scrolls the page.
+     Full-bleed out of .wrap, because on a phone the 20px of page gutter is
+     width the render cannot spare. */
+  .model-stage{
+    aspect-ratio:4/5;
+    width:100vw; margin-inline:calc(50% - 50vw);
+  }
+  .model-label{ max-width:34%; font-size:.78rem }
+  .model-label--left{  left:var(--s-3) }
+  .model-label--right{ right:var(--s-3) }
+  /* On a phone the labels move out of the device's own horizontal band and
+     sit above and below it instead. Beside it, they capped how large the
+     render could be: every extra pixel of device was a pixel taken off a
+     label. The device occupies roughly 35% to 66% of the stage vertically at
+     this radius, so these slots clear it with room to spare and the render is
+     free to be as wide as the stage. */
+  .model-label[data-for="hotspot-9"]{  --ly:7%  }  /* UV-B,    right */
+  .model-label[data-for="hotspot-1"]{  --ly:20% }  /* screen,  right */
+  .model-label[data-for="hotspot-6"]{  --ly:80% }  /* inlet,   right */
+  .model-label[data-for="hotspot-4"]{  --ly:93% }  /* reset,   right */
+  .model-label[data-for="hotspot-10"]{ --ly:7%  }  /* touch,   left  */
+  .model-label[data-for="hotspot-8"]{  --ly:80% }  /* USB-C,   left  */
+  .model-label[data-for="hotspot-3"]{  --ly:93% }  /* microSD, left  */
+}
+
+/* --- spec table ------------------------------------------------- */
+.spec-cols{ display:grid; gap:0 }
+@media (min-width:860px){ .spec-cols{ grid-template-columns:repeat(2,1fr); gap:0 var(--s-8) } }
+.spec-group dl{ margin:0; padding:0 var(--s-2) var(--s-5) }
+.spec-group dl > div{
+  display:flex; gap:var(--s-5); justify-content:space-between; align-items:baseline;
+  padding:.6rem 0; border-bottom:1px solid var(--line);
+}
+.spec-group dl > div:last-child{ border-bottom:0 }
+.spec-group dt{
+  font-family:var(--font-display); font-size:.92rem; font-weight:600;
+  color:var(--muted); flex:0 1 auto;
+}
+.spec-group dd{
+  margin:0; text-align:right; font-family:var(--font-mono); font-size:.88rem;
+  font-variant-numeric:tabular-nums; overflow-wrap:anywhere; flex:0 1 auto;
+}
+.spec-note{
+  margin-top:var(--s-6); font-family:var(--font-display); font-size:.85rem;
+  color:var(--muted); text-align:center;
+}
+
+/* --- testimonials ----------------------------------------------- */
+.quote{
+  background:var(--paper); border:1px solid var(--line);
+  border-radius:var(--radius-lg); padding:var(--s-6);
+  display:flex; flex-direction:column; gap:var(--s-4);
+  /* rail item: equal height, one card per snap position */
+  flex:0 0 82%; max-width:420px; scroll-snap-align:start;
+}
+@media (min-width:700px){ .quote{ flex-basis:46% } }
+@media (min-width:1050px){ .quote{ flex-basis:31% } }
+.quote-mark{ width:26px; height:auto; color:var(--gold); flex:none }
+.quote blockquote{ margin:0; font-size:1.06rem; line-height:1.55 }
+.quote blockquote{ flex:1 1 auto }
+.quote figcaption{ margin-top:auto; padding-top:var(--s-4); border-top:1px solid var(--line) }
+.quote cite{
+  font-style:normal; font-family:var(--font-display);
+  font-weight:700; font-size:.94rem; display:block;
+}
+.quote span{ font-size:.86rem; color:var(--muted); display:block; margin-top:.1rem }
+
+/* --- enterprise ------------------------------------------------- */
+.dark .split-media img{ box-shadow:0 30px 70px rgb(0 0 0 / .45) }
+/* --- pricing ---------------------------------------------------- */
+.price-card{
+  max-width:38rem; margin-inline:auto; background:var(--paper);
+  border:1.5px solid var(--ink); border-radius:var(--radius-lg);
+  overflow:hidden; box-shadow:var(--shadow-lg);
+}
+.price-top{
+  background:var(--ink); color:var(--cream); padding:var(--s-5) var(--s-6);
+  display:flex; align-items:center; justify-content:space-between; gap:var(--s-4);
+  flex-wrap:wrap;
+}
+.price-top strong{ font-family:var(--font-display); font-size:1rem; letter-spacing:-.01em }
+.price-badge{
+  font-family:var(--font-mono); font-size:.7rem; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase;
+  background:var(--gold); color:var(--ink); padding:.35rem .7rem; border-radius:var(--radius-control);
+}
+.price-body{ padding:clamp(var(--s-6),4vw,var(--s-7)) }
+.price-figure{ display:flex; align-items:baseline; gap:var(--s-3); flex-wrap:wrap }
+.price-now{ font-family:var(--font-display); font-weight:800; font-size:clamp(2.6rem,6vw,3.4rem); letter-spacing:-.04em; line-height:1 }
+.price-was{ font-family:var(--font-mono); font-size:1.1rem; color:var(--muted); text-decoration:line-through }
+.price-save{
+  font-family:var(--font-display); font-weight:700; font-size:.85rem;
+  color:var(--ink); background:color-mix(in srgb, var(--gold) 35%, transparent);
+  padding:.25rem .6rem; border-radius:var(--radius-control);
+}
+.price-list{ list-style:none; margin:var(--s-6) 0; padding:0; display:grid; gap:var(--s-3) }
+.price-list li{ display:flex; gap:var(--s-3); align-items:flex-start; font-size:1rem }
+.price-list .ico{ width:20px; height:20px; color:var(--sage); flex:none; margin-top:.3rem }
+.price-fine{ font-family:var(--font-display); font-size:.82rem; color:var(--muted); margin-top:var(--s-4); text-align:center }
+
+/* --- waitlist band ---------------------------------------------- */
+.waitlist{ text-align:center }
+.waitlist .lede{ margin-inline:auto; margin-bottom:var(--s-6) }
+.waitlist .hero-form{ max-width:36rem }
+
+/* --- disclosure (shared by the spec groups and the FAQ) ---------- */
+.disclosure{ border-top:1px solid var(--line) }
+.disclosure > details{ border-bottom:1px solid var(--line) }
+.disclosure summary{
+  display:flex; align-items:center; justify-content:space-between; gap:var(--s-4);
+  padding:var(--s-5) var(--s-2); cursor:pointer; list-style:none;
+  font-family:var(--font-display); font-weight:700; font-size:1.06rem;
+  letter-spacing:-.01em; min-height:56px;
+  transition:color var(--dur) var(--ease);
+}
+.disclosure summary::-webkit-details-marker{ display:none }
+.disclosure summary > span,
+.disclosure summary > h3{ flex:1 1 auto; min-width:0 }
+/* the label keeps its heading semantics but takes the summary's type */
+.disclosure summary > h3{ font:inherit; letter-spacing:inherit; color:inherit }
+.disclosure summary:hover{ color:var(--sage) }
+.disclosure summary .chev{
+  width:20px; height:20px; flex:none; color:var(--muted);
+  transition:transform var(--dur) var(--ease);
+}
+.disclosure > details[open] > summary .chev{ transform:rotate(180deg) }
+
+/* --- FAQ -------------------------------------------------------- */
+.faq{ max-width:48rem; margin-inline:auto }
+.faq-a{ padding:0 var(--s-2) var(--s-5); color:var(--muted); max-width:62ch }
+
+/* --- footer ----------------------------------------------------- */
+.footer{ background:var(--ink); color:var(--cream); padding-block:var(--s-8) var(--s-6) }
+.footer-top{
+  display:grid; gap:var(--s-6); padding-bottom:var(--s-7);
+  border-bottom:1px solid var(--line-dark);
+}
+@media (min-width:760px){ .footer-top{ grid-template-columns:1.4fr 1fr 1fr } }
+.footer .brand-word{ color:var(--cream) }
+.footer h3{ font-size:.78rem; font-family:var(--font-mono); font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--muted-dark); margin-bottom:var(--s-4) }
+.footer ul{ list-style:none; margin:0; padding:0; display:grid }
+.footer a{
+  text-decoration:none; font-family:var(--font-display); font-size:.94rem;
+  color:var(--cream); opacity:.85;
+  display:inline-flex; align-items:center; min-height:44px;
+}
+.footer a:hover{ opacity:1; color:var(--gold) }
+.footer-bottom{
+  display:flex; flex-wrap:wrap; gap:var(--s-4); justify-content:space-between;
+  align-items:center; padding-top:var(--s-5);
+  font-family:var(--font-display); font-size:.84rem; color:var(--muted-dark);
+}
+.social{ display:flex; gap:var(--s-2) }
+.social a{
+  width:44px; height:44px; min-height:44px; border-radius:50%; border:1px solid var(--line-dark);
+  display:inline-flex; align-items:center; justify-content:center; opacity:1;
+  transition:background var(--dur) var(--ease), color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.social a:hover{ background:var(--cream); color:var(--ink); border-color:var(--cream) }
+.social svg{ width:19px; height:19px }
+
+/* --- scroll reveal ----------------------------------------------
+   Scoped to .js so that with JavaScript off every section stays
+   visible instead of being stuck at opacity:0.                    */
+.js .reveal{ opacity:0; transform:translateY(18px) }
+.js .reveal.in{ opacity:1; transform:none; transition:opacity 520ms var(--ease), transform 520ms var(--ease) }
+.js .reveal.in.d1{ transition-delay:70ms }
+.js .reveal.in.d2{ transition-delay:140ms }
+.js .reveal.in.d3{ transition-delay:210ms }
+
+/* --- logo draw-on ----------------------------------------------- */
+.mark-draw{ stroke-dasharray:var(--len); stroke-dashoffset:var(--len); animation:draw 2.2s var(--ease) .25s forwards }
+@keyframes draw{ to{ stroke-dashoffset:0 } }
+
+/* --- reduced motion --------------------------------------------- */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto }
+  *,*::before,*::after{
+    animation-duration:.01ms!important; animation-iteration-count:1!important;
+    transition-duration:.01ms!important; scroll-behavior:auto!important;
+  }
+  .js .reveal{ opacity:1; transform:none }
+  .mark-draw{ stroke-dashoffset:0; animation:none }
+  .rail{ scroll-behavior:auto }
+  .spinner{ animation:none; border-right-color:currentColor; opacity:.5 }
+}
+
+/* --- development timeline (history.html) -------------------------
+   One vertical spine. On narrow screens it runs down the left with the
+   entries beside it; from 900px it moves to the centre and the entries
+   alternate either side of it.                                       */
+.tl{ list-style:none; margin:0 auto; padding:0; position:relative; max-width:64rem }
+.tl::before{
+  content:""; position:absolute; left:8px; top:.4rem; bottom:.4rem;
+  width:2px; background:var(--line);
+}
+.tl-item{ position:relative; padding-left:2.5rem; padding-bottom:clamp(var(--s-7),6vw,var(--s-9)) }
+.tl-item:last-child{ padding-bottom:0 }
+/* The dot marks the middle of the photo, so it hangs off .tl-media, whose box
+   is exactly the image. Anchoring it to .tl-item instead needs a magic number
+   on mobile (the image height scales with the viewport, so one number is right
+   at exactly one width) and lands low on desktop, because top:50% there
+   resolves against the padding box, which includes the gap to the next entry.
+   top:50% of .tl-media is the image midpoint at every width and any aspect
+   ratio. Only the horizontal offset changes per breakpoint. */
+.tl-media{ margin-top:var(--s-5); position:relative }
+.tl-media::before{
+  content:""; position:absolute; top:50%; margin-top:-10px;
+  left:calc(-2.5rem - 1px);        /* back out over .tl-item's padding-left */
+  width:14px; height:14px; border-radius:50%;
+  background:var(--gold); border:3px solid var(--cream); box-sizing:content-box;
+}
+.band .tl-media::before{ border-color:var(--cream-2) }
+.tl-media img{
+  width:100%; border-radius:var(--radius-lg); box-shadow:var(--shadow-md);
+  aspect-ratio:3/2; object-fit:cover; background:var(--cream-2);
+}
+.tl-date{
+  font-family:var(--font-mono); font-size:.76rem; font-weight:700;
+  letter-spacing:.14em; color:var(--sage); margin-bottom:var(--s-2);
+}
+.tl-item h2{
+  font-size:clamp(1.6rem,3.4vw,2.3rem); letter-spacing:-.025em;
+  margin-bottom:var(--s-3);
+}
+.tl-body p{ color:var(--muted); max-width:46ch }
+.tl-body .tl-link{
+  display:inline-flex; align-items:center; gap:.4rem; margin-top:var(--s-4);
+  font-family:var(--font-display); font-weight:700; font-size:.94rem;
+  color:var(--ink); text-decoration:none;
+  border-bottom:2px solid var(--gold); padding-bottom:2px; min-height:44px;
+}
+.tl-body .tl-link:hover{ border-bottom-color:var(--ink) }
+.tl-body .tl-link svg{ width:1em; height:1em; flex:none }
+
+@media (min-width:900px){
+  .tl::before{ left:50%; margin-left:-1px }
+  .tl-item{
+    display:grid; grid-template-columns:1fr 1fr; align-items:center;
+    column-gap:var(--s-8); padding-left:0;
+  }
+  .tl-media{ margin-top:0 }
+  /* the spine sits at the centre of the item, which is half a column-gap
+     away from whichever edge of the photo faces it */
+  .tl-item:nth-child(odd)  .tl-media::before{ left:calc(100% + var(--s-8) / 2 - 10px) }
+  .tl-item:nth-child(even) .tl-media::before{ left:calc(var(--s-8) / -2 - 10px) }
+  /* alternate: odd entries put the photo on the left, even on the right */
+  .tl-item:nth-child(even) .tl-media{ grid-column:2; grid-row:1 }
+  .tl-item:nth-child(even) .tl-body{ grid-column:1; grid-row:1; text-align:right }
+  .tl-item:nth-child(even) .tl-body p{ margin-left:auto }
+  .tl-item:nth-child(odd) .tl-media{ grid-column:1; grid-row:1 }
+  .tl-item:nth-child(odd) .tl-body{ grid-column:2; grid-row:1 }
+}
+
+/* the strip on index.html that points here */
+.history-teaser{ text-align:center; max-width:44rem; margin-inline:auto }
+.history-teaser .lede{ margin:var(--s-4) auto var(--s-6) }
+
+/* --- science page ------------------------------------------------ */
+.sci-split{ display:grid; gap:clamp(var(--s-6),5vw,var(--s-8)); align-items:center }
+@media (min-width:900px){
+  .sci-split{ grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) }
+  /* flipped: the figure moves to column 2, so the wide column has to move
+     with the text rather than staying under the figure */
+  .sci-split--flip{ grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr) }
+  .sci-split--flip .sci-fig-wrap{ order:2 }
+}
+.sci-fig-wrap{ display:flex; justify-content:center }
+/* both figures are portrait once their transparent margins are trimmed, so
+   they get the same cap rather than one being sized for a square canvas */
+.sci-fig-wrap picture{ display:block; width:100%; max-width:400px }
+.sci-fig{ width:100%; height:auto }
+/* rain.png is an illustration with its own soft edge, not a line diagram,
+   so it gets a lift to sit on the band rather than float loose */
+.sci-fig--art{ border-radius:var(--radius-lg); box-shadow:var(--shadow-md) }
+.sci-body > p + p{ margin-top:var(--s-4) }
+.sci-body > p:not(.eyebrow):not(.sci-dl){ color:var(--muted); max-width:60ch }
+/* the same split is reused on the dark business section, where the
+   light-mode muted grey drops to 2.69:1 */
+.dark .sci-body > p:not(.eyebrow):not(.sci-dl){ color:var(--muted-dark) }
+.sci-body h2{ margin-bottom:var(--s-5) }
+.sci-dl{ margin-top:var(--s-6) }
+.sci-dl .btn{ flex-wrap:wrap; text-align:left; height:auto; padding-block:.85rem }
+.sci-meta{
+  font-family:var(--font-mono); font-size:.72rem; font-weight:700;
+  letter-spacing:.1em; opacity:.7; white-space:nowrap;
+}
+.sci-note{ max-width:46rem; margin-inline:auto; text-align:center }
+.sci-note h2{ font-size:clamp(1.4rem,2.6vw,1.9rem); margin-bottom:var(--s-4) }
+.sci-note p{ color:var(--muted) }
+.sci-note p + p{ margin-top:var(--s-4) }
+
+/* --- business page ----------------------------------------------- */
+.sci-fig-wrap--wide picture{ max-width:520px }
+.biz-chart{ width:100%; border-radius:var(--radius-lg); border:1px solid var(--line); background:#fff }
+.biz-extra{
+  display:grid; gap:var(--s-2); margin-top:var(--s-4);
+  grid-template-columns:1fr;
+}
+@media (min-width:640px){ .biz-extra{ grid-template-columns:1fr 1fr; gap:var(--s-3) var(--s-4) } }
+.biz-extra label{
+  font-family:var(--font-display); font-size:.82rem; font-weight:600;
+  color:var(--muted-dark); display:block;
+}
+.biz-extra label span{ opacity:.7; font-weight:500 }
+.biz-extra input{
+  width:100%; min-height:48px; padding:.7rem 1rem;
+  border:1.5px solid var(--line-dark); border-radius:12px;
+  background:var(--ink-2); color:var(--cream);
+  font-family:var(--font-display); font-size:1rem;
+  transition:border-color var(--dur) var(--ease);
+}
+.biz-extra input::placeholder{ color:var(--muted-dark); opacity:1 }
+.biz-extra input:focus{ border-color:var(--gold) }
+.biz-mail{
+  margin-top:var(--s-6); font-family:var(--font-display); font-size:.95rem;
+  color:var(--muted-dark);
+}
+.biz-mail a, .biz-mail [data-mail]{
+  color:var(--cream); text-decoration:none;
+  border-bottom:2px solid var(--gold); padding-bottom:2px;
+  display:inline-block; min-height:32px;
+}
+.biz-mail a:hover{ border-bottom-color:var(--cream) }
+
+/* --- deploy grid (business.html) ---------------------------------
+   This replaced a class called .also whose rules were deleted along with
+   the section that used to carry them. Unstyled, the icons had no width
+   and filled their cards.                                            */
+.deploy-grid{
+  display:grid; gap:var(--s-4);
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+}
+.deploy-grid > div{
+  background:var(--paper); border:1px solid var(--line);
+  border-radius:var(--radius-lg); padding:var(--s-5);
+}
+.deploy-grid .ico{
+  width:26px; height:26px; flex:none;
+  color:var(--sage); margin-bottom:var(--s-3);
+}
+.deploy-grid b{
+  font-family:var(--font-display); font-weight:700;
+  display:block; letter-spacing:-.01em;
+}
+.deploy-grid p{ color:var(--muted); font-size:.94rem; margin-top:.25rem }
+
+/* --- "what each measurement tells you" rail (index.html) ---------- */
+/* Same rail mechanics as the testimonials, so one carousel behaviour covers
+   both: scroll-snap, keyboard scrolling, prev/next that disable at the ends. */
+.why-card{
+  background:var(--paper); border:1px solid var(--line);
+  border-left:3px solid var(--gold);
+  border-radius:var(--radius-lg); padding:var(--s-6);
+  display:flex; flex-direction:column; gap:var(--s-3);
+  flex:0 0 82%; max-width:420px; scroll-snap-align:start;
+}
+@media (min-width:700px){  .why-card{ flex-basis:46% } }
+@media (min-width:1050px){ .why-card{ flex-basis:31% } }
+.why-card .sensor-tag{ margin-bottom:0 }
+.why-card h3{ font-size:1.12rem; line-height:1.25 }
+.why-card p{ color:var(--muted); font-size:.97rem; margin:0 }
