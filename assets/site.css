@@ -1110,10 +1110,19 @@ html:has(.fb[open]){ overflow:hidden }
    and filled their cards.                                            */
 .deploy-grid{
   display:grid; gap:var(--s-4);
-  /* 300px makes six cards three across on desktop and two on a tablet,
-     never the four-then-two a 240px track gave; min() keeps one column
-     from overflowing a 320px phone. */
-  grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  /* The three deployment options, side by side once all three fit, and
+     stacked below that rather than two-and-one. */
+  grid-template-columns:1fr;
+}
+@media (min-width:900px){ .deploy-grid{ grid-template-columns:repeat(3,1fr) } }
+.deploy-grid .deploy-tag{
+  font-family:var(--font-mono); font-size:.72rem; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--sage);
+  margin:0 0 var(--s-3);
+}
+.deploy-note{
+  margin:var(--s-6) auto 0; max-width:48rem; text-align:center;
+  font-family:var(--font-display); font-size:.92rem; color:var(--muted);
 }
 .deploy-grid > div{
   background:var(--paper); border:1px solid var(--line);
