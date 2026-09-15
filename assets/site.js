@@ -242,7 +242,7 @@
         /* the ripple grows with the reading, so the worst room in the office
            is the one you notice from across the page */
         var span = Math.min(Math.max((v - c.floor) / (c.top - c.floor), 0), 1);
-        p.ripple.style.setProperty("--ripple", (2.2 + span * 3.6).toFixed(2) + "em");
+        p.ripple.style.setProperty("--ripple", (3.4 + span * 7.4).toFixed(2) + "em");
       });
     }
 
@@ -269,40 +269,44 @@
     var iconStop = playBtn.querySelector("[data-icon-pause]");
     var still    = window.matchMedia("(prefers-reduced-motion: reduce)");
     var wanted   = !still.matches;   /* what the reader wants */
-    var running  = false;            /* what is happening now */
     var onScreen = true;
+    var timer    = null;
     var last     = 0;
 
-    function tick(now){
-      if(!running) return;
-      var step = (now - last) / 1000;
+    /* A timer rather than requestAnimationFrame: the clock decides how far
+       the day moves, so a browser that throttles callbacks slows the picture
+       down instead of stopping it. */
+    function tick(){
+      var now = Date.now();
+      var hour = parseFloat(slider.value) + (now - last) / 1000 * (CLOSE - OPEN) / DAY_SECONDS;
       last = now;
-      var hour = parseFloat(slider.value) + step * (CLOSE - OPEN) / DAY_SECONDS;
       slider.value = hour > CLOSE ? OPEN : hour;
       draw();
-      requestAnimationFrame(tick);
     }
     function play(on){
       wanted = on;
       playBtn.setAttribute("aria-label", on ? "Pause the day" : "Play the day");
-      iconPlay.hidden = on;
-      iconStop.hidden = !on;
-      var shouldRun = on && onScreen;
-      if(shouldRun && !running){
-        running = true;
-        last = performance.now();
-        requestAnimationFrame(tick);
-      } else if(!shouldRun){
-        running = false;
+      /* setAttribute, not .hidden: the hidden property belongs to HTML
+         elements, and these two icons are SVG. */
+      iconPlay.toggleAttribute("hidden", on);
+      iconStop.toggleAttribute("hidden", !on);
+      if(on && onScreen && !timer){
+        last = Date.now();
+        timer = setInterval(tick, 100);
+      } else if((!on || !onScreen) && timer){
+        clearInterval(timer);
+        timer = null;
       }
     }
     playBtn.addEventListener("click", function(){ play(!wanted); });
 
+    /* Off screen it should not tick, but a browser without
+       IntersectionObserver simply keeps playing. */
     if(window.IntersectionObserver){
       new IntersectionObserver(function(entries){
-        onScreen = entries[0].isIntersecting;
+        onScreen = entries[entries.length - 1].isIntersecting;
         play(wanted);
-      }, { threshold:.25 }).observe(plan);
+      }, { threshold:0, rootMargin:"0px 0px -15% 0px" }).observe(plan);
     }
 
     controls.hidden = false;
