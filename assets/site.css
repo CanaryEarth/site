@@ -1070,6 +1070,56 @@ html:has(.fb[open]){ overflow:hidden }
 
 /* --- business page ----------------------------------------------- */
 .sci-fig-wrap--wide picture{ max-width:520px }
+/* --- interactive floor plan (business.html) -----------------------
+   Readings sit on the plan at percentages of the image, so they hold their
+   rooms at every width. Everything about a reading is sized in em against
+   the pill's own font size, which scales with the viewport, so nothing
+   needs measuring in JavaScript when the window resizes. */
+.plan-stage{ position:relative; display:block; line-height:0 }
+.plan-img{ width:100%; height:auto; border-radius:var(--radius-lg) }
+.plan-pt{
+  position:absolute; translate:-50% -50%; line-height:1;
+  font-family:var(--font-mono); font-size:clamp(.66rem, 2.1vw, .8rem); font-weight:700;
+  --tone:var(--sage);
+}
+.plan-pt[data-level="warn"]{ --tone:var(--gold-deep) }
+.plan-pt[data-level="high"]{ --tone:var(--ember-deep) }
+.plan-val{
+  position:relative; z-index:1; display:block; padding:.28em .5em;
+  border-radius:999px; background:var(--paper); color:var(--tone);
+  box-shadow:0 0 0 1.5px var(--tone), var(--shadow-sm);
+  font-variant-numeric:tabular-nums; white-space:nowrap;
+}
+.plan-ripple{
+  position:absolute; left:50%; top:50%; width:var(--ripple,3em); height:var(--ripple,3em);
+  translate:-50% -50%; border-radius:50%; background:var(--tone);
+  opacity:.16; transition:width 220ms var(--ease), height 220ms var(--ease);
+}
+.plan-ripple::after{
+  content:""; position:absolute; inset:0; border-radius:50%; background:var(--tone);
+  animation:plan-pulse 4.2s var(--ease) infinite;
+}
+@keyframes plan-pulse{ 0%{ transform:scale(.35); opacity:.45 } 100%{ transform:scale(1.25); opacity:0 } }
+@media (prefers-reduced-motion:reduce){ .plan-ripple::after{ animation:none; opacity:.2 } }
+
+.plan-controls{ margin-top:var(--s-4); line-height:1.5 }
+.plan-chips{ display:flex; flex-wrap:wrap; gap:var(--s-2) }
+.plan-chip{
+  min-height:40px; padding:.4rem .8rem; cursor:pointer;
+  border:1.5px solid var(--line); border-radius:var(--radius-control);
+  background:var(--paper); color:var(--muted);
+  font-family:var(--font-display); font-weight:600; font-size:.88rem;
+  transition:background var(--dur) var(--ease), color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.plan-chip:hover{ border-color:var(--ink); color:var(--ink) }
+.plan-chip[aria-pressed="true"]{ background:var(--ink); border-color:var(--ink); color:var(--cream) }
+.plan-time{ display:block; margin-top:var(--s-4) }
+.plan-time input{ width:100%; accent-color:var(--gold-deep); min-height:32px; cursor:pointer }
+.plan-readout{
+  margin-top:var(--s-1); font-family:var(--font-display); font-size:.86rem; color:var(--muted);
+}
+.plan-readout b{ color:var(--ink); font-variant-numeric:tabular-nums }
+
 /* Frame for screenshots of the dashboard: the floor plan and the chart. The
    floor plan's toggle boxes come to within 16px (source) of its bottom
    corners, about 9px on a phone, just clear of the 7px a 16px radius cuts. */

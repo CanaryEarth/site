@@ -9,7 +9,7 @@
 <meta property="og:title" content="Canary for organizations">
 <meta property="og:description" content="Find the room that never clears. Air quality monitors for offices, schools and facilities, on their own mesh or your WiFi.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="assets/img/biz-floorplan-620.png">
+<meta property="og:image" content="assets/img/biz-room-1400.png">
 <meta name="twitter:card" content="summary_large_image">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -101,18 +101,41 @@
   <div class="wrap">
     <div class="sci-split">
       <div class="sci-fig-wrap sci-fig-wrap--wide">
-          <picture>
-            <source type="image/webp" sizes="(min-width:900px) 40vw, 88vw" srcset="assets/img/biz-floorplan-420.webp 420w, assets/img/biz-floorplan-620.webp 620w, assets/img/biz-floorplan-632.webp 632w">
-            <img class="sci-fig biz-chart" src="assets/img/biz-floorplan-620.png" loading="lazy"
-                 decoding="async" sizes="(min-width:900px) 40vw, 88vw" srcset="assets/img/biz-floorplan-420.png 420w, assets/img/biz-floorplan-620.png 620w, assets/img/biz-floorplan-632.png 632w" alt="The dashboard's floor plan view of an office, with a simulated carbon dioxide reading over each space: 681 ppm in a private office, 983 in a corner office, 1149 and 1350 over two rows of open-plan desks, 1349 in a small meeting room, and 1750 ppm in the boardroom.">
-          </picture>
+        <!-- The floor plan view, rebuilt for this page from the dashboard's own
+             (demo.canary.earth/floorplan.html): same six Canaries in the same
+             places, with a simulated day behind them. site.js fills in the
+             readings and reveals the controls; without it the plan stays a
+             plain drawing, which the paragraph beside it still describes. -->
+        <div class="plan" data-plan>
+          <div class="plan-stage biz-chart">
+            <picture>
+              <source type="image/webp" sizes="(min-width:900px) 40vw, 88vw" srcset="assets/img/biz-plan-420.webp 420w, assets/img/biz-plan-620.webp 620w, assets/img/biz-plan-633.webp 633w">
+              <img class="plan-img" src="assets/img/biz-plan-620.png" width="633" height="657" loading="lazy"
+                   decoding="async" sizes="(min-width:900px) 40vw, 88vw" srcset="assets/img/biz-plan-420.png 420w, assets/img/biz-plan-620.png 620w, assets/img/biz-plan-633.png 633w" alt="A floor plan of an office: two private offices and a corner office along the top, two rows of open-plan desks in the middle, and two small meeting rooms and a boardroom along the bottom.">
+            </picture>
+          </div>
+          <div class="plan-controls" hidden>
+            <div class="plan-chips" role="group" aria-label="Reading to show">
+              <button class="plan-chip" type="button" data-channel="co2" aria-pressed="true">CO&#8322;</button>
+              <button class="plan-chip" type="button" data-channel="pm25" aria-pressed="false">PM2.5</button>
+              <button class="plan-chip" type="button" data-channel="temp" aria-pressed="false">Temperature</button>
+              <button class="plan-chip" type="button" data-channel="rh" aria-pressed="false">Humidity</button>
+            </div>
+            <label class="plan-time">
+              <span class="visually-hidden">Time of day</span>
+              <input type="range" min="8" max="18" step="0.25" value="15" data-plan-time>
+            </label>
+            <p class="plan-readout"><b data-plan-clock>3:00 pm</b> <span data-plan-unit>parts per million</span></p>
+          </div>
+        </div>
       </div>
       <div class="sci-body">
         <p class="eyebrow">One floor, one afternoon</p>
         <h2 id="floorplan-h">The problem has an address.</h2>
-        <p>This is the dashboard&rsquo;s floor plan view, filled in with a simulated afternoon:
-          a carbon dioxide reading over each space. The private office on the left sits at
-          681&nbsp;ppm, close to outdoor air. The boardroom reads 1,750&nbsp;ppm.</p>
+        <p>This is the floor plan the dashboard draws, with a simulated day behind it. Drag
+          through the working day, or switch readings. At 3&nbsp;pm the private office on the
+          left sits at 681&nbsp;ppm of carbon dioxide, close to outdoor air. The boardroom reads
+          1,750&nbsp;ppm.</p>
         <p>That gap is the whole argument. Rooms on the same floor, the same air handler and the
           same building management system can differ this much, because the people in them do.
           A single sensor in a corridor would report the average and tell you nothing. The open-plan desks at 1,149 and 1,350&nbsp;ppm are the interesting middle: not
@@ -172,9 +195,9 @@
   <div class="wrap">
     <div class="section-head">
       <h2 id="demo-h">A live dashboard, not a screenshot.</h2>
-      <p class="lede">The floor plan above and the chart below are the actual interface, the
-        floor plan with simulated readings. The demo is online now with real logged data, and you
-        can click through every channel yourself.</p>
+      <p class="lede">The chart below is the actual interface, and the plan above mirrors its
+        floor plan view. The demo is online now with real logged data, and you can click through
+        every channel yourself.</p>
     </div>
           <picture>
             <source type="image/webp" sizes="(min-width:900px) 76vw, 92vw" srcset="assets/img/biz-chart-640.webp 640w, assets/img/biz-chart-1000.webp 1000w, assets/img/biz-chart-1600.webp 1600w">
