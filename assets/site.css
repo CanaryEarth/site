@@ -296,13 +296,16 @@ a{ color:inherit }
      sits under the header, together lift the photo from 571px to 377px
      down a Galaxy S24+ screen, which puts all three devices on it. */
   .hero{ padding-top:var(--s-5) }
-  /* The <br> already splits the headline in two, so it only gains lines
-     when one of them runs out of room. The longer, "Know what you are", is
-     8.71em wide at this weight and tracking, so dividing the content width
-     (100vw less the 2.5rem .wrap gutter) by 9.1 keeps each on one line with
-     about 4% to spare, and min() holds the usual 40px wherever that already
-     fits. Re-measure the 9.1 if the headline's wording changes. */
-  .hero--home h1{ font-size:min(2.5rem, calc((100vw - 2.5rem) / 9.1)) }
+  /* Every page's headline is two lines split by a <br>, at one shared size,
+     so moving between pages on a phone does not jump in size or line
+     height. The size comes from the longest line on any page, "Know what
+     you are" at 8.71em for this weight and tracking: dividing the content
+     width (100vw less the 2.5rem .wrap gutter) by 9.1 keeps it on one line
+     with about 4% to spare, and min() holds 40px wherever that already fits.
+     A new or reworded headline must keep each line under 8.7em, or this
+     divisor grows and every page's headline shrinks with it. Now: business
+     7.89em, science 7.98em, history 7.65em. */
+  .hero h1{ font-size:min(2.5rem, calc((100vw - 2.5rem) / 9.1)) }
   /* The photo sits the same 24px below the intro as the headline sits
      below the header. Measured to the letters rather than the boxes, both
      gaps then read as about 30px, because each block of text carries a few
