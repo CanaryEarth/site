@@ -1070,6 +1070,9 @@ html:has(.fb[open]){ overflow:hidden }
 
 /* --- business page ----------------------------------------------- */
 .sci-fig-wrap--wide picture{ max-width:520px }
+/* Frame for screenshots of the dashboard: the floor plan and the chart. The
+   floor plan's toggle boxes come to within 16px (source) of its bottom
+   corners, about 9px on a phone, just clear of the 7px a 16px radius cuts. */
 .biz-chart{ width:100%; border-radius:var(--radius-lg); border:1px solid var(--line); background:#fff }
 .biz-extra{
   display:grid; gap:var(--s-2); margin-top:var(--s-4);
