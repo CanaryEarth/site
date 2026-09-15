@@ -147,15 +147,19 @@
     ];
     /* floor: the reading an empty room settles at overnight. ok/warn: where
        the colour changes, from the WHO guideline for PM2.5 and the usual
-       comfort bands for the rest. */
+       comfort bands for the rest. top: the reading that earns the widest
+       ripple, past the red threshold so the worst room still stands out
+       from a merely bad one. */
     var CHANNELS = {
-      co2:  { unit:"parts per million", short:"ppm",     dp:0, floor:430,  ok:800,  warn:1200 },
-      pm25: { unit:"micrograms per cubic metre", short:"µg/m³", dp:1, floor:3.4, ok:8, warn:15 },
-      temp: { unit:"degrees Celsius", short:"°C",   dp:1, floor:20.4, ok:24.5, warn:26 },
-      rh:   { unit:"percent relative humidity", short:"%", dp:0, floor:33, ok:60,   warn:70 }
+      co2:  { unit:"parts per million", short:"ppm",     dp:0, floor:430,  ok:800,  warn:1200, top:1900 },
+      pm25: { unit:"micrograms per cubic metre", short:"µg/m³", dp:1, floor:3.4, ok:8, warn:15, top:22 },
+      temp: { unit:"degrees Celsius", short:"°C",   dp:1, floor:20.4, ok:24.5, warn:26, top:27 },
+      rh:   { unit:"percent relative humidity", short:"%", dp:0, floor:33, ok:60,   warn:70, top:75 }
     };
     var OPEN = 8, CLOSE = 18, STEP = 1 / 12;   /* five-minute steps */
     var TAU = 0.85;                            /* hours to clear a room */
+    var RIPPLE_COUNT = 10, RIPPLE_GAP = 0.6;   /* rings per sensor, seconds apart */
+    var DAY_SECONDS = 40;                      /* a working day, played through */
 
     /* Occupancy in, ventilation out, sampled every five minutes. The result is
        normalised to its own 3pm value, so it is a shape, not a unit. */
@@ -196,7 +200,14 @@
       el.className = "plan-pt";
       el.style.left = room.x + "%";
       el.style.top  = room.y + "%";
-      el.innerHTML = '<span class="plan-ripple" aria-hidden="true"></span>'
+      /* The demo's ripple: a stack of identical circles on one long loop,
+         each starting a little after the last, so rings leave the sensor
+         continuously. Ten circles at 0.6s apart fill a 6s animation. */
+      var rings = "";
+      for(var i = 0; i < RIPPLE_COUNT; i++){
+        rings += '<span class="plan-ring" style="animation-delay:' + (i * RIPPLE_GAP) + 's"></span>';
+      }
+      el.innerHTML = '<span class="plan-ripple" aria-hidden="true">' + rings + '</span>'
                    + '<span class="plan-val" aria-hidden="true"></span>'
                    + '<span class="visually-hidden"></span>';
       stage.appendChild(el);
@@ -228,9 +239,9 @@
         p.say.textContent = p.room.name + ": " + shown + " " + c.short;
         p.el.title = p.room.name;
         p.el.dataset.level = v >= c.warn ? "high" : v >= c.ok ? "warn" : "ok";
-        /* the ripple grows with the reading, between the floor and the point
-           where the colour turns red, so a loaded room reads across the room */
-        var span = Math.min(Math.max((v - c.floor) / (c.warn - c.floor), 0), 1);
+        /* the ripple grows with the reading, so the worst room in the office
+           is the one you notice from across the page */
+        var span = Math.min(Math.max((v - c.floor) / (c.top - c.floor), 0), 1);
         p.ripple.style.setProperty("--ripple", (2.2 + span * 3.6).toFixed(2) + "em");
       });
     }
@@ -244,9 +255,59 @@
         draw();
       });
     });
-    slider.addEventListener("input", draw);
+    slider.addEventListener("input", function(){
+      play(false);           /* taking the slider means taking over */
+      draw();
+    });
+
+    /* The day plays itself, so the section shows its argument to someone who
+       only scrolls past. It stops when it is off screen, when the reader
+       takes the slider, and for anyone who asks their system for less
+       animation. */
+    var playBtn  = plan.querySelector("[data-plan-play]");
+    var iconPlay = playBtn.querySelector("[data-icon-play]");
+    var iconStop = playBtn.querySelector("[data-icon-pause]");
+    var still    = window.matchMedia("(prefers-reduced-motion: reduce)");
+    var wanted   = !still.matches;   /* what the reader wants */
+    var running  = false;            /* what is happening now */
+    var onScreen = true;
+    var last     = 0;
+
+    function tick(now){
+      if(!running) return;
+      var step = (now - last) / 1000;
+      last = now;
+      var hour = parseFloat(slider.value) + step * (CLOSE - OPEN) / DAY_SECONDS;
+      slider.value = hour > CLOSE ? OPEN : hour;
+      draw();
+      requestAnimationFrame(tick);
+    }
+    function play(on){
+      wanted = on;
+      playBtn.setAttribute("aria-label", on ? "Pause the day" : "Play the day");
+      iconPlay.hidden = on;
+      iconStop.hidden = !on;
+      var shouldRun = on && onScreen;
+      if(shouldRun && !running){
+        running = true;
+        last = performance.now();
+        requestAnimationFrame(tick);
+      } else if(!shouldRun){
+        running = false;
+      }
+    }
+    playBtn.addEventListener("click", function(){ play(!wanted); });
+
+    if(window.IntersectionObserver){
+      new IntersectionObserver(function(entries){
+        onScreen = entries[0].isIntersecting;
+        play(wanted);
+      }, { threshold:.25 }).observe(plan);
+    }
+
     controls.hidden = false;
     draw();
+    play(wanted);
   }
 
   /* ---------- feedback dialog ----------

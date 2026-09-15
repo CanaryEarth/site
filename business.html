@@ -121,10 +121,16 @@
               <button class="plan-chip" type="button" data-channel="temp" aria-pressed="false">Temperature</button>
               <button class="plan-chip" type="button" data-channel="rh" aria-pressed="false">Humidity</button>
             </div>
-            <label class="plan-time">
-              <span class="visually-hidden">Time of day</span>
-              <input type="range" min="8" max="18" step="0.25" value="15" data-plan-time>
-            </label>
+            <div class="plan-time">
+              <button class="plan-play" type="button" data-plan-play aria-label="Pause the day">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" data-icon-pause><rect x="6.5" y="5" width="4" height="14" rx="1"/><rect x="13.5" y="5" width="4" height="14" rx="1"/></svg>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" data-icon-play hidden><path d="M8 5.2v13.6a1 1 0 0 0 1.5.9l11-6.8a1 1 0 0 0 0-1.7l-11-6.8A1 1 0 0 0 8 5.2z"/></svg>
+              </button>
+              <label class="plan-slider">
+                <span class="visually-hidden">Time of day</span>
+                <input type="range" min="8" max="18" step="0.05" value="15" data-plan-time>
+              </label>
+            </div>
             <p class="plan-readout"><b data-plan-clock>3:00 pm</b> <span data-plan-unit>parts per million</span></p>
           </div>
         </div>
