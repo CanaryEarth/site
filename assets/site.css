@@ -1051,6 +1051,16 @@ html:has(.fb[open]){ overflow:hidden }
 /* rain.png is an illustration with its own soft edge, not a line diagram,
    so it gets a lift to sit on the band rather than float loose */
 .sci-fig--art{ border-radius:var(--radius-lg); box-shadow:var(--shadow-md) }
+/* Every figure on science.html is mounted the same way, whatever the art
+   inside it is: the white plate, hairline border and corner of the business
+   page's chart and floor plan. Three of the four are cut-outs on transparent
+   backgrounds, so without the plate their shadow and rounded corners belonged
+   to a rectangle the artwork never filled, and the diagram labels sat on the
+   band's green. The padding keeps the art off its own border. */
+.sci-fig--plate{
+  background:#fff; border:1px solid var(--line); border-radius:var(--radius-lg);
+  padding:var(--s-3); box-shadow:var(--shadow-md);
+}
 .sci-body > p + p{ margin-top:var(--s-4) }
 .sci-body > p:not(.eyebrow):not(.sci-dl){ color:var(--muted); max-width:60ch }
 /* the same split is reused on the dark business section, where the
