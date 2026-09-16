@@ -125,67 +125,86 @@
      sit where they sit in the demo, and a slider moves through the working
      day.
 
-     The readings are simulated, and simulated the way a building behaves
-     rather than at random: carbon dioxide climbs while people are in a room
-     and falls back towards outdoor air when they leave, as fast as the
-     ventilation manages. Each room's curve is solved once from its own hours,
-     then scaled so 3pm lands exactly on the number quoted beside the plan.
-     The other three readings follow the same occupancy shape between a
-     morning floor and that same 3pm figure, which is why they all ease up
-     through the afternoon together. */
+     The readings are simulated the way the demo does it, by distance from a
+     single source, except that here the source moves. It is never drawn. It
+     is the crowd in the conference room, the smoker by the copier, the
+     window somebody opened, and when the office is empty it sits far off the
+     plan, where it reaches nothing and every Canary settles back to its
+     floor. One moving point gives every room a believable relationship with
+     every other: the far office is always quieter than the room the source
+     is in, and readings rise and fall in order as it crosses the floor. */
   var plan = document.querySelector("[data-plan]");
   if(plan){
-    /* x and y are percentages of the plan image, from the demo. `busy` are the
-       hours each room holds people; `at3` is its 3pm reading per channel. */
+    /* Positions are fractions of the plan image, from the demo. */
     var ROOMS = [
-      { name:"Lena's Canary", x:8,  y:29, busy:[[9,12],[13,17]],      at3:{ co2:681,  pm25:5.2,  temp:21.6, rh:37 } },
-      { name:"Rooster",       x:82, y:16, busy:[[8.5,12],[13,16]],    at3:{ co2:983,  pm25:7.4,  temp:23.8, rh:40 } },
-      { name:"Tom's Canary",  x:45, y:47, busy:[[9,12.5],[13,17.5]],  at3:{ co2:1149, pm25:9.6,  temp:22.9, rh:44 } },
-      { name:"Renée's Canary",x:59, y:57, busy:[[9,12.5],[13,17.5]],  at3:{ co2:1350, pm25:11.2, temp:23.4, rh:46 } },
-      { name:"Small Room",    x:40, y:86, busy:[[10,11],[14,15.5]],   at3:{ co2:1349, pm25:8.1,  temp:23.1, rh:45 } },
-      { name:"Conference",    x:76, y:87, busy:[[9.5,10.5],[13.5,16]],at3:{ co2:1750, pm25:12.4, temp:24.2, rh:48 } }
+      { name:"Lena's Canary",  x:.08, y:.29 },
+      { name:"Rooster",        x:.82, y:.16 },
+      { name:"Tom's Canary",   x:.45, y:.47 },
+      { name:"Renée's Canary", x:.59, y:.57 },
+      { name:"Small Room",     x:.40, y:.86 },
+      { name:"Conference",     x:.76, y:.87 }
     ];
-    /* floor: the reading an empty room settles at overnight. ok/warn: where
-       the colour changes, from the WHO guideline for PM2.5 and the usual
-       comfort bands for the rest. top: the reading that earns the widest
-       ripple, past the red threshold so the worst room still stands out
-       from a merely bad one. */
+
+    /* Where the source is through the day, how strong it is, and what it is.
+       Anything outside 0 to 1 is off the plan: at 8am and after 6pm it is far
+       enough away to reach nothing at all. Strength is the other half of the
+       story, because a room that has just filled has not loaded up yet: a
+       meeting an hour old is worse than the same meeting at its first
+       minute. */
+    var SOURCE = [
+      { h:8,     x:2.60, y:-1.40, s:0    },  /* empty: nobody in yet */
+      { h:9,     x:0.46, y:0.52,  s:0.35 },  /* the floor fills up */
+      { h:10,    x:0.40, y:0.86,  s:0.7  },  /* stand-up in the small meeting room */
+      { h:11.25, x:0.52, y:0.05,  s:0.6  },  /* someone lingering by the copier */
+      { h:12.5,  x:2.20, y:1.90,  s:0.15 },  /* lunch: the floor empties */
+      { h:13.75, x:0.76, y:0.87,  s:0.55 },  /* the conference room fills */
+      { h:15,    x:0.76, y:0.87,  s:1    },  /* still in there, ninety minutes on */
+      { h:16,    x:0.86, y:0.12,  s:0.7  },  /* it breaks up into the corner office */
+      { h:17,    x:0.50, y:0.50,  s:0.5  },  /* the last of the desks */
+      { h:18,    x:-1.60, y:2.40, s:0    }   /* empty again */
+    ];
+
+    /* floor: the reading with the source out of range. peak: the reading
+       standing on top of it. ok/warn: where the colour changes, from the WHO
+       guideline for PM2.5 and the usual comfort bands for the rest. */
     var CHANNELS = {
-      co2:  { unit:"parts per million", short:"ppm",     dp:0, floor:430,  ok:800,  warn:1200, top:1900 },
-      pm25: { unit:"micrograms per cubic metre", short:"µg/m³", dp:1, floor:3.4, ok:8, warn:15, top:22 },
-      temp: { unit:"degrees Celsius", short:"°C",   dp:1, floor:20.4, ok:24.5, warn:26, top:27 },
-      rh:   { unit:"percent relative humidity", short:"%", dp:0, floor:33, ok:60,   warn:70, top:75 }
+      co2:  { unit:"parts per million", short:"ppm",     dp:0, floor:430,  peak:1750, ok:800,  warn:1200 },
+      pm25: { unit:"micrograms per cubic metre", short:"µg/m³", dp:1, floor:3.2, peak:24, ok:8, warn:15 },
+      temp: { unit:"degrees Celsius", short:"°C",   dp:1, floor:20.6, peak:25.8, ok:24.5, warn:26 },
+      rh:   { unit:"percent relative humidity", short:"%", dp:0, floor:34, peak:58, ok:60,   warn:70 }
     };
-    var OPEN = 8, CLOSE = 18, STEP = 1 / 12;   /* five-minute steps */
-    var TAU = 0.85;                            /* hours to clear a room */
+    /* How far the source carries, and how sharply it fades. The pair is
+       chosen so that with the source in the conference room at 3pm the
+       boardroom reads its peak and the far private office reads 681 ppm,
+       the two numbers the paragraph beside the plan quotes. */
+    var REACH = 1.5, FALLOFF = 1.83;
+    var OPEN = 8, CLOSE = 18;
     var RIPPLE_COUNT = 10, RIPPLE_GAP = 0.6;   /* rings per sensor, seconds apart */
     var DAY_SECONDS = 40;                      /* a working day, played through */
 
-    /* Occupancy in, ventilation out, sampled every five minutes. The result is
-       normalised to its own 3pm value, so it is a shape, not a unit. */
-    function shape(room){
-      var out = [], level = 0;
-      for(var t = OPEN; t <= CLOSE + 1e-9; t += STEP){
-        var busy = room.busy.some(function(span){ return t >= span[0] && t < span[1]; });
-        level += ((busy ? 1 : 0) - level / TAU) * STEP;
-        out.push(Math.max(level, 0));
+    /* Where the source is at a given hour, eased between its waypoints so it
+       drifts rather than jumps. */
+    function sourceAt(hour){
+      var a = SOURCE[0], b = SOURCE[SOURCE.length - 1];
+      for(var i = 0; i < SOURCE.length - 1; i++){
+        if(hour >= SOURCE[i].h && hour <= SOURCE[i + 1].h){ a = SOURCE[i]; b = SOURCE[i + 1]; break; }
       }
-      var at3 = out[Math.round((15 - OPEN) / STEP)] || 1;
-      return out.map(function(v){ return v / at3; });
+      var span = b.h - a.h;
+      var t = span > 0 ? (hour - a.h) / span : 0;
+      var ease = t * t * (3 - 2 * t);
+      return {
+        x:a.x + (b.x - a.x) * ease,
+        y:a.y + (b.y - a.y) * ease,
+        s:a.s + (b.s - a.s) * ease
+      };
     }
-    ROOMS.forEach(function(room){ room.shape = shape(room); });
-
-    /* Rooms do not all settle at exactly the same number overnight, so each
-       one keeps a small standing offset from the floor. */
-    ROOMS.forEach(function(room, i){ room.quiet = 1 + (i - 2.5) * 0.012; });
 
     function reading(room, channel, hour){
       var c = CHANNELS[channel];
-      var i = (hour - OPEN) / STEP;
-      var lo = room.shape[Math.floor(i)], hi = room.shape[Math.ceil(i)];
-      var s = lo + (hi - lo) * (i - Math.floor(i));
-      var quiet = c.floor * room.quiet;
-      return quiet + (room.at3[channel] - quiet) * s;
+      var src = sourceAt(hour);
+      var dist = Math.sqrt(Math.pow(room.x - src.x, 2) + Math.pow(room.y - src.y, 2));
+      var pull = Math.pow(Math.max(1 - dist / REACH, 0), FALLOFF) * src.s;
+      return { value: c.floor + (c.peak - c.floor) * pull, pull: pull };
     }
 
     var stage    = plan.querySelector(".plan-stage");
@@ -198,8 +217,8 @@
     var points = ROOMS.map(function(room){
       var el = document.createElement("span");
       el.className = "plan-pt";
-      el.style.left = room.x + "%";
-      el.style.top  = room.y + "%";
+      el.style.left = (room.x * 100) + "%";
+      el.style.top  = (room.y * 100) + "%";
       /* The demo's ripple: a stack of identical circles on one long loop,
          each starting a little after the last, so rings leave the sensor
          continuously. Ten circles at 0.6s apart fill a 6s animation. */
@@ -233,16 +252,15 @@
       unitEl.textContent = c.unit + ". Green to " + scale(c.ok)
                          + ", red past " + scale(c.warn) + ".";
       points.forEach(function(p){
-        var v = reading(p.room, channel, hour);
-        var shown = v.toFixed(c.dp);
+        var r = reading(p.room, channel, hour);
+        var shown = r.value.toFixed(c.dp);
         p.val.textContent = shown;
         p.say.textContent = p.room.name + ": " + shown + " " + c.short;
         p.el.title = p.room.name;
-        p.el.dataset.level = v >= c.warn ? "high" : v >= c.ok ? "warn" : "ok";
-        /* the ripple grows with the reading, so the worst room in the office
-           is the one you notice from across the page */
-        var span = Math.min(Math.max((v - c.floor) / (c.top - c.floor), 0), 1);
-        p.ripple.style.setProperty("--ripple", (3.4 + span * 7.4).toFixed(2) + "em");
+        p.el.dataset.level = r.value >= c.warn ? "high" : r.value >= c.ok ? "warn" : "ok";
+        /* the ripple grows with how much of the source a room is catching,
+           so the worst room is the one you notice from across the page */
+        p.ripple.style.setProperty("--ripple", (2.6 + r.pull * 5.2).toFixed(2) + "em");
       });
     }
 
