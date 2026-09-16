@@ -148,33 +148,61 @@
       { name:"Conference",     x:.76, y:.87, bias: .006, phase:0.9 }
     ];
 
-    /* Where the source is through the day, how strong it is, and what it is.
-       Anything outside 0 to 1 is off the plan: at 8am and after 6pm it is far
-       enough away to reach nothing at all. Strength is the other half of the
-       story, because a room that has just filled has not loaded up yet: a
-       meeting an hour old is worse than the same meeting at its first
-       minute. */
-    var SOURCE = [
-      { h:8,     x:2.60, y:-1.40, s:0    },  /* empty: nobody in yet */
-      { h:9,     x:0.46, y:0.52,  s:0.35 },  /* the floor fills up */
-      { h:10,    x:0.40, y:0.86,  s:0.7  },  /* stand-up in the small meeting room */
-      { h:11.25, x:0.52, y:0.05,  s:0.6  },  /* someone lingering by the copier */
-      { h:12.5,  x:2.20, y:1.90,  s:0.15 },  /* lunch: the floor empties */
-      { h:13.75, x:0.76, y:0.87,  s:0.55 },  /* the conference room fills */
-      { h:15,    x:0.76, y:0.87,  s:1    },  /* still in there, ninety minutes on */
-      { h:16,    x:0.86, y:0.12,  s:0.7  },  /* it breaks up into the corner office */
-      { h:17,    x:0.50, y:0.50,  s:0.5  },  /* the last of the desks */
-      { h:18,    x:-1.60, y:2.40, s:0    }   /* empty again */
-    ];
+    /* Three sources, because the readings are not the same story. People make
+       the carbon dioxide, machines and the outdoors make the particles, and
+       the sun makes the heat, which drags humidity along with it: those two
+       are genuinely correlated, so they share a source. The rest must not
+       rise and fall together, or the plan looks like one number in four
+       costumes.
+
+       Each is a day of waypoints: where it is, and how strong. Anything
+       outside 0 to 1 is off the plan, and far enough out it reaches nothing
+       at all. Strength matters as much as position, because a room that has
+       just filled has not loaded up yet: a meeting an hour old is worse than
+       the same meeting in its first minute. */
+    var SOURCES = {
+      /* people */
+      breath: [
+        { h:8,     x:2.60, y:-1.40, s:0    },  /* empty: nobody in yet */
+        { h:9,     x:0.46, y:0.52,  s:0.35 },  /* the floor fills up */
+        { h:10,    x:0.40, y:0.86,  s:0.7  },  /* stand-up in the small meeting room */
+        { h:11.25, x:0.52, y:0.05,  s:0.6  },  /* a huddle by the copier */
+        { h:12.5,  x:2.20, y:1.90,  s:0.15 },  /* lunch: the floor empties */
+        { h:13.75, x:0.76, y:0.87,  s:0.55 },  /* the conference room fills */
+        { h:15,    x:0.76, y:0.87,  s:1    },  /* still in there, ninety minutes on */
+        { h:16,    x:0.86, y:0.12,  s:0.7  },  /* it breaks up into the corner office */
+        { h:17,    x:0.50, y:0.50,  s:0.5  },  /* the last of the desks */
+        { h:18,    x:-1.60, y:2.40, s:0    }   /* empty again */
+      ],
+      /* the copier, the toaster, and the street outside */
+      dust: [
+        { h:8,     x:0.52, y:0.05,  s:0.25 },  /* first print run of the day */
+        { h:9.5,   x:0.52, y:0.05,  s:0.75 },  /* the copier, going all morning */
+        { h:11,    x:0.08, y:0.62,  s:0.45 },  /* someone burns toast by the door */
+        { h:13,    x:0.86, y:0.12,  s:0.8  },  /* a window open onto the street */
+        { h:14.5,  x:0.86, y:0.12,  s:0.55 },
+        { h:16,    x:0.52, y:0.05,  s:0.6  },  /* the afternoon print run */
+        { h:18,    x:0.52, y:0.05,  s:0.2  }   /* settling after everyone leaves */
+      ],
+      /* the sun crossing the building, with humidity in tow */
+      sun: [
+        { h:8,     x:-0.45, y:0.30, s:0.3  },  /* low on the east side */
+        { h:10.5,  x:0.10,  y:0.20, s:0.55 },  /* into the private offices */
+        { h:13,    x:0.50,  y:0.02, s:0.75 },  /* overhead, along the top wall */
+        { h:15.5,  x:0.95,  y:0.35, s:1    },  /* west face, the hottest hour */
+        { h:17,    x:1.25,  y:0.60, s:0.7  },
+        { h:18,    x:1.70,  y:0.85, s:0.45 }   /* off the west corner, still warm */
+      ]
+    };
 
     /* floor: the reading with the source out of range. peak: the reading
        standing on top of it. ok/warn: where the colour changes, from the WHO
        guideline for PM2.5 and the usual comfort bands for the rest. */
     var CHANNELS = {
-      co2:  { unit:"parts per million", short:"ppm",     dp:0, floor:430,  peak:1750, ok:800,  warn:1200 },
-      pm25: { unit:"micrograms per cubic metre", short:"µg/m³", dp:1, floor:3.2, peak:24, ok:8, warn:15 },
-      temp: { unit:"degrees Celsius", short:"°C",   dp:1, floor:20.6, peak:25.8, ok:24.5, warn:26 },
-      rh:   { unit:"percent relative humidity", short:"%", dp:0, floor:34, peak:58, ok:60,   warn:70 }
+      co2:  { src:"breath", unit:"parts per million", short:"ppm",     dp:0, floor:430,  peak:1750, ok:800,  warn:1200 },
+      pm25: { src:"dust",   unit:"micrograms per cubic metre", short:"µg/m³", dp:1, floor:3.2, peak:26, ok:8, warn:15 },
+      temp: { src:"sun",    unit:"degrees Celsius", short:"°C",   dp:1, floor:20.6, peak:26.4, ok:24.5, warn:26 },
+      rh:   { src:"sun",    unit:"percent relative humidity", short:"%", dp:0, floor:34, peak:58, ok:60,   warn:70 }
     };
     /* How far the source carries, and how sharply it fades. The pair is
        chosen so that with the source in the conference room at 3pm the
@@ -185,12 +213,13 @@
     var RIPPLE_COUNT = 10, RIPPLE_GAP = 0.6;   /* rings per sensor, seconds apart */
     var DAY_SECONDS = 40;                      /* a working day, played through */
 
-    /* Where the source is at a given hour, eased between its waypoints so it
+    /* Where a source is at a given hour, eased between its waypoints so it
        drifts rather than jumps. */
-    function sourceAt(hour){
-      var a = SOURCE[0], b = SOURCE[SOURCE.length - 1];
-      for(var i = 0; i < SOURCE.length - 1; i++){
-        if(hour >= SOURCE[i].h && hour <= SOURCE[i + 1].h){ a = SOURCE[i]; b = SOURCE[i + 1]; break; }
+    function sourceAt(key, hour){
+      var path = SOURCES[key];
+      var a = path[0], b = path[path.length - 1];
+      for(var i = 0; i < path.length - 1; i++){
+        if(hour >= path[i].h && hour <= path[i + 1].h){ a = path[i]; b = path[i + 1]; break; }
       }
       var span = b.h - a.h;
       var t = span > 0 ? (hour - a.h) / span : 0;
@@ -204,7 +233,7 @@
 
     function reading(room, channel, hour){
       var c = CHANNELS[channel];
-      var src = sourceAt(hour);
+      var src = sourceAt(c.src, hour);
       var dist = Math.sqrt(Math.pow(room.x - src.x, 2) + Math.pow(room.y - src.y, 2));
       var pull = Math.pow(Math.max(1 - dist / REACH, 0), FALLOFF) * src.s;
       var clean = c.floor + (c.peak - c.floor) * pull;
@@ -320,7 +349,7 @@
       iconStop.toggleAttribute("hidden", !on);
       if(on && onScreen && !timer){
         last = Date.now();
-        timer = setInterval(tick, 100);
+        timer = setInterval(tick, 70);
       } else if((!on || !onScreen) && timer){
         clearInterval(timer);
         timer = null;

@@ -1095,7 +1095,7 @@ html:has(.fb[open]){ overflow:hidden }
    The stack is sized per reading in site.js. */
 .plan-ripple{
   position:absolute; left:50%; top:50%; width:var(--ripple,3em); height:var(--ripple,3em);
-  translate:-50% -50%; transition:width 220ms var(--ease), height 220ms var(--ease);
+  translate:-50% -50%;
 }
 .plan-ring{
   position:absolute; inset:0; border-radius:50%; background:var(--tone);

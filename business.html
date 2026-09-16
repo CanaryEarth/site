@@ -128,7 +128,9 @@
               </button>
               <label class="plan-slider">
                 <span class="visually-hidden">Time of day</span>
-                <input type="range" min="8" max="18" step="0.05" value="15" data-plan-time>
+                <!-- step="any": the day advances by fractions of a step every
+                     tick, and a stepped slider would stutter between them. -->
+                <input type="range" min="8" max="18" step="any" value="15" data-plan-time>
               </label>
             </div>
             <p class="plan-readout"><b data-plan-clock>3:00 pm</b> <span data-plan-unit>parts per million</span></p>
