@@ -608,7 +608,9 @@
     var labels = [].slice.call(stage.querySelectorAll(".model-label"));
     if(!mv || !svg || !labels.length) return;
 
-    var SRC = "https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js";
+    /* self-hosted copy of Google's 4.3.1 build, so the model never
+       depends on ajax.googleapis.com */
+    var SRC = "assets/vendor/model-viewer-4.3.1.min.js";
     var NS = "http://www.w3.org/2000/svg";
 
     /* one line per label, paired by the slot it points at */
