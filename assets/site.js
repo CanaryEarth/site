@@ -135,14 +135,17 @@
      is in, and readings rise and fall in order as it crosses the floor. */
   var plan = document.querySelector("[data-plan]");
   if(plan){
-    /* Positions are fractions of the plan image, from the demo. */
+    /* Positions are fractions of the plan image, from the demo. `bias` is each
+       unit's own standing error, inside the +/- 2% these sensors are specified
+       to, and `phase` staggers the slow drift on top of it, so no two Canaries
+       ever report exactly the same number. */
     var ROOMS = [
-      { name:"Lena's Canary",  x:.08, y:.29 },
-      { name:"Rooster",        x:.82, y:.16 },
-      { name:"Tom's Canary",   x:.45, y:.47 },
-      { name:"Renée's Canary", x:.59, y:.57 },
-      { name:"Small Room",     x:.40, y:.86 },
-      { name:"Conference",     x:.76, y:.87 }
+      { name:"Lena's Canary",  x:.08, y:.29, bias:-.012, phase:0.4 },
+      { name:"Rooster",        x:.82, y:.16, bias: .016, phase:2.2 },
+      { name:"Tom's Canary",   x:.45, y:.47, bias:-.007, phase:3.9 },
+      { name:"Renée's Canary", x:.59, y:.57, bias: .011, phase:1.3 },
+      { name:"Small Room",     x:.40, y:.86, bias:-.018, phase:5.1 },
+      { name:"Conference",     x:.76, y:.87, bias: .006, phase:0.9 }
     ];
 
     /* Where the source is through the day, how strong it is, and what it is.
@@ -204,7 +207,14 @@
       var src = sourceAt(hour);
       var dist = Math.sqrt(Math.pow(room.x - src.x, 2) + Math.pow(room.y - src.y, 2));
       var pull = Math.pow(Math.max(1 - dist / REACH, 0), FALLOFF) * src.s;
-      return { value: c.floor + (c.peak - c.floor) * pull, pull: pull };
+      var clean = c.floor + (c.peak - c.floor) * pull;
+      /* No sensor reads its quantity exactly. Each unit keeps its own standing
+         error and drifts slowly around it, within the +/- 2% these parts are
+         specified to, so an empty floor reads six believable numbers rather
+         than the same one six times. The drift is a slow wave rather than
+         fresh randomness, or the digits would flicker as the day plays. */
+      var drift = Math.sin(hour * 1.7 + room.phase) * 0.006;
+      return { value: clean * (1 + room.bias + drift), pull: pull };
     }
 
     var stage    = plan.querySelector(".plan-stage");
