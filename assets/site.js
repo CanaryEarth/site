@@ -286,7 +286,10 @@
       /* say what the colours mean, in the channel's own units */
       /* "800 ppm" but "60%" and "26°C": symbols sit against the number */
       var scale = function(v){
-        return v.toLocaleString("en") + (/^[%°]/.test(c.short) ? "" : " ") + c.short;
+        var s = v.toLocaleString("en") + (/^[%°]/.test(c.short) ? "" : " ") + c.short;
+        /* Celsius leads everywhere on the site, Fahrenheit follows in brackets */
+        if(c.short === "°C"){ s += " (" + Math.round(v * 1.8 + 32) + "°F)"; }
+        return s;
       };
       unitEl.textContent = c.unit + ". Green to " + scale(c.ok)
                          + ", red past " + scale(c.warn) + ".";
