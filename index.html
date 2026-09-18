@@ -614,12 +614,13 @@
     <!-- 3D model. The library is fetched by site.js only when this nears the
          viewport, so the 1.4MB glb and ~300KB of script cost nothing above.
 
-         orientation="0deg -6deg 0deg" pitches the model back 6 degrees: the
-         export has the Canary standing perfectly upright, but on a desk the
-         screen leans back that much. NEGATIVE pitch leans it back; positive
-         tips it forward onto its face. The hotspots rotate with the model, so
-         their data-position and data-normal values stay correct and the glb
-         needs no re-export. -->
+         The 6 degree lean is baked into the glb's root node, not set here
+         with model-viewer's orientation attribute: that attribute is a viewer
+         setting, so AR received a Canary standing bolt upright while the page
+         showed it leaning back the way it sits on a desk. The upright export
+         is kept at media/MODEL/canary-upright.glb, and tools/bake-tilt.py
+         re-bakes from it. Hotspots ride the root node, so their positions and
+         normals still hold. -->
     <div class="model-stage js-only reveal" data-model-stage>
       <model-viewer
         src="assets/model/canary.glb"
@@ -629,7 +630,6 @@
         touch-action="pan-y"
         tone-mapping="neutral" exposure="1"
         shadow-intensity="0"
-        orientation="0deg -6deg 0deg"
         camera-orbit="25deg 108deg 0.30m"
         field-of-view="30deg" min-field-of-view="30deg" max-field-of-view="30deg"
         loading="lazy" reveal="auto"
