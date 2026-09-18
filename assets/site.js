@@ -715,12 +715,17 @@
       onResize();
 
       /* "View Canary in your room". model-viewer decides whether the phone can
-         do it at all: Android Chrome and Samsung Internet can, through WebXR or
-         Google's Scene Viewer; Firefox has no AR, and an iPhone would need a
-         second model in Apple's USDZ format, which the site does not carry. So
-         the button stays hidden unless the answer is yes, and a reader never
-         meets a control that cannot work. It needs an https page too, which is
-         the browser's rule for camera access.
+         do it at all, so the button stays hidden unless the answer is yes and a
+         reader never meets a control that cannot work. It needs an https page
+         too, which is the browser's rule for camera access.
+
+         Android Chrome and Samsung Internet go through WebXR or Google's Scene
+         Viewer; both are tested on a Galaxy S24+. Firefox has no AR at all.
+         Apple has no WebXR on iPhone, only its own AR Quick Look, which wants
+         a USDZ file: model-viewer converts the glb to one in the browser
+         (prepareUSDZ), so quick-look is in ar-modes and may work untested. If
+         an iPhone ever refuses or the materials come out wrong, export a real
+         USDZ and point `ios-src` at it.
 
          The model is already at true size, 111 x 68 x 19 mm, and ar-scale
          "fixed" stops anyone pinching it into a television. */
