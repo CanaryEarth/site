@@ -679,6 +679,9 @@ a{ color:inherit }
   opacity:0; transition:opacity 400ms var(--ease); pointer-events:none;
 }
 .model-hint-icon{ width:34px; height:34px; color:var(--ink); flex:none }
+/* under the stage, not inside it: the stage's own corners are taken by the
+   labels and the drag hint */
+.model-ar{ margin-top:var(--s-6); text-align:center }
 /* the halo only shows while the finger is down, so it reads as contact
    rather than as part of the hand */
 .model-hint-tap{ opacity:0 }

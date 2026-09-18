@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Canary AR test</title>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+  body{ padding:var(--s-5) }
+  .ar-wrap{ width:min(100%, 34rem); margin-inline:auto }
+  model-viewer{ width:100%; height:60vh; background:var(--paper);
+    border:1px solid var(--line); border-radius:var(--radius-lg) }
+  .ar-report{ margin-top:var(--s-5); font-family:var(--font-mono); font-size:.8rem; line-height:1.9 }
+  .ar-report b{ display:inline-block; min-width:12rem }
+  .yes{ color:var(--sage); font-weight:700 }
+  .no{ color:var(--ember-deep); font-weight:700 }
+</style>
+</head>
+<body>
+<div class="ar-wrap">
+  <h1 style="font-size:1.6rem">Canary AR test</h1>
+  <p class="lede" style="font-size:1rem">Open this on a phone. If the phone supports it, a button
+    appears on the model. The Canary should arrive at its real size: 114&nbsp;&times;&nbsp;68&nbsp;&times;&nbsp;19&nbsp;mm,
+    about the size of a passport.</p>
+
+  <model-viewer id="mv"
+    src="assets/model/canary.glb"
+    alt="A Canary environmental monitor"
+    camera-controls
+    touch-action="pan-y"
+    shadow-intensity="1"
+    ar
+    ar-modes="webxr scene-viewer quick-look"
+    ar-scale="fixed"
+    ar-placement="floor">
+    <button slot="ar-button" class="btn" style="position:absolute;left:50%;bottom:16px;transform:translateX(-50%)">
+      View Canary in your room
+    </button>
+  </model-viewer>
+
+  <div class="ar-report" id="report">Loading the viewer...</div>
+</div>
+
+<!-- model-viewer ships as an ES module, so it needs type="module" -->
+<script type="module" src="assets/vendor/model-viewer-4.3.1.min.js"></script>
+<script>
+(function(){
+  var mv = document.getElementById("mv");
+  var out = document.getElementById("report");
+  var mark = function(v){ return v ? '<span class="yes">yes</span>' : '<span class="no">no</span>'; };
+
+  function report(){
+    var rows = [
+      ["secure context", mark(window.isSecureContext) + " (" + location.protocol + ")"],
+      ["WebXR in browser", mark(!!navigator.xr)],
+      ["model loaded", mark(mv.loaded)],
+      ["AR button offered", mark(mv.canActivateAR)],
+      ["ar-modes tried", mv.getAttribute("ar-modes")],
+      ["browser", navigator.userAgent]
+    ];
+    if(mv.loaded && mv.getDimensions){
+      var d = mv.getDimensions();
+      rows.splice(3, 0, ["model size", [d.x, d.y, d.z].map(function(v){ return Math.round(v * 1000); }).join(" x ") + " mm"]);
+    }
+    out.innerHTML = rows.map(function(r){ return "<b>" + r[0] + "</b> " + r[1]; }).join("<br>");
+  }
+
+  mv.addEventListener("load", report);
+  mv.addEventListener("ar-status", function(e){
+    report();
+    out.innerHTML += "<br><b>ar-status</b> " + e.detail.status;
+  });
+  if(navigator.xr && navigator.xr.isSessionSupported){
+    navigator.xr.isSessionSupported("immersive-ar").then(function(ok){
+      out.innerHTML += "<br><b>immersive-ar session</b> " + (ok ? '<span class="yes">supported</span>' : '<span class="no">not supported</span>');
+    }).catch(function(){});
+  }
+  setTimeout(report, 1200);
+})();
+</script>
+</body>
+</html>

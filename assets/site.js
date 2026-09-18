@@ -713,6 +713,26 @@
       if("ResizeObserver" in window){ new ResizeObserver(onResize).observe(stage); }
       else { window.addEventListener("resize", onResize, { passive:true }); }
       onResize();
+
+      /* "View Canary in your room". model-viewer decides whether the phone can
+         do it at all: Android Chrome and Samsung Internet can, through WebXR or
+         Google's Scene Viewer; Firefox has no AR, and an iPhone would need a
+         second model in Apple's USDZ format, which the site does not carry. So
+         the button stays hidden unless the answer is yes, and a reader never
+         meets a control that cannot work. It needs an https page too, which is
+         the browser's rule for camera access.
+
+         The model is already at true size, 111 x 68 x 19 mm, and ar-scale
+         "fixed" stops anyone pinching it into a television. */
+      var arWrap = document.querySelector(".model-ar");
+      var arBtn = arWrap && arWrap.querySelector("[data-ar-button]");
+      if(arBtn){
+        var offerAR = function(){ arWrap.hidden = !mv.canActivateAR; };
+        mv.addEventListener("load", offerAR);
+        mv.addEventListener("ar-status", offerAR);
+        offerAR();
+        arBtn.addEventListener("click", function(){ mv.activateAR(); });
+      }
     }
 
     var started = false;

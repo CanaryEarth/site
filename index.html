@@ -632,11 +632,16 @@
         orientation="0deg -6deg 0deg"
         camera-orbit="25deg 108deg 0.30m"
         field-of-view="30deg" min-field-of-view="30deg" max-field-of-view="30deg"
-        loading="lazy" reveal="auto">
+        loading="lazy" reveal="auto"
+        ar ar-modes="webxr scene-viewer quick-look" ar-scale="fixed" ar-placement="floor">
         <!-- An empty slot replaces model-viewer's default loading bar, a 5px
              strip at 40% black across the full width that read as a stray
              scrollbar under the intro. The poster already covers the wait. -->
         <div slot="progress-bar"></div>
+        <!-- Empty, so model-viewer draws no AR button of its own: the one
+             below the stage is ours, and site.js reveals it only where the
+             phone can actually open AR. -->
+        <div slot="ar-button"></div>
         <button class="mv-anchor" slot="hotspot-9" data-position="0.010749253755736904m 0.058931931914884501m 0.0014588381942246204m" data-normal="-0.0013509719545387495m 0.090060504636039942m -0.99593537962032463m"
                 data-visibility-attribute="visible" tabindex="-1" aria-hidden="true"></button>
         <button class="mv-anchor" slot="hotspot-3" data-position="0.024719046237830264m -0.0018228102044590224m 0.0084341732500626317m" data-normal="3.7049084824173927e-05m -0.99999988715176347m 0.00047362836236675143m"
@@ -675,6 +680,16 @@
         <span>Drag to rotate</span>
       </p>
     </div>
+
+    <!-- Shown by site.js only when the phone can open AR: Android Chrome and
+         Samsung Internet today. Firefox has no AR, and iPhones need a second
+         model in Apple's own format, so neither sees a button. -->
+    <p class="model-ar" hidden>
+      <button class="btn btn--ghost" type="button" data-ar-button>
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.2l7.5 4.3v8.6L12 20.8 4.5 16.5V7.5z"/><path d="M4.7 7.6L12 11.9l7.3-4.3M12 11.9v8.9"/></svg>
+        View Canary in your room
+      </button>
+    </p>
 
     <div class="spec-cols reveal">
       <div class="disclosure">
